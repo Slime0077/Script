@@ -8,7 +8,7 @@ local TF = Instance.new("Frame")
 TF.Name = "TeleportMenu"
 TF.Parent = SG
 TF.Size = UDim2.new(0.15, 0, 0.15, 0)  -- Исправлено: убраны лишние скобки
-TF.Position = UDim2.new(0, 0, 0.2, 0)  -- Исправлено: убраны лишние скобки
+TF.Position = UDim2.new(0, 10, 0.2, 0)  -- Исправлено: убраны лишние скобки
 TF.BackgroundTransparency = 1
 
 local TB = Instance.new("TextBox")
