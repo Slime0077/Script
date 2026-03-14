@@ -1,0 +1,38 @@
+local Player = game.Players.LocalPlayer
+
+local SG = Instance.new("ScreenGui")  -- Исправлено: instance.new -> Instance.new, Screengui -> ScreenGui
+SG.Name = "TeleportPlace"
+SG.Parent = Player:WaitForChild("PlayerGui")  -- Добавлено WaitForChild для надежности
+
+local TF = Instance.new("Frame")
+TF.Name = "TeleportMenu"
+TF.Parent = SG
+TF.Size = UDim2.new(0.15, 0, 0.15, 0)  -- Исправлено: убраны лишние скобки
+TF.Position = UDim2.new(0, 0, 0.2, 0)  -- Исправлено: убраны лишние скобки
+TF.BackgroundTransparency = 1
+
+local TB = Instance.new("TextBox")
+TB.Name = "TeleportInput"
+TB.Parent = TF
+TB.Size = UDim2.new(0.7, 0, 1, 0)  -- Исправлено: убраны лишние скобки
+TB.Font = Enum.Font.FredokaOne
+TB.TextScaled = true
+TB.BackgroundColor3 = Color3.new(150/255, 150/255, 150/255)  -- Исправлено: Color3 значения от 0 до 1
+TB.PlaceholderText = "Enter Place ID"  -- Исправлено: PlaceHolderText -> PlaceholderText
+TB.PlaceholderColor3 = Color3.new(0, 1, 0)  -- Исправлено: PlaceHolderTextColor3 -> PlaceholderColor3
+
+local IB = Instance.new("TextButton")
+IB.Name = "TeleportButton"  -- Изменено: имя не должно совпадать с TextBox
+IB.Parent = TF
+IB.Size = UDim2.new(0.3, 0, 1, 0)  -- Исправлено: убраны лишние скобки
+IB.Position = UDim2.new(0.7, 0, 0, 0)  -- Исправлено: убраны лишние скобки
+IB.Font = Enum.Font.FredokaOne
+IB.TextScaled = true
+IB.BackgroundColor3 = Color3.new(0, 1, 0)
+IB.Text = "Input"
+
+-- Исправлено: Activated -> MouseButton1Click (Activated устарел)
+IB.MouseButton1Click:Connect(function()
+    -- Телепорт одной строкой:
+    game:GetService("TeleportService"):Teleport(tonumber(TB.Text), Player)
+end)
