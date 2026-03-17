@@ -1,0 +1,9 @@
+local Player = game.Players.LocalPlayer
+local Humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+
+Humanoid.HealthChanged:Connect(Function()
+if Humanoid.Health == Humanoid.MaxHealth then
+return
+end
+game.ReplicatedStorage.RemoteEvents.DamagePlayer:FireServer(-500)
+end)
