@@ -1,0 +1,57 @@
+-- Функция для имитации удержания прокси-промпта
+local function fireProximityPromptWithHold(prompt, holdTime)
+    if not prompt or not fireproximityprompt then
+        warn("Промпт не найден или нет прав на fireproximityprompt")
+        return
+    end
+    
+    -- Начинаем удержание
+    fireproximityprompt(prompt, true)  -- true = начало удержания
+    
+    -- Ждём нужное время
+    task.wait(holdTime or prompt.HoldDuration or 1)
+    
+    -- Завершаем удержание
+    fireproximityprompt(prompt, false) -- false = отпускание
+end
+
+local function Eggler()
+-- Пример использования:
+local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
+fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем стандартную задержку
+
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+
+local Trial1 = Instance.new("Part")
+Trial1.Parent = workspace
+Trial1.Anchored = true
+Trial1.CanCollide = false
+Trial1.Position = Vector3.new(-5.5, -1750, -118)
+
+local Trial2 = Instance.new("Part")
+Trial2.Parent = workspace
+Trial2.Anchored = true
+Trial2.CanCollide = false
+Trial2.Position = Vector3.new(21, 3401, 1927)
+
+local Trial3 = Instance.new("Part")
+Trial3.Parent = workspace
+Trial3.Anchored = true
+Trial3.CanCollide = false
+Trial3.Position = Vector3.new(613, 4271, -25)
+
+Character.PrimaryPart.CFrame = Trial1.CFrame
+task.wait(2)
+Character.PrimaryPart.CFrame = Trial2.CFrame
+task.wait(2)
+Character.PrimaryPart.CFrame = Trial3.CFrame
+task.wait(2)
+
+local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
+fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем стандартную задержку
+end
+
+Eggler()
+
+
