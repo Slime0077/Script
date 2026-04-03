@@ -52,6 +52,12 @@ local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
 fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем стандартную задержку
 end
 
-Eggler()
 
+
+
+local PlaceID = game.PlaceId
+
+if PlaceID == 129665246576996 then
+Eggler()
+end
 
