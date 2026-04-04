@@ -72,7 +72,6 @@ end
 
 game.ReplicatedStorage.Remotes.Data.AnswerInCutscene:FireServer("Spare")
 loadstring(game:HttpGet("https://scriptblox.com/raw/Slap-Battles-UI-v1-12403"))()
-loadstring(game:HttpGet("https://pastebin.com/raw/TSjdP9mj"))()
 
 if checkBadge() then
 game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
