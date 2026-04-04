@@ -15,6 +15,10 @@ local function fireProximityPromptWithHold(prompt, holdTime)
     fireproximityprompt(prompt, false) -- false = отпускание
 end
 
+local SlapBattlesID = 6403373529
+local Player = game.Players.LocalPlayer
+
+
 local function Eggler()
 -- Пример использования:
 local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
@@ -52,12 +56,45 @@ local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
 fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем стандартную задержку
 end
 
+local function Avatar()
+local Players = game:GetService("Players")
+local BadgeService = game:GetService("BadgeService")
+local player = Players.LocalPlayer
 
+local BADGE_ID = 4414076328730650
+
+local function checkBadge()
+    local success, awarded = pcall(function()
+        return BadgeService:UserHasBadgeAsync(player.UserId, BADGE_ID)
+    end)
+    return success and awarded
+end
+
+loadstring(game:HttpGet("https://scriptblox.com/raw/Slap-Battles-UI-v1-12403"))()
+game.ReplicatedStorage.Remotes.Data.AnswerInCutscene:FireServer("Spare")
+
+if checkBadge() then
+game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
+end)
+else
+    -- Ждём
+    repeat
+        task.wait(1)
+    until checkBadge()
+
+    game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
+
+end
+end
 
 
 local PlaceID = game.PlaceId
 
 if PlaceID == 129665246576996 then
 Eggler()
+
+elseif PlaceID == 18550498098 then
+Avatar()
+
 end
 
