@@ -76,7 +76,7 @@ game.ReplicatedStorage.Remotes.Data.AnswerInCutscene:FireServer("Spare")
 
 if checkBadge() then
 game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
-end)
+
 else
     -- Ждём
     repeat
