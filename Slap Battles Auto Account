@@ -71,7 +71,7 @@ local function checkBadge()
 end
 
 game.ReplicatedStorage.Remotes.Data.AnswerInCutscene:FireServer("Spare")
-loadstring(game:HttpGet("https://scriptblox.com/raw/Slap-Battles-UI-v1-12403"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Avatar"))()
 
 if checkBadge() then
 game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
@@ -85,6 +85,25 @@ else
     game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
 
 end
+end
+
+
+local function FrostBite()
+local tpFunc = queue_on_teleport
+
+tpFunc([[
+    repeat wait() until game.Players.LocalPlayer
+    repeat wait() until game.Players.LocalPlayer.Character
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 177, 56)
+    wait(0.7)
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.ClassName == "ProximityPrompt" then
+            fireproximityprompt(v)
+        end
+    end
+]])
+
+game:GetService("TeleportService"):Teleport(17290438723)
 end
 
 
