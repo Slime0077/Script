@@ -72,6 +72,58 @@ AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()
 	Player:Kick()
 end)
 
+AddFunction("Badges", "GetGloveAvatar", "Get Glove Avatar", 2, function()
+local Players = game:GetService("Players")
+local BadgeService = game:GetService("BadgeService")
+local player = Players.LocalPlayer
+
+local TP = Instance.new("Part")
+TP.Parent = workspace
+TP.Position = Vector3.new(17944, -125, -3556)
+
+player.Character.PrimaryPart.CFrame = TP.CFrame
+
+local tpFunc = queue_on_teleport
+
+tpFunc([[
+local BADGE_ID = 4414076328730650
+
+local function checkBadge()
+    local success, awarded = pcall(function()
+        return BadgeService:UserHasBadgeAsync(player.UserId, BADGE_ID)
+    end)
+    return success and awarded
+end
+
+
+
+game.ReplicatedStorage.Remotes.Data.AnswerInCutscene:FireServer("Spare")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Avatar"))()
+
+if checkBadge() then
+game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
+
+else
+    -- Ждём
+    repeat
+        task.wait(1)
+    until checkBadge()
+
+    game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
+
+end
+
+
+]])
+end)
+
+AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 1, function()
+	for _, Egg in pairs(workspace.EasterHuntEggs:GetChildren())
+	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
+	task.wait(0.5)
+	end
+end)
+
 AddSection("Main", "Main", 1)
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
