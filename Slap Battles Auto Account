@@ -57,10 +57,14 @@ fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем с�
 end
 
 local function Avatar()
+
 local Players = game:GetService("Players")
 local BadgeService = game:GetService("BadgeService")
 local player = Players.LocalPlayer
 
+local tpFunc = queue_on_teleport
+
+tpFunc([[
 local BADGE_ID = 4414076328730650
 
 local function checkBadge()
@@ -69,6 +73,8 @@ local function checkBadge()
     end)
     return success and awarded
 end
+
+
 
 game.ReplicatedStorage.Remotes.Data.AnswerInCutscene:FireServer("Spare")
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Avatar"))()
@@ -85,10 +91,28 @@ else
     game:GetService("TeleportService"):Teleport(tonumber(SlapBattlesID), Player)
 
 end
+
+
+]])
+
+
 end
 
 
 local function FrostBite()
+
+local function CheckBadge(BadgeId)
+    local success, awarded = pcall(function()
+        return BadgeService:UserHasBadgeAsync(player.UserId, BadgeId)
+    end)
+    return success and awarded
+end
+
+if CheckBadge(1286358044443937) then
+Avatar()
+
+else
+
 local tpFunc = queue_on_teleport
 
 tpFunc([[
@@ -102,8 +126,10 @@ tpFunc([[
         end
     end
 ]])
+end
 
 game:GetService("TeleportService"):Teleport(17290438723)
+
 end
 
 
