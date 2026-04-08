@@ -1,0 +1,101 @@
+local Player = game.Players.LocalPlayer
+
+local Gui = Instance.new("ScreenGui")
+Gui.Parent = Player.PlayerGui
+Gui.IgnoreGuiInset = true
+Gui.Name = "SDhub246"
+
+local TemplateFolder = Instance.new("Folder")
+TemplateFolder.Parent = Gui
+TemplateFolder.Name = "TemplateFolder"
+
+local MainBg = Instance.new("ImageButton")
+MainBg.Parent = Gui
+MainBg.Name = "MainBg"
+MainBg.Image = ""
+MainBg.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
+MainBg.Size = UDim2.new(0.6, 0, 0.8, 0)
+MainBg.AutoButtonColor = false
+MainBg.Visible = true
+MainBg.Draggable = true
+
+local FunctionsList = Instance.new("ScrollingFrame")
+FunctionsList.Parent = MainBg
+FunctionsList.Name = "FunctionsList"
+FunctionsList.BackgroundColor3 = Color3.new(0.529412, 0.529412, 0.529412)
+FunctionsList.Size = UDim2.new(0.8, 0, 0.9, 0)
+FunctionsList.CanvasSize = UDim2.new(0, 0, 0, 0)
+FunctionsList.ScrollBarThickness = 0
+FunctionsList.ScrollingDirection = Enum.ScrollingDirection.Y
+FunctionsList.Position = UDim2.new(0.2, 0, 0.1, 0)
+
+local SectionList = Instance.new("ScrollingFrame")
+SectionList.Parent = MainBg
+SectionList.Name = "SectionList"
+SectionList.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+SectionList.Size = UDim2.new(0.2, 0, 0.9, 0)
+SectionList.CanvasSize = UDim2.new(0, 0, 1, 0)
+SectionList.ScrollBarThickness = 0
+SectionList.ScrollingDirection = Enum.ScrollingDirection.Y
+SectionList.Position = UDim2.new(0, 0, 0.1, 0)
+
+local UiListLayout1 = Instance.new("UIListLayout")
+UiListLayout1.Parent = SectionList
+UiListLayout1.SortOrder = Enum.SortOrder.LayoutOrder
+UiListLayout1.Padding = UDim.new(0, 0)
+UiListLayout1.FillDirection = Enum.FillDirection.Vertical
+UiListLayout1.VerticalAlignment = Enum.VerticalAlignment.Top
+
+local UiListLayout2 = Instance.new("UIListLayout")
+UiListLayout2.Parent = FunctionsList
+UiListLayout2.SortOrder = Enum.SortOrder.LayoutOrder
+UiListLayout2.Padding = UDim.new(0, 0)
+UiListLayout2.FillDirection = Enum.FillDirection.Vertical
+UiListLayout2.VerticalAlignment = Enum.VerticalAlignment.Top
+
+local Title = Instance.new("TextLabel")
+Title.Parent = MainBg
+Title.Size = UDim2.new(0.4, 0, 0.1, 0)
+Title.Text = "SDhub by Slime0077"
+Title.BackgroundTransparency = 1
+Title.TextColor3 = Color3.new(0, 0, 0)
+Title.TextScaled = true
+Title.Font = Enum.Font.FredokaOne
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.TextYAlignment = Enum.TextYAlignment.Center
+
+local ST = Instance.new("TextButton")
+ST.Parent = TemplateFolder
+ST.Name = "SectionTemplate"
+ST.Text = "Section"
+ST.Size = UDim2.new(1, 0, 0.1, 0)
+ST.BackgroundColor3 = Color3.new(0.392157, 0.392157, 0.392157)
+ST.TextColor3 = Color3.new(1, 1, 1)
+ST.TextScaled = true
+ST.Font = Enum.Font.FredokaOne
+ST.TextXAlignment = Enum.TextXAlignment.Center
+ST.TextYAlignment = Enum.TextYAlignment.Center
+ST.Visible = false
+
+local FL = Instance.new("TextButton")
+FL.Parent = TemplateFolder
+FL.Name = "FunctionTemplate"
+FL.Text = "Function"
+FL.Size = UDim2.new(1, 0, 0.1, 0)
+FL.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+FL.TextColor3 = Color3.new(1, 1, 1)
+FL.TextScaled = true
+FL.Font = Enum.Font.FredokaOne
+FL.TextXAlignment = Enum.TextXAlignment.Left
+FL.TextYAlignment = Enum.TextYAlignment.Center
+FL.Visible = false
+
+local OpenButton = Instance.new("ImageButton")
+OpenButton.Parent = Gui
+OpenButton.Size = UDim2.new(0.057, 0,0.119, 0)
+OpenButton.Position = UDim2.new(0.076, 0,0.158, 0)
+OpenButton.Image = ""
+
+OpenButton.Activated:Connect(function()
+	MainBg.Visible = not MainBg.Visible
+end)
