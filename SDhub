@@ -1,3 +1,5 @@
+https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/SDhub%20Menu
+
 local function AddSection(SectionName, SectionText, LayoutOrder)
 	local Player = game.Players.LocalPlayer
 	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
