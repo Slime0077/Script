@@ -1,0 +1,78 @@
+local function AddSection(SectionName, SectionText, LayoutOrder)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewSection = TemplateFolder:FindFirstChild("SectionTemplate"):Clone()
+	NewSection.Name = SectionName
+	NewSection.Text = SectionText
+	NewSection.LayoutOrder = LayoutOrder
+	NewSection.Parent = Gui.MainBg.SectionList
+	NewSection.Visible = true
+
+	local NewSectionFolder = Instance.new("Folder")
+	NewSectionFolder.Name = SectionName
+	NewSectionFolder.Parent = Gui.MainBg.FunctionsList
+
+	NewSection.Activated:Connect(function()
+		task.spawn(function()
+			for _, Func in pairs(Gui.MainBg.FunctionsList:GetDescendants()) do
+				if Func:IsA("TextButton") or
+					Func:IsA("ImageButton") or
+					Func:IsA("TextBox") then
+
+					Func.Visible = false
+
+				end
+			end
+
+			for _, Func in pairs(Gui.MainBg.FunctionsList[SectionName]:GetChildren()) do
+				if Func:IsA("TextButton") or
+					Func:IsA("ImageButton") or
+					Func:IsA("TextBox") then
+
+					Func.Visible = true
+
+				end
+			end
+
+		end)
+	end)
+end
+
+
+
+local function AddFunction(SectionName, FunctionName, FunctionText, LayoutOrder, Script)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("FunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	NewFunction.Text = FunctionText
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = true
+
+	NewFunction.Activated:Connect(function()
+		task.spawn(function()
+			Script()
+		end)
+	end)
+end
+
+
+
+AddSection("Badges", "Badges", 2)
+task.wait(0.25)
+AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()
+	local Player = game.Players.LocalPlayer
+	Player:Kick()
+end)
+
+AddSection("Main", "Main", 1)
+task.wait(0.25)
+AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
+	local Player = game.Players.LocalPlayer
+	print(Player.Name .. " Эта функция будет доступна позже")
+end)
