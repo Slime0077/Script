@@ -118,9 +118,9 @@ end
 end)
 
 AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 1, function()
-	for _, Egg in pairs(workspace.EasterHuntEggs:GetChildren())
-	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
-	task.wait(0.5)
+	for _, Egg in pairs(workspace.EasterHuntEggs:GetChildren()) do
+		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
+		task.wait(0.5)
 	end
 
 	local tpFunc = queue_on_teleport
