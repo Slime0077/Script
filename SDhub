@@ -1,4 +1,4 @@
-https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/SDhub%20Menu
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/SDhub%20Menu"))()
 
 local function AddSection(SectionName, SectionText, LayoutOrder)
 	local Player = game.Players.LocalPlayer
@@ -126,9 +126,9 @@ AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 1, function()
 	local tpFunc = queue_on_teleport
 	
 	tpFunc([[
-	
-	https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Eggler
-	
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Eggler"))()
+
+]])
 end)
 
 AddSection("Main", "Main", 1)
