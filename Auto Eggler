@@ -1,3 +1,22 @@
+-- Функция для имитации удержания прокси-промпта
+local function fireProximityPromptWithHold(prompt, holdTime)
+    if not prompt or not fireproximityprompt then
+        warn("Промпт не найден или нет прав на fireproximityprompt")
+        return
+    end
+    
+    -- Начинаем удержание
+    fireproximityprompt(prompt, true)  -- true = начало удержания
+    
+    -- Ждём нужное время
+    task.wait(holdTime or prompt.HoldDuration or 1)
+    
+    -- Завершаем удержание
+    fireproximityprompt(prompt, false) -- false = отпускание
+end
+
+game.Players.LocalPlayer.Character.PrimaryPart.CFrame = workspace.Kenneth.PrimaryPart.CFrame
+
 -- Пример использования:
 local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
 fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем стандартную задержку
@@ -29,6 +48,8 @@ Character.PrimaryPart.CFrame = Trial2.CFrame
 task.wait(2)
 Character.PrimaryPart.CFrame = Trial3.CFrame
 task.wait(2)
+
+game.Players.LocalPlayer.Character.PrimaryPart.CFrame = workspace.Kenneth.PrimaryPart.CFrame
 
 local Prom = workspace.Kenneth.Head:FindFirstChildOfClass("ProximityPrompt")
 fireProximityPromptWithHold(Prom, Prom.HoldDuration) -- используем стандартную задержку
