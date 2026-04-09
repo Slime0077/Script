@@ -1,5 +1,9 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/SDhub%20Menu"))()
+
 task.wait(1)
+
+local SlapBattlesID = 6403373529
+
 local function AddSection(SectionName, SectionText, LayoutOrder)
 	local Player = game.Players.LocalPlayer
 	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
