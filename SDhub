@@ -279,6 +279,8 @@ AddFunction("Badges", "GetGloveDebug", "Get Glove Debug", 5, function()									
 		fireclickdetector(game:GetService("Workspace")["Debug Room"].Keypad.Buttons[v].ClickDetector)
 
 	end
+
+	task.wait(1)
 	
 	fireclickdetector(game:GetService("Workspace")["Debug Room"].Keypad.Buttons["Enter"]:FindFirstChildOfClass("ClickDetector"))
 	
