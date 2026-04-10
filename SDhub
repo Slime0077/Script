@@ -279,6 +279,9 @@ AddFunction("Badges", "GetGloveDebug", "Get Glove Debug", 5, function()									
 		fireclickdetector(game:GetService("Workspace")["Debug Room"].Keypad.Buttons[v].ClickDetector)
 
 	end
+	
+	fireclickdetector(game:GetService("Workspace")["Debug Room"].Keypad.Buttons[Enter].ClickDetector)
+	
 end, Color3.new(0.372549, 1, 0.372549), nil, false)
 
 AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()																--Bind
