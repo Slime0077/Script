@@ -170,52 +170,60 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 	local tpFunc = queue_on_teleport
 	
 	if game.PlaceId == 79885102123162 then
-		local Player = game.Players.LocalPlayer
+		local player = game.Players.LocalPlayer
 
-		local Map = workspace.Map
-		local GloveLocation = Map.GloveLocation	
-		
-		local function GetGlove(location)
-			for _, Glove in pairs(location:GetChildren()) do
-				local GloveHitbox = Glove:FindFirstChild(Glove.Name)
-				if GloveHitbox then
-					Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-					task.wait(0.8)
-				else
-					print("Нету " .. Glove.Name)
-				end
-			end
-		end
-		
-		for _, location in pairs(GloveLocation:GetChildren()) do
-			GetGlove(location)
-			task.wait(10)
-		end
+while task.wait() do
+    local map = workspace:FindFirstChild("Map")
+    if map then
+        local gloveLocation = map:FindFirstChild("GloveLocation")
+        if gloveLocation and player.Character then
+            local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+            local head = player.Character:FindFirstChild("Head")
+
+            if hrp and head then
+                for _, v in pairs(gloveLocation:GetDescendants()) do
+                    if v:IsA("TouchTransmitter") and v.Parent and v.Parent.Parent then
+                        if v.Parent.Parent:IsA("Model") and v.Parent.Parent:GetAttribute("Visible") == true then
+                            hrp.Velocity = Vector3.new(0,0,0)
+                            player.Character:PivotTo(v.Parent.Parent:GetPivot())
+                            firetouchinterest(head, v.Parent, 1)
+                            firetouchinterest(head, v.Parent, 0)
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
 	else
 		
 		tpFunc([[
 	
-	local Player = game.Players.LocalPlayer
+	local player = game.Players.LocalPlayer
 
-		local Map = workspace.Map
-		local GloveLocation = Map.GloveLocation	
-		
-		local function GetGlove(location)
-			for _, Glove in pairs(location:GetChildren()) do
-				local GloveHitbox = Glove:FindFirstChild(Glove.Name)
-				if GloveHitbox then
-					Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-					task.wait(0.8)
-				else
-					print("Нету " .. Glove.Name)
-				end
-			end
-		end
-		
-		for _, location in pairs(GloveLocation:GetChildren()) do
-			GetGlove(location)
-			task.wait(10)
-		end
+while task.wait() do
+    local map = workspace:FindFirstChild("Map")
+    if map then
+        local gloveLocation = map:FindFirstChild("GloveLocation")
+        if gloveLocation and player.Character then
+            local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+            local head = player.Character:FindFirstChild("Head")
+
+            if hrp and head then
+                for _, v in pairs(gloveLocation:GetDescendants()) do
+                    if v:IsA("TouchTransmitter") and v.Parent and v.Parent.Parent then
+                        if v.Parent.Parent:IsA("Model") and v.Parent.Parent:GetAttribute("Visible") == true then
+                            hrp.Velocity = Vector3.new(0,0,0)
+                            player.Character:PivotTo(v.Parent.Parent:GetPivot())
+                            firetouchinterest(head, v.Parent, 1)
+                            firetouchinterest(head, v.Parent, 0)
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
 	
 	]])
 
