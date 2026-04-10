@@ -97,7 +97,7 @@ OpenButton.Parent = Gui
 OpenButton.Name = "OpenMenuButton"
 OpenButton.Size = UDim2.new(0.057, 0,0.119, 0)
 OpenButton.Position = UDim2.new(0.076, 0,0.158, 0)
-OpenButton.Image = ""
+OpenButton.Image = "rbxassetid://110093699666861"
 
 OpenButton.Activated:Connect(function()
 	MainBg.Visible = not MainBg.Visible
