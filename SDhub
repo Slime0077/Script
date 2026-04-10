@@ -92,7 +92,6 @@ tpFunc([[
         end
     end
 ]])
-end
 
 game:GetService("TeleportService"):Teleport(17290438723)
 
