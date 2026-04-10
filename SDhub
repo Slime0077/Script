@@ -174,38 +174,48 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 
 		local Map = workspace.Map
 		local GloveLocation = Map.GloveLocation	
-
-		for _, location in pairs(GloveLocation:GetChildren()) do
+		
+		local function GetGlove(location)
 			for _, Glove in pairs(location:GetChildren()) do
 				local GloveHitbox = Glove:FindFirstChild(Glove.Name)
 				if GloveHitbox then
 					Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-					task.wait(0.5)
+					task.wait(0.8)
 				else
-					print("Нету")
+					print("Нету " .. Glove.Name)
 				end
 			end
+		end
+		
+		for _, location in pairs(GloveLocation:GetChildren()) do
+			GetGlove(location)
+			task.wait(10)
 		end
 	else
 		
 		tpFunc([[
 	
 	local Player = game.Players.LocalPlayer
-	
-	local Map = workspace.Map
-	local GloveLocation = Map.GloveLocation	
-	
-	for _, location in pairs(GloveLocation:GetChildren()) do
-		for _, Glove in pairs(location:GetChildren()) do
-			local GloveHitbox = Glove:FindFirstChild(Glove.Name)
-			if GloveHitbox then
+
+		local Map = workspace.Map
+		local GloveLocation = Map.GloveLocation	
+		
+		local function GetGlove(location)
+			for _, Glove in pairs(location:GetChildren()) do
+				local GloveHitbox = Glove:FindFirstChild(Glove.Name)
+				if GloveHitbox then
 					Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-					task.wait(0.5)
+					task.wait(0.8)
 				else
-					print("Нету")
+					print("Нету " .. Glove.Name)
 				end
+			end
 		end
-	end
+		
+		for _, location in pairs(GloveLocation:GetChildren()) do
+			GetGlove(location)
+			task.wait(10)
+		end
 	
 	]])
 
