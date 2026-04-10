@@ -143,10 +143,10 @@ if game.PlaceId == 18550498098 then
     print("Авто-скрипт запущен! Все режимы боя активны.")
 task.wait(18)
 
-local P = Instance.new("Part")
-P.Parent = workspace
-P.Position = Vector3.new(520, 140, -212)
-P.Anchored = true
-game.Players.LocalPlayer.Character.PrimaryPart.CFrame = P.CFrame
+local TP = Instance.new("Part")
+TP.Parent = workspace
+TP.Anchored = true
+TP.Position = Vector3.new(520, 140, -212)
+game.Players.LocalPlayer.Character.PrimaryPart.CFrame = TP.CFrame
 
 end
