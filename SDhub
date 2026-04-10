@@ -84,7 +84,7 @@ end
 
 AddSection("Badges", "Badges", 2)
 task.wait(0.25)
-AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()
+AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()																--FrostBite
 	local tpFunc = queue_on_teleport
 
 	tpFunc([[
@@ -103,7 +103,7 @@ AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()
 
 end, Color3.new(0.372549, 0.792157, 1), nil, false)
 
-AddFunction("Badges", "GetGloveAvatar", "Get Glove Avatar", 2, function()
+AddFunction("Badges", "GetGloveAvatar", "Get Glove Avatar", 2, function()																--Avatar
 	local Players = game:GetService("Players")
 	local BadgeService = game:GetService("BadgeService")
 	local player = Players.LocalPlayer
@@ -148,7 +148,7 @@ end
 ]])
 end, Color3.new(0.329412, 0.533333, 0.627451), nil, false)
 
-AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 3, function()
+AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 3, function()																--Eggler
 	local EasterHuntEggsFolder = workspace.EasterHuntEggs:GetChildren()
 	if EasterHuntEggsFolder then
 		local EasterHuntEggsFolderAmount = workspace.EasterHuntEggs:GetChildren()
@@ -169,7 +169,7 @@ AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 3, function()
 ]])
 end, Color3.new(1, 1, 0.498039), Color3.new(0, 0, 0), false)
 
-AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
+AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()																--Collector
 
 	local Player = game.Players.LocalPlayer
 
@@ -237,7 +237,7 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 
 end, Color3.new(0.333333, 0.333333, 0.498039), nil, false)
 
-AddFunction("Badges", "GetGloveDebug", "Get Glove Debug", 5, function()
+AddFunction("Badges", "GetGloveDebug", "Get Glove Debug", 5, function()																--Debug
 	local lp = game.Players.LocalPlayer
 
 	local char = lp.Character or lp.CharacterAdded:Wait()
@@ -280,6 +280,19 @@ AddFunction("Badges", "GetGloveDebug", "Get Glove Debug", 5, function()
 
 	end
 end, Color3.new(0.372549, 1, 0.372549), nil, false)
+
+AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()																--Bind
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	local Player = game.Players.LocalPlayer
+    Player.Character.PrimaryPart.CFrame = workspace.Orb.CFrame
+    fireclickdetector(workspace.Orb.ClickDetector)
+]])
+
+	game:GetService("TeleportService"):Teleport(74169485398268)
+
+end, Color3.new(0.521569, 0, 0.784314), nil, false)
 
 AddSection("Main", "Main", 1)
 task.wait(0.25)
