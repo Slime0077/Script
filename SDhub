@@ -178,7 +178,12 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 		for _, location in pairs(GloveLocation:GetChildren()) do
 			for _, Glove in pairs(location:GetChildren()) do
 				local GloveHitbox = Glove:FindFirstChild(Glove.Name)
-				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+				if GloveHitbox then
+					Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+					task.wait(0.5)
+				else
+					print("Нету")
+				end
 			end
 		end
 	else
@@ -193,7 +198,12 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 	for _, location in pairs(GloveLocation:GetChildren()) do
 		for _, Glove in pairs(location:GetChildren()) do
 			local GloveHitbox = Glove:FindFirstChild(Glove.Name)
-			Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+			if GloveHitbox then
+					Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+					task.wait(0.5)
+				else
+					print("Нету")
+				end
 		end
 	end
 	
