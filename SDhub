@@ -170,62 +170,14 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 	local tpFunc = queue_on_teleport
 	
 	if game.PlaceId == 79885102123162 then
-		local player = game.Players.LocalPlayer
-
-while task.wait() do
-    local map = workspace:FindFirstChild("Map")
-    if map then
-        local gloveLocation = map:FindFirstChild("GloveLocation")
-        if gloveLocation and player.Character then
-            local hrp = player.Character:FindFirstChild("HumanoidRootPart")
-            local head = player.Character:FindFirstChild("Head")
-
-            if hrp and head then
-                for _, v in pairs(gloveLocation:GetDescendants()) do
-                    if v:IsA("TouchTransmitter") and v.Parent and v.Parent.Parent then
-                        if v.Parent.Parent:IsA("Model") and v.Parent.Parent:GetAttribute("Visible") == true then
-                            hrp.Velocity = Vector3.new(0,0,0)
-                            player.Character:PivotTo(v.Parent.Parent:GetPivot())
-                            firetouchinterest(head, v.Parent, 1)
-                            firetouchinterest(head, v.Parent, 0)
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
+		loadstring(game:HttpGet("https://pastefy.app/93kg1N1u/raw"))()
 	else
 		
 		tpFunc([[
-	
-	local player = game.Players.LocalPlayer
-
-while task.wait() do
-    local map = workspace:FindFirstChild("Map")
-    if map then
-        local gloveLocation = map:FindFirstChild("GloveLocation")
-        if gloveLocation and player.Character then
-            local hrp = player.Character:FindFirstChild("HumanoidRootPart")
-            local head = player.Character:FindFirstChild("Head")
-
-            if hrp and head then
-                for _, v in pairs(gloveLocation:GetDescendants()) do
-                    if v:IsA("TouchTransmitter") and v.Parent and v.Parent.Parent then
-                        if v.Parent.Parent:IsA("Model") and v.Parent.Parent:GetAttribute("Visible") == true then
-                            hrp.Velocity = Vector3.new(0,0,0)
-                            player.Character:PivotTo(v.Parent.Parent:GetPivot())
-                            firetouchinterest(head, v.Parent, 1)
-                            firetouchinterest(head, v.Parent, 0)
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-	
-	]])
+		
+		loadstring(game:HttpGet("https://pastefy.app/93kg1N1u/raw"))()
+		
+		]])
 
 		game:GetService("TeleportService"):Teleport(79885102123162, Player)
 		
