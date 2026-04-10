@@ -144,10 +144,13 @@ end)
 
 AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 3, function()
 local EasterHuntEggsFolder = workspace.EasterHuntEggs:GetChildren()
-if #EasterHuntEggsFolder > 0 and workspace.EasterHuntEggs then
+if EasterHuntEggsFolder then
+local EasterHuntEggsFolderAmount = workspace.EasterHuntEggs:GetChildren()
+	if #EasterHuntEggsFolderAmount > 0 then
 	for _, Egg in pairs(workspace.EasterHuntEggs:GetChildren()) do
-		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
-		task.wait(0.5)
+			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
+			task.wait(0.5)
+		end
 	end
 end
 	
