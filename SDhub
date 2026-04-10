@@ -19,7 +19,7 @@ local function AddSection(SectionName, SectionText, LayoutOrder)
 	local NewSectionFolder = Instance.new("Folder")
 	NewSectionFolder.Name = SectionName
 	NewSectionFolder.Parent = Gui.MainBg.FunctionsList
-	
+
 	local UiListLayout = Instance.new("UIListLayout")
 	UiListLayout.Parent = NewSectionFolder
 	UiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -55,17 +55,23 @@ end
 
 
 
-local function AddFunction(SectionName, FunctionName, FunctionText, LayoutOrder, Script)
+local function AddFunction(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible)
 	local Player = game.Players.LocalPlayer
 	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
 	local TemplateFolder = Gui.TemplateFolder
 
 	local NewFunction = TemplateFolder:FindFirstChild("FunctionTemplate"):Clone()
 	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
 	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
 	NewFunction.LayoutOrder = LayoutOrder
 	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
-	NewFunction.Visible = true
+	NewFunction.Visible = Visible
 
 	NewFunction.Activated:Connect(function()
 		task.spawn(function()
@@ -81,7 +87,7 @@ task.wait(0.25)
 AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()
 	local tpFunc = queue_on_teleport
 
-tpFunc([[
+	tpFunc([[
     repeat wait() until game.Players.LocalPlayer
     repeat wait() until game.Players.LocalPlayer.Character
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-554, 177, 56)
@@ -93,24 +99,24 @@ tpFunc([[
     end
 ]])
 
-game:GetService("TeleportService"):Teleport(17290438723)
+	game:GetService("TeleportService"):Teleport(17290438723)
 
-end)
+end, Color3.new(0.372549, 0.792157, 1), nil, false)
 
 AddFunction("Badges", "GetGloveAvatar", "Get Glove Avatar", 2, function()
-local Players = game:GetService("Players")
-local BadgeService = game:GetService("BadgeService")
-local player = Players.LocalPlayer
+	local Players = game:GetService("Players")
+	local BadgeService = game:GetService("BadgeService")
+	local player = Players.LocalPlayer
 
-local TP = Instance.new("Part")
-TP.Parent = workspace
-TP.Position = Vector3.new(17944, -125, -3556)
+	local TP = Instance.new("Part")
+	TP.Parent = workspace
+	TP.Position = Vector3.new(17944, -125, -3556)
 
-player.Character.PrimaryPart.CFrame = TP.CFrame
+	player.Character.PrimaryPart.CFrame = TP.CFrame
 
-local tpFunc = queue_on_teleport
+	local tpFunc = queue_on_teleport
 
-tpFunc([[
+	tpFunc([[
 local BADGE_ID = 4414076328730650
 
 local function checkBadge()
@@ -140,41 +146,41 @@ end
 
 
 ]])
-end)
+end, Color3.new(0.329412, 0.533333, 0.627451), nil, false)
 
 AddFunction("Badges", "GetGloveEggler", "Get Glove Eggler", 3, function()
-local EasterHuntEggsFolder = workspace.EasterHuntEggs:GetChildren()
-if EasterHuntEggsFolder then
-local EasterHuntEggsFolderAmount = workspace.EasterHuntEggs:GetChildren()
-	if #EasterHuntEggsFolderAmount > 0 then
-	for _, Egg in pairs(workspace.EasterHuntEggs:GetChildren()) do
-			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
-			task.wait(0.5)
+	local EasterHuntEggsFolder = workspace.EasterHuntEggs:GetChildren()
+	if EasterHuntEggsFolder then
+		local EasterHuntEggsFolderAmount = workspace.EasterHuntEggs:GetChildren()
+		if #EasterHuntEggsFolderAmount > 0 then
+			for _, Egg in pairs(workspace.EasterHuntEggs:GetChildren()) do
+				game.Players.LocalPlayer.Character.PrimaryPart.CFrame = Egg.CFrame
+				task.wait(0.5)
+			end
 		end
 	end
-end
-	
+
 	local tpFunc = queue_on_teleport
-	
+
 	tpFunc([[
 	
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Eggler"))()
 	
 ]])
-end)
+end, Color3.new(1, 1, 0.498039), Color3.new(0, 0, 0), false)
 
 AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
-	
+
 	local Player = game.Players.LocalPlayer
-	
+
 	local tpFunc = queue_on_teleport
-	
+
 	if game.PlaceId == 79885102123162 then
 		local Player = game.Players.LocalPlayer
 
 		local Map = workspace.Map
 		local GloveLocation = Map.GloveLocation	
-		
+
 		local function GetGlove(location)
 			for _, Glove in pairs(location:GetChildren()) do
 				local GloveHitbox = Glove:WaitForChild(Glove.Name)
@@ -184,7 +190,7 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 				task.wait(0.8)
 			end
 		end
-		
+
 		for _, location in pairs(GloveLocation:GetChildren()) do
 			GetGlove(location)
 			local TimeToWait = 0
@@ -194,7 +200,7 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 			task.wait(TimeToWait)
 		end
 	else
-		
+
 		tpFunc([[
 		
 		local Player = game.Players.LocalPlayer
@@ -224,60 +230,60 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 		]])
 
 		game:GetService("TeleportService"):Teleport(79885102123162, Player)
-		
+
 	end
 
-	
-	
-end)
+
+
+end, Color3.new(0.333333, 0.333333, 0.498039), nil, false)
 
 AddFunction("Badges", "GetGloveDebug", "Get Glove Debug", 5, function()
-local lp = game.Players.LocalPlayer
+	local lp = game.Players.LocalPlayer
 
-local char = lp.Character or lp.CharacterAdded:Wait()
+	local char = lp.Character or lp.CharacterAdded:Wait()
 
-local humanoidRootPart = char:WaitForChild("HumanoidRootPart")
+	local humanoidRootPart = char:WaitForChild("HumanoidRootPart")
 
-humanoidRootPart:PivotTo(game:GetService("Workspace")["Debug Room"].DebugGlove.DebugCaseBase:GetPivot())
+	humanoidRootPart:PivotTo(game:GetService("Workspace")["Debug Room"].DebugGlove.DebugCaseBase:GetPivot())
 
-local Code = {0,0,0,0}
+	local Code = {0,0,0,0}
 
-for i,v in pairs(game:GetService("Workspace")["Debug Room"].DuckTable.DuckTable:GetChildren()) do
+	for i,v in pairs(game:GetService("Workspace")["Debug Room"].DuckTable.DuckTable:GetChildren()) do
 
- if v.Name == "Duck" then
+		if v.Name == "Duck" then
 
- Code[1] = Code[1] + 1
+			Code[1] = Code[1] + 1
 
- end
+		end
 
-end
+	end
 
-Code[2] = tonumber(workspace["Debug Room"].AdminGloves.GlovesCode.SurfaceGui.AdminNumber.Text)
+	Code[2] = tonumber(workspace["Debug Room"].AdminGloves.GlovesCode.SurfaceGui.AdminNumber.Text)
 
-for i,v in pairs(workspace["Debug Room"].Maze:GetDescendants()) do
+	for i,v in pairs(workspace["Debug Room"].Maze:GetDescendants()) do
 
- if v:IsA("TextLabel") then 
+		if v:IsA("TextLabel") then 
 
- Code[3] = tonumber(v.Text)
+			Code[3] = tonumber(v.Text)
 
- end
+		end
 
-end
+	end
 
-Code[4] = 7
+	Code[4] = 7
 
-wait(.5)
+	wait(.5)
 
-for i,v in pairs(Code) do
+	for i,v in pairs(Code) do
 
- fireclickdetector(game:GetService("Workspace")["Debug Room"].Keypad.Buttons[v].ClickDetector)
+		fireclickdetector(game:GetService("Workspace")["Debug Room"].Keypad.Buttons[v].ClickDetector)
 
-end
-end)
+	end
+end, Color3.new(0.372549, 1, 0.372549), nil, false)
 
 AddSection("Main", "Main", 1)
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
 	local Player = game.Players.LocalPlayer
 	print(Player.Name .. " Эта функция будет доступна позже")
-end)
+end, nil, nil, true)
