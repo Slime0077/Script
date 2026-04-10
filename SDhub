@@ -170,12 +170,56 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 	local tpFunc = queue_on_teleport
 	
 	if game.PlaceId == 79885102123162 then
-		loadstring(game:HttpGet("https://pastefy.app/93kg1N1u/raw"))()
+		local Player = game.Players.LocalPlayer
+
+		local Map = workspace.Map
+		local GloveLocation = Map.GloveLocation	
+		
+		local function GetGlove(location)
+			for _, Glove in pairs(location:GetChildren()) do
+				local GloveHitbox = Glove:WaitForChild(Glove.Name)
+				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+				fireclickdetector(GloveHitbox)
+				fireclickdetector(Glove)
+				task.wait(0.8)
+			end
+		end
+		
+		for _, location in pairs(GloveLocation:GetChildren()) do
+			GetGlove(location)
+			local TimeToWait = 0
+			for _, Glove in pairs(location:GetChildren()) do
+				TimeToWait += 1
+			end
+			task.wait(TimeToWait)
+		end
 	else
 		
 		tpFunc([[
 		
-		loadstring(game:HttpGet("https://pastefy.app/93kg1N1u/raw"))()
+		local Player = game.Players.LocalPlayer
+
+		local Map = workspace.Map
+		local GloveLocation = Map.GloveLocation	
+		
+		local function GetGlove(location)
+			for _, Glove in pairs(location:GetChildren()) do
+				local GloveHitbox = Glove:WaitForChild(Glove.Name)
+				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+				fireclickdetector(GloveHitbox)
+				fireclickdetector(Glove)
+				task.wait(0.8)
+			end
+		end
+		
+		for _, location in pairs(GloveLocation:GetChildren()) do
+			GetGlove(location)
+			local TimeToWait = 0
+			for _, Glove in pairs(location:GetChildren()) do
+				TimeToWait += 1
+			end
+			task.wait(TimeToWait)
+		end
 		
 		]])
 
