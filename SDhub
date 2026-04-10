@@ -163,6 +163,50 @@ end
 ]])
 end)
 
+AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
+	
+	local Player = game.Players.LocalPlayer
+	
+	local tpFunc = queue_on_teleport
+	
+	if game.PlaceId == 79885102123162 then
+		local Player = game.Players.LocalPlayer
+
+		local Map = workspace.Map
+		local GloveLocation = Map.GloveLocation	
+
+		for _, location in pairs(GloveLocation:GetChildren()) do
+			for _, Glove in pairs(location:GetChildren()) do
+				local GloveHitbox = Glove:FindFirstChild(Glove.Name)
+				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+			end
+		end
+	else
+		
+		tpFunc([[
+	
+	local Player = game.Players.LocalPlayer
+	
+	local Map = workspace.Map
+	local GloveLocation = Map.GloveLocation	
+	
+	for _, location in pairs(GloveLocation:GetChildren()) do
+		for _, Glove in pairs(location:GetChildren()) do
+			local GloveHitbox = Glove:FindFirstChild(Glove.Name)
+			Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
+		end
+	end
+	
+	]])
+
+		game:GetService("TeleportService"):Teleport(79885102123162, Player)
+		
+	end
+
+	
+	
+end)
+
 AddSection("Main", "Main", 1)
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
