@@ -286,7 +286,7 @@ AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()											
 
 	tpFunc([[
 	local Player = game.Players.LocalPlayer
-    Player.Character.PrimaryPart.CFrame = workspace.Orb.CFrame
+    Player.Character.PrimaryPart.CFrame = workspace.Orb:FindFirstChildOfClass("MeshPart").CFrame
     fireclickdetector(workspace.Orb.ClickDetector)
 ]])
 
