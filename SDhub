@@ -179,7 +179,6 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 			for _, Glove in pairs(location:GetChildren()) do
 				local GloveHitbox = Glove:WaitForChild(Glove.Name)
 				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-				fireclickdetector(GloveHitbox)
 				fireclickdetector(Glove)
 				task.wait(0.8)
 			end
@@ -206,7 +205,6 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()
 			for _, Glove in pairs(location:GetChildren()) do
 				local GloveHitbox = Glove:WaitForChild(Glove.Name)
 				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-				fireclickdetector(GloveHitbox)
 				fireclickdetector(Glove)
 				task.wait(0.8)
 			end
