@@ -1,13 +1,14 @@
 local Player = game.Players.LocalPlayer
 local KillBrick = workspace.ObbyItemslime4444445LavaBlock
 if KillBrick then
-
-task.spawn(while task.wait(0.5) do
-
+while task.wait(0.5) do
+local Humanoid = Player.Character:FindFirstChildOfClass("Humanoid")
+if Humanoid and Humanoid.Health > 0 then
 Player.Character.PrimaryPart.CFrame = workspace.Lobby.Teleport1.CFrame
 task.wait(0.5)
 Player.Character.PrimaryPart.CFrame = KillBrick.CFrame
-
-end)
-
+else
+print("Ожидание")
+end
+end
 end
