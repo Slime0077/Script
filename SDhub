@@ -82,7 +82,7 @@ end
 
 
 
-AddSection("Badges", "Badges", 2)
+AddSection("Badges", "Badges", 2)																--Badges Section
 task.wait(0.25)
 AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()																--FrostBite
 	local tpFunc = queue_on_teleport
@@ -299,9 +299,22 @@ AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()											
 
 end, Color3.new(0.521569, 0, 0.784314), nil, false)
 
-AddSection("Main", "Main", 1)
+AddSection("Main", "Main", 1)																--Main Section
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
 	local Player = game.Players.LocalPlayer
 	print(Player.Name .. " Эта функция будет доступна позже")
 end, nil, nil, true)
+
+AddSection("Teleport", "Teleport", 3)																--Teleport Section
+task.wait(0.25)
+AddFunction("Teleport", "TeleportToPoltergeist", "Teleport To Poltergeist", 1, function()																--Teleport To Poltergeist
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	print("Teleporting to Poltergeist")
+]])
+
+	game:GetService("TeleportService"):Teleport(103505724406848)
+
+end, Color3.new(0, 0.823529, 0.823529), nil, false)
