@@ -1,0 +1,79 @@
+-- Автофарм Slapples (без GUI)
+task.spawn(function()
+    local SlappleFarm = true  -- Поставьте false, чтобы остановить фарм
+    
+    while SlappleFarm do
+        local player = game.Players.LocalPlayer
+        
+        -- Проверяем, жив ли персонаж и находится ли на арене
+        if player.Character and player.Character:FindFirstChild("entered") and player.Character:FindFirstChild("HumanoidRootPart") then
+            
+            -- Проверяем существование папки с яблоками
+            local slapplesFolder = workspace.Arena and workspace.Arena.island5 and workspace.Arena.island5:FindFirstChild("Slapples")
+            
+            if slapplesFolder then
+                for _, v in pairs(slapplesFolder:GetChildren()) do
+                    -- Собираем обычные и золотые яблоки
+                    if (v.Name == "Slapple" or v.Name == "GoldenSlapple") and v:FindFirstChild("Glove") then
+                        local glovePart = v.Glove
+                        -- Имитируем касание
+                        firetouchinterest(player.Character.HumanoidRootPart, glovePart, 0)
+                        firetouchinterest(player.Character.HumanoidRootPart, glovePart, 1)
+                    end
+                end
+            end
+        end
+        
+        task.wait()
+    end
+end)
+
+task.spawn(function()
+    while true do
+        repeat task.wait() until game.Players.LocalPlayer.Character
+        
+        local char = game.Players.LocalPlayer.Character
+        if not char:FindFirstChild("entered") and char:FindFirstChild("HumanoidRootPart") then
+            repeat task.wait()
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+            until char:FindFirstChild("entered")
+        end
+        
+        task.wait()
+    end
+end)
+
+task.wait(1)
+
+task.spawn(function()
+    local HttpService = game:GetService("HttpService")
+    local TeleportService = game:GetService("TeleportService")
+    local placeId = game.PlaceId
+    local currentJobId = game.JobId
+    
+    local success, response = pcall(function()
+        return game:HttpGetAsync("https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Asc&limit=100")
+    end)
+    
+    if not success then
+        warn("Server Hop: Не удалось получить список серверов")
+        return
+    end
+    
+    local data = HttpService:JSONDecode(response)
+    local serverList = {}
+    
+    for _, server in ipairs(data.data) do
+        if server.playing and server.maxPlayers > server.playing and server.id ~= currentJobId then
+            table.insert(serverList, server.id)
+        end
+    end
+    
+    if #serverList > 0 then
+        local randomServer = serverList[math.random(1, #serverList)]
+        TeleportService:TeleportToPlaceInstance(placeId, randomServer)
+    else
+        warn("Server Hop: Не найдено подходящих серверов")
+    end
+end)
