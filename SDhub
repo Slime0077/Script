@@ -274,6 +274,21 @@ AddFunction("Badges", "GetGloveSuction", "Get Glove Suction", 7, function()					
 
 end, Color3.new(0.941176, 0.313725, 0.313725), nil, false)
 
+AddFunction("Badges", "GetGloveShopKeeper", "Get Glove ShopKeeper", 8, function()																--ShopKeeper
+	local Player = game.Players.LocalPlayer
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	print("Teleported to Shopkeeper")
+]])
+	if game.PlaceId == SlapBattlesID then
+		print("Пожалуйста Зайдите В Нужный Плейс")
+	else
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Articles-Hub/ROBLOXScript/refs/heads/main/File-Script/Slap_Battles.lua"))()
+	end
+
+end, Color3.new(0.54902, 0.184314, 0), nil, false)
+
 AddSection("Main", "Main", 1)																--Main Section
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
