@@ -304,10 +304,12 @@ AddFunction("Badges", "GetGloveSuction", "Get Glove Suction", 7, function()					
 	local tpFunc = queue_on_teleport
 
 	tpFunc([[
+	task.wait(4)
 	local Player = game.Players.LocalPlayer
 	local Glove = workspace["plunger glove"]
 	Player.Character.CFrame = Glove.plungerglove.CFrame
 	fireclickdetector(Glove:FindFirstChildOfClass("ClickDetector"))
+	print("Готово")
 ]])
 
 	local Plunger1 = workspace.BountyHunterRoom.PlungerMain
