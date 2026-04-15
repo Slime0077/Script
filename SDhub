@@ -171,61 +171,11 @@ end, Color3.new(1, 1, 0.498039), Color3.new(0, 0, 0), false)
 
 AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()																--Collector
 
-	local Player = game.Players.LocalPlayer
-
-	local tpFunc = queue_on_teleport
-
-	if game.PlaceId == 79885102123162 then
-		local Player = game.Players.LocalPlayer
-
-		local Map = workspace.Map
-		local GloveLocation = Map.GloveLocation	
-
-		local function GetGlove(location)
-			for _, Glove in pairs(location:GetChildren()) do
-				local GloveHitbox = Glove:WaitForChild(Glove.Name)
-				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-				local GloveClickDetector = Glove:FindFirstChildOfClass("ClickDetector")
-				fireclickdetector(GloveClickDetector)
-				task.wait(0.8)
-			end
-		end
-
-		for _, location in pairs(GloveLocation:GetChildren()) do
-			GetGlove(location)
-			local TimeToWait = 0
-			for _, Glove in pairs(location:GetChildren()) do
-				TimeToWait += 1
-			end
-			task.wait(TimeToWait)
-		end
-	else
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Collector"))()
 
 		tpFunc([[
 		
-		local Player = game.Players.LocalPlayer
-
-		local Map = workspace.Map
-		local GloveLocation = Map.GloveLocation	
-		
-		local function GetGlove(location)
-			for _, Glove in pairs(location:GetChildren()) do
-				local GloveHitbox = Glove:WaitForChild(Glove.Name)
-				Player.Character.PrimaryPart.CFrame = GloveHitbox.CFrame
-				local GloveClickDetector = Glove:FindFirstChildOfClass("ClickDetector")
-				fireclickdetector(GloveClickDetector)
-				task.wait(0.8)
-			end
-		end
-		
-		for _, location in pairs(GloveLocation:GetChildren()) do
-			GetGlove(location)
-			local TimeToWait = 0
-			for _, Glove in pairs(location:GetChildren()) do
-				TimeToWait += 1
-			end
-			task.wait(TimeToWait)
-		end
+		https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Collector
 		
 		]])
 
