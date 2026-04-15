@@ -1,0 +1,52 @@
+ExperiencePlaceId = 79885102123162
+
+ExperiencePlaceId = ExperiencePlaceId or 79885102123162 
+
+game.StarterGui:SetCore("SendNotification", {Title = "Credit", Text = "Script made by DonjoSx", Duration = 10})
+if game.PlaceId ~= 79885102123162 then
+	game:GetService("TeleportService"):Teleport(79885102123162)
+	fireclickdetector(game:GetService("Workspace").FindTheGlovesTeleport["Display Island"]["GLASS DOME"].ClickDetector)
+	return 
+end
+
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+spawn(function()
+    while wait(1) do
+        local map = workspace:FindFirstChild("Map")
+        if map then
+            for _, v in pairs(map:GetDescendants()) do
+                if v:GetAttribute("Solved") == false then
+                    v:SetAttribute("Solved", true)
+                end
+            end
+        end
+    end
+end)
+
+while wait() do
+    local map = workspace:FindFirstChild("Map")
+    if map then
+        local gloveLocation = map:FindFirstChild("GloveLocation")
+        if gloveLocation then
+            local char = player.Character
+            if char and char:FindFirstChild("Head") then
+                for _, v in pairs(gloveLocation:GetDescendants()) do
+                    if v:IsA("TouchTransmitter") then
+						if v.Parent.Parent:IsA("Model") and v.Parent.Parent:GetAttribute("Visible") == true then
+							char.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+							char:PivotTo(v.Parent.Parent:GetPivot())
+	                        firetouchinterest(char.Head, v.Parent, 1)
+	                        firetouchinterest(char.Head, v.Parent, 0)
+						end
+                    end
+                end
+            end
+        end
+    end
+end
