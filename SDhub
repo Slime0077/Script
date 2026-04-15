@@ -179,7 +179,7 @@ AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()	
 		
 		]])
 
-		game:GetService("TeleportService"):Teleport(79885102123162, Player)
+		--game:GetService("TeleportService"):Teleport(79885102123162, Player)
 
 	end
 
