@@ -299,7 +299,7 @@ AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()											
 
 end, Color3.new(0.521569, 0, 0.784314), nil, false)
 
-AddFunction("Teleport", "GetGloveSuction", "Get Glove Suction", 7, function()																--Get Glove Suction
+AddFunction("Badges", "GetGloveSuction", "Get Glove Suction", 7, function()																--Suction
 	local Player = game.Players.LocalPlayer
 	local tpFunc = queue_on_teleport
 
