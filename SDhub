@@ -318,3 +318,14 @@ AddFunction("Teleport", "TeleportToPoltergeist", "Teleport To Poltergeist", 1, f
 	game:GetService("TeleportService"):Teleport(103505724406848)
 
 end, Color3.new(0, 0.823529, 0.823529), nil, false)
+
+AddFunction("Teleport", "TeleportToHarvester", "Teleport To Harvester", 2, function()																--Teleport To Harvester
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	print("Teleporting to Harvester")
+]])
+
+	game:GetService("TeleportService"):Teleport(92483185275059)
+
+end, Color3.new(0.784314, 0.431373, 0), nil, false)
