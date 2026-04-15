@@ -330,13 +330,22 @@ AddFunction("Teleport", "TeleportToHarvester", "Teleport To Harvester", 2, funct
 
 end, Color3.new(0.784314, 0.431373, 0), nil, false)
 
-AddFunction("Teleport", "TeleportToNull", "Teleport To Null", 3, function()																--Teleport To Null
+AddFunction("Teleport", "TeleportToPlunger", "Teleport To Plunger", 3, function()																--Teleport To Plunger
+	local Player = game.Players.LocalPlayer
 	local tpFunc = queue_on_teleport
 
 	tpFunc([[
-	print("Teleported to Null")
+	print("Teleported to Plunger")
 ]])
 
-	game:GetService("TeleportService"):Teleport(14422118326)
+	local Plunger1 = workspace.BountyHunterRoom.PlungerMain
+	local Plunger1ClickDetector = Plunger1:FindFirstChildOfClass("ClickDetector")
+	Player.Character.PrimaryPart.CFrame = Plunger1.CFrame
+	fireclickdetector(Plunger1ClickDetector)
+	task.wait(1)
+	local Plunger2 = workspace.plungers.ToiletPlunger
+	local Plunger2ClickDetector = Plunger2:FindFirstChildOfClass("ClickDetector")
+	Player.Character.PrimaryPart.CFrame = Plunger2.CFrame
+	fireclickdetector(Plunger2ClickDetector)
 
-end, Color3.new(0.470588, 0, 0.705882), nil, false)
+end, Color3.new(0.941176, 0.313725, 0.313725), nil, false)
