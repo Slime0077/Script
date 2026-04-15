@@ -299,6 +299,29 @@ AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()											
 
 end, Color3.new(0.521569, 0, 0.784314), nil, false)
 
+AddFunction("Teleport", "GetGloveSuction", "Get Glove Suction", 7, function()																--Get Glove Suction
+	local Player = game.Players.LocalPlayer
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	local Player = game.Players.LocalPlayer
+	local Glove = workspace["plunger glove"]
+	Player.Character.CFrame = Glove.plungerglove.CFrame
+	fireclickdetector(Glove:FindFirstChildOfClass("ClickDetector"))
+]])
+
+	local Plunger1 = workspace.BountyHunterRoom.PlungerMain
+	local Plunger1ClickDetector = Plunger1:FindFirstChildOfClass("ClickDetector")
+	Player.Character.PrimaryPart.CFrame = Plunger1.CFrame
+	fireclickdetector(Plunger1ClickDetector)
+	task.wait(1)
+	local Plunger2 = workspace.plungers.ToiletPlunger
+	local Plunger2ClickDetector = Plunger2:FindFirstChildOfClass("ClickDetector")
+	Player.Character.PrimaryPart.CFrame = Plunger2.CFrame
+	fireclickdetector(Plunger2ClickDetector)
+
+end, Color3.new(0.941176, 0.313725, 0.313725), nil, false)
+
 AddSection("Main", "Main", 1)																--Main Section
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
