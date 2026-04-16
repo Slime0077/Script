@@ -171,8 +171,13 @@ end, Color3.new(1, 1, 0.498039), Color3.new(0, 0, 0), false)
 
 AddFunction("Badges", "GetGloveCollector", "Get Glove Collector", 4, function()																--Collector
 
+		local Player = game.Players.LocalPlayer
+
+		if game.PlaceId == 79885102123162 then
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Collector"))()
-        local tpFunc = queue_on_teleport
+		else
+		
+		local tpFunc = queue_on_teleport
 
 		tpFunc([[
 		
