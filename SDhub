@@ -300,7 +300,7 @@ AddFunction("Badges", "GetGlovePoltergeist", "Get Glove Poltergeist", 9, functio
 	local tpFunc = queue_on_teleport
 
 	tpFunc([[
-	print("Teleported to Harvester")
+	print("Teleported to Poltergeist")
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Poltergeist"))()
 ]])
 	if game.PlaceId == 103505724406848 then
