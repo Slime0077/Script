@@ -296,7 +296,7 @@ AddFunction("Badges", "GetGloveShopKeeper", "Get Glove ShopKeeper", 8, function(
 
 end, Color3.new(0.54902, 0.184314, 0), nil, false)
 
-AddFunction("Teleport", "GetGlovePoltergeist", "Get Glove Poltergeist", 1, function()																--Get Glove Poltergeist
+AddFunction("Badges", "GetGlovePoltergeist", "Get Glove Poltergeist", 1, function()																--Get Glove Poltergeist
 	local tpFunc = queue_on_teleport
 
 	tpFunc([[
