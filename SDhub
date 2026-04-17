@@ -246,6 +246,7 @@ AddFunction("Badges", "GetGloveBind", "Get Glove Bind", 6, function()											
 	local tpFunc = queue_on_teleport
 
 	tpFunc([[
+	task.wait(2)
 	local Player = game.Players.LocalPlayer
     Player.Character.PrimaryPart.CFrame = workspace.Orb:FindFirstChildOfClass("MeshPart").CFrame
     fireclickdetector(workspace.Orb.ClickDetector)
