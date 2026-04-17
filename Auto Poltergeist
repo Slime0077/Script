@@ -14,7 +14,7 @@ if game.PlaceId == 103505724406848 then
             end
             
             if workspace:FindFirstChild("BossAreaSpawn") then
-                Player.Character:PivotTo(workspace.BossAreaSpawn.CFrame * CFrame.new(0, 65, 0))
+                Player.Character:PivotTo(workspace.BossAreaSpawn.CFrame * CFrame.new(0, 65, 90))
             end
             
             for i, v in pairs(Enemies:GetChildren()) do
