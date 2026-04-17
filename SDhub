@@ -296,6 +296,36 @@ AddFunction("Badges", "GetGloveShopKeeper", "Get Glove ShopKeeper", 8, function(
 
 end, Color3.new(0.54902, 0.184314, 0), nil, false)
 
+AddFunction("Teleport", "GetGlovePoltergeist", "Get Glove Poltergeist", 1, function()																--Get Glove Poltergeist
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	print("Teleported to Harvester")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Poltergeist"))()
+]])
+	if game.PlaceId == 103505724406848 then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Poltergeist"))()
+	else
+		game:GetService("TeleportService"):Teleport(103505724406848)
+	end
+
+end, Color3.new(0, 0.823529, 0.823529), nil, false)
+
+AddFunction("Badges", "GetGloveHarvester", "Get Glove Harvester", 10, function()																--Get Glove Harvester
+	local tpFunc = queue_on_teleport
+
+	tpFunc([[
+	print("Teleported to Harvester")
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Harvester"))()
+]])
+	if game.PlaceId == 92483185275059 then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Harvester"))()
+	else
+		game:GetService("TeleportService"):Teleport(92483185275059)
+	end
+
+end, Color3.new(0.784314, 0.431373, 0), nil, false)
+
 AddSection("Main", "Main", 1)																--Main Section
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
