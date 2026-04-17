@@ -7,9 +7,13 @@ if game.PlaceId == 92483185275059 then
         
         wait(0.5)
         
-        Transition = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Transition") and game:GetService("Players").LocalPlayer.PlayerGui.Transition:FindFirstChild("Frame")
+        local Transition = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Transition") and game:GetService("Players").LocalPlayer.PlayerGui.Transition:FindFirstChild("Frame")
+        local Player = game:GetService("Players").LocalPlayer
         
-        ClickFreezeBV(function() end)
+        -- Заморозка персонажа (замена ClickFreezeBV)
+        if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+            Player.Character.HumanoidRootPart.Anchored = true
+        end
         
         repeat 
             task.wait(0.5)
@@ -20,13 +24,13 @@ if game.PlaceId == 92483185275059 then
             
             if Transition and Transition.BackgroundTransparency == 1 then
                 if EndPrompt then
-                    game.Players.LocalPlayer.Character:PivotTo(EndPrompt.Parent.Parent.CFrame)
-                    if fireproximityprompt then
+                    Player.Character:PivotTo(EndPrompt.Parent.Parent.CFrame)
+                    if EndPrompt:FindFirstChildOfClass("ProximityPrompt") then
                         fireproximityprompt(EndPrompt)
                     end
                 elseif not Maze then
                     if CylinderStart and StartEnter then
-                        game.Players.LocalPlayer.Character:PivotTo(CylinderStart.CFrame)
+                        Player.Character:PivotTo(CylinderStart.CFrame)
                         if fireproximityprompt then
                             fireproximityprompt(StartEnter)
                         end
@@ -41,9 +45,9 @@ if game.PlaceId == 92483185275059 then
         while true do
             local Badge = workspace.Maze:FindFirstChild("ChaseOutroStart", true)
             if Badge then
-                game.Players.LocalPlayer.Character:PivotTo(Badge.CFrame)
+                Player.Character:PivotTo(Badge.CFrame)
             else
-                game.Players.LocalPlayer.Character:PivotTo(CFrame.new(-84, 39, 1421))
+                Player.Character:PivotTo(CFrame.new(-84, 39, 1421))
             end
             task.wait()
         end
