@@ -1,15 +1,20 @@
-elseif game.PlaceId == 103505724406848 then
+if game.PlaceId == 103505724406848 then
     task.spawn(function()
         repeat task.wait() until workspace:FindFirstChild("BossAreaSpawn") and workspace:FindFirstChild("Enemies")
         
         local Enemies = workspace:WaitForChild("Enemies")
+        local Player = game.Players.LocalPlayer
         
         repeat 
             task.wait(1)
-            CreateFreezeBV()
+            
+            -- Заморозка персонажа (замена CreateFreezeBV)
+            if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+                Player.Character.HumanoidRootPart.Anchored = true
+            end
             
             if workspace:FindFirstChild("BossAreaSpawn") then
-                game.Players.LocalPlayer.Character:PivotTo(workspace.BossAreaSpawn.CFrame * CFrame.new(0, 65, 0))
+                Player.Character:PivotTo(workspace.BossAreaSpawn.CFrame * CFrame.new(0, 65, 0))
             end
             
             for i, v in pairs(Enemies:GetChildren()) do
@@ -23,10 +28,8 @@ elseif game.PlaceId == 103505724406848 then
         
         while true do
             if workspace.Enemies:FindFirstChild("Boss Zombie") and workspace.Enemies["Boss Zombie"]:FindFirstChild("Head") then
-                local boss = workspace.Enemies["Boss Zombie"]
-                task.spawn(function()
-                    game:GetService("ReplicatedStorage").Remotes.GeneralHit:FireServer(boss.Head)
-                end)
+                local BossHead = workspace.Enemies["Boss Zombie"].Head
+                game:GetService("ReplicatedStorage").Remotes.GeneralHit:FireServer(BossHead)
             end
             task.wait()
         end
