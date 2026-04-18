@@ -1,2 +1,36 @@
+task.spawn(function()
+    while true do
+        repeat task.wait() until game.Players.LocalPlayer.Character
+        
+        local char = game.Players.LocalPlayer.Character
+        if not char:FindFirstChild("entered") and char:FindFirstChild("HumanoidRootPart") then
+            repeat task.wait()
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+            until char:FindFirstChild("entered")
+        end
+        
+        task.wait()
+    end
+end)
+
+task.spawn(function()
 Local Character = game.Players.LocalPlayer.Character
-Character
+Local Glove = workspace:FindFirstChild("slime4444446):FindFirstChildOfClass("Tool")
+
+while true do
+if Character:FindFirstChild("entered") then
+
+Character.PrimaryPart.CFrame = Glove.Glove.CFrame
+
+task.wait(2)
+
+local player = game.Players.LocalPlayer
+if player.Character then
+    player.Character:BreakJoints()
+end
+
+end
+task.wait()
+end
+end)
