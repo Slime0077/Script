@@ -18,7 +18,7 @@ task.spawn(function()
 local Character = game.Players.LocalPlayer.Character
 
 while true do
-if Character:FindFirstChild("entered") then
+if Character:WaitForChild("entered") then
 local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
 
 Character.PrimaryPart.CFrame = Glove.Glove.CFrame
