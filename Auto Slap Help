@@ -15,8 +15,8 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-Local Character = game.Players.LocalPlayer.Character
-Local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
+local Character = game.Players.LocalPlayer.Character
+local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
 
 while true do
 if Character:FindFirstChild("entered") then
