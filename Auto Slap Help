@@ -32,7 +32,7 @@ task.wait(2)
 local Character = game.Players.LocalPlayer.Character
 
 if Character.Humanoid.Health > 0 then
-Character:BreakJoints()
+Character.PrimaryPart.CFrame = workspace.DEATHBARRIER.CFrame
 end
 
 end
