@@ -22,7 +22,7 @@ task.spawn(function()
 while true do
 if CanTeleport then
 local Character = game.Players.LocalPlayer.Character
-local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
+local Glove = workspace:FindFirstChild("Rip_rerenozora"):FindFirstChildOfClass("Tool")
 
 Character.PrimaryPart.CFrame = Glove.Glove.CFrame
 CanTeleport = false
