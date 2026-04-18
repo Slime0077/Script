@@ -20,7 +20,7 @@ end)
 task.spawn(function()
 
 while true do
-if Character:FindFirstChild("entered") and CanTeleport then
+if CanTeleport then
 local Character = game.Players.LocalPlayer.Character
 local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
 
