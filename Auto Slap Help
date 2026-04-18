@@ -29,8 +29,11 @@ CanTeleport = false
 
 task.wait(2)
 
-Character:BreakJoints()
+local Character = game.Players.LocalPlayer.Character
 
+if Character.Humanoid.Health > 0 then
+Character:BreakJoints()
+end
 
 end
 
