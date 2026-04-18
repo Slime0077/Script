@@ -1,3 +1,5 @@
+local CanTeleport = false
+
 task.spawn(function()
     while true do
         repeat task.wait() until game.Players.LocalPlayer.Character
@@ -8,6 +10,7 @@ task.spawn(function()
                 firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
                 firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
             until char:FindFirstChild("entered")
+            CanTeleport = true
         end
         
         task.wait()
@@ -18,19 +21,21 @@ task.spawn(function()
 local Character = game.Players.LocalPlayer.Character
 
 while true do
-if Character:WaitForChild("entered") then
+if Character:FindFirstChild("entered") and CanTeleport = true then
 local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
 
 Character.PrimaryPart.CFrame = Glove.Glove.CFrame
+CanTeleport = false
 
 task.wait(2)
 
-local player = game.Players.LocalPlayer
-if player.Character then
-    player.Character:BreakJoints()
-end
+--Character:BreakJoints()
+
 
 end
+
 task.wait()
+
 end
+
 end)
