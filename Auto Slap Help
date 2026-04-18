@@ -29,7 +29,7 @@ CanTeleport = false
 
 task.wait(2)
 
---Character:BreakJoints()
+Character:BreakJoints()
 
 
 end
