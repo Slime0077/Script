@@ -1,0 +1,150 @@
+-- // АВТОНОМНЫЙ СКРИПТ: ФАРМ МАСТЕРСТВА GLOVEL
+-- // (Для использования в чите, без внешних загрузок)
+
+-- // --- НЕОБХОДИМЫЕ ФУНКЦИИ ИЗ ОСНОВНОГО СКРИПТА ---
+
+-- Функция для безопасного создания инстанций
+local function Create(className, props, children)
+    local obj = Instance.new(className)
+    if props then
+        for k, v in pairs(props) do
+            pcall(function() obj[k] = v end)
+        end
+    end
+    if children then
+        for _, child in ipairs(children) do
+            if typeof(child) == "Instance" then
+                child.Parent = obj
+            end
+        end
+    end
+    return obj
+end
+
+-- Функция для получения текущей экипированной перчатки
+local function CheckGlove()
+    local stats = game.Players.LocalPlayer:FindFirstChild("leaderstats")
+    local gloveStat = stats and stats:FindFirstChild("Glove")
+    return (gloveStat and gloveStat.Value) or "Default"
+end
+
+-- Функция для экипировки перчатки по имени
+local function equipglove(name)
+    local currentGlove = CheckGlove()
+    if currentGlove:lower() ~= name:lower() then
+        -- Экипировка через удалённое событие
+        local remote = game:GetService("ReplicatedStorage"):FindFirstChild("_NETWORK")
+        if remote and remote:FindFirstChild("SelectGlove [STUDIO]") then
+            remote["SelectGlove [STUDIO]"]:FireServer(tostring(name))
+        end
+        -- Клик по стенду в лобби
+        local click = workspace.Lobby:FindFirstChild(name)
+        if click and fireclickdetector then
+            fireclickdetector(click.ClickDetector)
+        end
+    end
+end
+
+-- Таблица с хуками для ударов разными перчатками (если не найдены, используется стандартный)
+local gloveHits = { All = game:GetService("ReplicatedStorage"):FindFirstChild("GeneralHit") }
+
+-- Функция для удара по объекту
+local function slapglove(obj)
+    local current = CheckGlove()
+    local arg
+    if gloveHits[current] then
+        gloveHits[current]:FireServer(obj)
+    elseif gloveHits["All"] then
+        if current:lower() == "glovel" then
+            arg = {obj, true}
+        else
+            arg = {obj}
+        end
+        gloveHits["All"]:FireServer(unpack(arg))
+    end
+end
+
+-- // --- ОСНОВНОЙ ЦИКЛ ФАРМА ---
+
+-- Переменная для остановки (можно установить в false из консоли чита)
+_G.AutoGlovelMastery = true
+
+-- Запускаем фарм в отдельном потоке
+task.spawn(function()
+    -- Дожидаемся появления персонажа
+    repeat task.wait() until game.Players.LocalPlayer.Character
+
+    if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        -- Запоминаем текущую перчатку
+        local Gloveold = CheckGlove()
+
+        -- Экипируем Glovel
+        equipglove("Glovel")
+        
+        -- Небольшая задержка перед началом
+        task.wait(0.5)
+
+        -- Активируем флаг, что фарм запущен
+        -- (предполагается, что функция SpawnFarmMastery(true) просто включает режим)
+        -- Так как её нет в основном скрипте, мы просто полагаемся на _G.AutoGlovelMastery
+
+        -- Ждём, пока игрок зайдёт на арену
+        repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+        task.wait(0.5)
+
+        -- Основной цикл ударов по мобам
+        while _G.AutoGlovelMastery do
+            local character = game.Players.LocalPlayer.Character
+            if not character or not character:FindFirstChild("entered") then break end
+
+            local targetFound = false
+
+            -- Ищем существ с символом "Å" (мобы в игре)
+            for _, v in ipairs(workspace:GetChildren()) do
+                if not _G.AutoGlovelMastery then break end
+                if v.Name:match("Å") and v:FindFirstChild("HumanoidRootPart") then
+                    targetFound = true
+                    -- Бьём моба, пока он не исчезнет
+                    repeat
+                        task.wait()
+                        if v and v:FindFirstChild("HumanoidRootPart") then
+                            slapglove(v.HumanoidRootPart)
+                        end
+                    until not v or not v.Parent or not v:FindFirstChild("HumanoidRootPart") or not _G.AutoGlovelMastery
+                end
+                -- Ищем моба "Imp" с частью "Body"
+                if v.Name == "Imp" and v:FindFirstChild("Body") then
+                    targetFound = true
+                    repeat
+                        task.wait()
+                        if v and v:FindFirstChild("Body") then
+                            slapglove(v.Body)
+                        end
+                    until not v or not v.Parent or not v:FindFirstChild("Body") or not _G.AutoGlovelMastery
+                end
+            end
+
+            -- Если цели не найдены, делаем ресет персонажа (чтобы перезагрузить арену)
+            if not targetFound then
+                local player = game.Players.LocalPlayer
+                local resetRemote = game:GetService("ReplicatedStorage"):FindFirstChild("HumanoidDied")
+                if resetRemote then
+                    resetRemote:FireServer(player.Character, false)
+                else
+                    player.Character:BreakJoints()
+                end
+                -- Ждём респавна и захода на арену
+                repeat task.wait() until player.Character and player.Character:FindFirstChild("entered")
+                task.wait(0.5)
+            end
+            
+            task.wait(0.1)
+        end
+
+        -- После завершения фарма возвращаем старую перчатку
+        equipglove(Gloveold)
+    end
+end)
+
+-- Выводим сообщение о запуске
+print("Auto Glovel Mastery started. Set _G.AutoGlovelMastery = false to stop.")
