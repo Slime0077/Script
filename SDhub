@@ -404,7 +404,7 @@ AddFunction("Mastery", "GlovelMastery1", "Glovel Mastery Dig 250 Times", 2, func
 
 end, Color3.new(1, 0.74902, 0), nil, false)
 
-AddFunction("Mastery", "GlovelMastery", "Glovel Mastery 1000 Crits", 3, function()																--Glovel Mastery 1000 Crits
+AddFunction("Mastery", "GlovelMastery2", "Glovel Mastery 1000 Crits", 3, function()																--Glovel Mastery 1000 Crits
 	
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Glovel%20Mastery%201000%20Crits"))()
 
