@@ -1,0 +1,162 @@
+-- // КОНФИГУРАЦИЯ
+local AUTO_ENTER_DELAY = 0.35
+local GHOST_STALKER_SLAP_REQUIREMENT = 666
+
+-- // НЕОБХОДИМЫЕ ФУНКЦИИ ИЗ ОСНОВНОГО СКРИПТА
+
+-- Функция для безопасного создания инстанций
+local function Create(className, props, children)
+    local obj = Instance.new(className)
+    if props then
+        for k, v in pairs(props) do
+            pcall(function()
+                obj[k] = v
+            end)
+        end
+    end
+    if children then
+        for _, child in ipairs(children) do
+            if typeof(child) == "Instance" then
+                child.Parent = obj
+            end
+        end
+    end
+    return obj
+end
+
+-- Функция для получения количества слэпов игрока
+local function CheckSlap()
+    local stats = game.Players.LocalPlayer:FindFirstChild("leaderstats")
+    local slaps = stats and stats:FindFirstChild("Slaps")
+    return (slaps and tonumber(slaps.Value)) or 0
+end
+
+-- Функция для создания BodyVelocity (используется для заморозки/движения)
+local function CreateFreezeBV(settings)
+    settings = settings or {}
+    local name = settings.Name or "FreezeBV"
+    local velocity = settings.Velocity or Vector3.zero
+    local maxForce = settings.MaxForce or Vector3.new(1e9, 1e9, 1e9)
+
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    if not character then return nil end
+    local hrp = character:FindFirstChild("HumanoidRootPart")
+    if not hrp then return nil end
+
+    local existing = hrp:FindFirstChild(name)
+    if settings.Remove then
+        if existing then existing:Destroy() end
+        return nil
+    end
+
+    if not existing then
+        return Create("BodyVelocity", {
+            Name = name,
+            Parent = hrp,
+            P = 10000,
+            MaxForce = maxForce,
+            Velocity = velocity
+        })
+    end
+    return existing
+end
+
+-- Функция для плавного перемещения (из основного скрипта, используется по желанию)
+local function VectorTween(tweenData)
+    tweenData = tweenData or {}
+    local targetPos = tweenData.Place
+    if not targetPos then return end
+    local speed = tweenData.Speed or 80
+    local player = game.Players.LocalPlayer
+    local char = player.Character or player.CharacterAdded:Wait()
+    local hrp = char:WaitForChild("HumanoidRootPart")
+    local bv = hrp:FindFirstChild("FreezeBV")
+    if not bv then
+        bv = Create("BodyVelocity", {
+            Name = "FreezeBV",
+            P = 10000,
+            MaxForce = Vector3.new(1e9, 1e9, 1e9),
+            Velocity = Vector3.zero,
+            Parent = hrp
+        })
+    end
+    repeat
+        task.wait()
+        local direction = targetPos - hrp.Position
+        local distance = direction.Magnitude
+        if distance > 0 then
+            bv.Velocity = direction.Unit * speed
+        else
+            bv.Velocity = Vector3.zero
+        end
+    until (hrp.Position - targetPos).Magnitude < 5
+    bv.Velocity = Vector3.zero
+    bv:Destroy()
+end
+
+-- // ОСНОВНОЙ ЦИКЛ ВАШЕГО СКРИПТА
+
+task.spawn(function()
+    -- Дожидаемся появления SafeBox (он создаётся основным скриптом)
+    repeat task.wait() until workspace:FindFirstChild("SafeBox")
+
+    while true do
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+        local isOnArena = character and character:FindFirstChild("entered")
+
+        -- 1. Телепорт в SafeBox, если игрок не на арене
+        if not isOnArena and humanoidRootPart then
+            humanoidRootPart.CFrame = workspace.SafeBox.CFrame * CFrame.new(0, 5, 0)
+            task.wait(0.5)
+
+            -- 2. Если достаточно слэпов, получаем перчатки Ghost и Stalker
+            if not character:FindFirstChild("entered") and CheckSlap() >= GHOST_STALKER_SLAP_REQUIREMENT then
+                local lobby = workspace.Lobby
+                if lobby:FindFirstChild("Ghost") then
+                    fireclickdetector(lobby.Ghost.ClickDetector)
+                end
+                game:GetService("ReplicatedStorage").Ghostinvisibilityactivated:FireServer()
+                if lobby:FindFirstChild("Stalker") then
+                    fireclickdetector(lobby.Stalker.ClickDetector)
+                end
+                task.wait(1)
+
+                -- Делаем персонажа видимым
+                for _, part in pairs(character:GetChildren()) do
+                    if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+                        part.Transparency = 0
+                    end
+                end
+            end
+            task.wait(0.2)
+
+            -- 3. Заход на основную арену
+            repeat
+                task.wait()
+                local head = character:FindFirstChild("Head")
+                local touchInterest = workspace.Lobby.Teleport1.TouchInterest
+                if head and touchInterest and touchInterest.Parent then
+                    firetouchinterest(head, touchInterest.Parent, 0)
+                    firetouchinterest(head, touchInterest.Parent, 1)
+                end
+            until character:FindFirstChild("entered")
+        end
+
+        task.wait(AUTO_ENTER_DELAY)
+
+        -- 4. Повторная безопасная телепортация
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            character.HumanoidRootPart.CFrame = workspace.SafeBox.CFrame * CFrame.new(0, 5, 0)
+        end
+
+        -- 5. Убираем перчатку Stalker в рюкзак, если она на персонаже
+        if character and character:FindFirstChild("Stalker") then
+            character.Stalker.Parent = player.Backpack
+        end
+
+        task.wait()
+    end
+end)
