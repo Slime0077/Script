@@ -376,3 +376,36 @@ AddFunction("Teleport", "TeleportToPlunger", "Teleport To Plunger", 3, function(
 	fireclickdetector(Plunger2ClickDetector)
 
 end, Color3.new(0.941176, 0.313725, 0.313725), nil, false)
+
+
+
+AddSection("Mastery", "Mastery", 4)																--Mastery Section
+task.wait(0.25)
+AddFunction("Mastery", "StalkerMastery", "Stalker Mastery", 1, function()																--Stalker Mastery
+	
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Stalker%20Mastery"))()
+	
+end, Color3.new(0.313725, 0.313725, 0.313725), nil, false)
+
+AddFunction("Mastery", "GlovelMastery1", "Glovel Mastery Dig 250 Times", 2, function()																--Glovel Mastery Dig 250 Times
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+	wait(0.3)
+	for i = 1, 400 do
+		spawn(function()
+			game:GetService("ReplicatedStorage").GlovelFunc:InvokeServer()
+		end)
+		task.wait(0.05)
+	end
+	wait(0.4)
+	game:GetService("ReplicatedStorage").GlovelCancel:FireServer()
+	wait(0.8)
+
+
+
+end, Color3.new(1, 0.74902, 0), nil, false)
+
+AddFunction("Mastery", "GlovelMastery", "Glovel Mastery 1000 Crits", 3, function()																--Glovel Mastery 1000 Crits
+	
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Glovel%20Mastery%201000%20Crits"))()
+
+end, Color3.new(1, 0.74902, 0), nil, false)
