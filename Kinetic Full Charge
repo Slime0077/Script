@@ -20,5 +20,6 @@ Button.Activated:Connect(function()
 local Bar = Player.PlayerGui.KineticUI.Kinetic.Bar
 repeat
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
+task.wait()
 until Bar.Size == UDim2.new(1, 0, 1, 0)
 end)
