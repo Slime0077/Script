@@ -1,0 +1,54 @@
+local Player = game.Players.LocalPlayer
+
+local SG = Instance.new("ScreenGui")
+SG.Parent = Player.PlayerGui
+SG.Name = "KineticFullCharge"
+SG.IgnoreGuiInset = true
+SG.ResetOnSpawn = false
+
+local Notification = Instance.new("TextButton")
+Notification.Parent = SG
+Notification.Name = "FullChargeButton"
+Notification.Size = UDim2.new(0.1, 0, 0.075, 0)
+Notification.Position = UDim2.new(0.6, 0, 0, 0)
+Notification.BackgroundColor3 = Color3.new(0, 0, 1)
+Notification.Text = "Stun: 0"
+Notification.TextScaled = true
+Notification.TextColor3 = Color3.new(1, 1, 1)
+Notification.Font = Enum.Font.FredokaOne
+
+Button.Activated:Connect(function()
+local Bar = Player.PlayerGui.KineticUI.Kinetic.Bar
+repeat
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
+task.wait()
+until Bar.Size == UDim2.new(1, 0, 1, 0)
+end)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+repeat task.wait()
+game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
+until game.Players.LocalPlayer.Character:WaitForChild("KineticSlappedBadgeCounter").Value >= 100
+wait(1.5)
+repeat
+if game.Players.LocalPlayer.Character.Humanoid.Health == 0 or game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then break end
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Stun") then
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Stun)
+end
+wait(0.1)
+local players = game.Players:GetChildren()
+local RandomPlayer = players[math.random(1, #players)]
+repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character.Humanoid.Health ~= 0
+Target = RandomPlayer
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,-20,0)
+wait(0.25)
+game.ReplicatedStorage.StunR:FireServer(game.Players.LocalPlayer.Character.Stun)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(0.5)
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") then
+Notification.Text = "Stun: " .. game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value
+end
+wait(12.3)
+until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
+else
+
+end
