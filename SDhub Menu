@@ -79,25 +79,64 @@ ST.TextXAlignment = Enum.TextXAlignment.Center
 ST.TextYAlignment = Enum.TextYAlignment.Center
 ST.Visible = false
 
-local FL = Instance.new("TextButton")
-FL.Parent = TemplateFolder
-FL.Name = "FunctionTemplate"
-FL.Text = "Function"
-FL.Size = UDim2.new(1, 0, 0, 25)
-FL.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
-FL.TextColor3 = Color3.new(1, 1, 1)
-FL.TextScaled = true
-FL.Font = Enum.Font.FredokaOne
-FL.TextXAlignment = Enum.TextXAlignment.Left
-FL.TextYAlignment = Enum.TextYAlignment.Center
-FL.Visible = false
+local FT = Instance.new("TextButton")
+FT.Parent = TemplateFolder
+FT.Name = "FunctionTemplate"
+FT.Text = "Function"
+FT.Size = UDim2.new(1, 0, 0, 25)
+FT.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+FT.TextColor3 = Color3.new(1, 1, 1)
+FT.TextScaled = true
+FT.Font = Enum.Font.FredokaOne
+FT.TextXAlignment = Enum.TextXAlignment.Left
+FT.TextYAlignment = Enum.TextYAlignment.Center
+FT.Visible = false
+
+local BFT = Instance.new("TextButton")
+BFT.Parent = TemplateFolder
+BFT.Name = "BoolFunctionTemplate"
+BFT.Text = "Bool Function"
+BFT.Size = UDim2.new(1, 0, 0.1, 0)
+BFT.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+BFT.TextColor3 = Color3.new(1, 1, 1)
+BFT.TextScaled = true
+BFT.Font = Enum.Font.FredokaOne
+BFT.TextXAlignment = Enum.TextXAlignment.Left
+BFT.TextYAlignment = Enum.TextYAlignment.Center
+BFT.Visible = false
+
+local BFT_Switch = Instance.new("TextButton")
+BFT_Switch.Parent = BFT
+BFT_Switch.Name = "BoolFunctionSwitch"
+BFT_Switch.Text = ""
+BFT_Switch.Size = UDim2.new(0.125, 0, 0.5, 0)
+BFT_Switch.Position = UDim2.new(0.725, 0, 0.25, 0)
+BFT_Switch.BackgroundColor3 = Color3.new(0, 0, 0)
+BFT_Switch.Visible = true
+
+local BFT_SwitchOnOff = Instance.new("TextButton")
+BFT_SwitchOnOff.Parent = BFT_Switch
+BFT_SwitchOnOff.Name = "BoolFunctionSwitchOnOff"
+BFT_SwitchOnOff.Text = ""
+BFT_SwitchOnOff.Size = UDim2.new(0.5, 0, 1, 0)
+BFT_SwitchOnOff.Position = UDim2.new(0, 0, 0, 0)
+BFT_SwitchOnOff.BackgroundColor3 = Color3.new(1, 0, 0)
+BFT_SwitchOnOff.Visible = true
+
+local BFT_UI_Corner = Instance.new("UICorner")
+BFT_UI_Corner.Parent = BFT_Switch
+BFT_UI_Corner.CornerRadius = UDim.new(1, 0)
+
+local BFT_UI_Corner = Instance.new("UICorner")
+BFT_UI_Corner.Parent = BFT_SwitchOnOff
+BFT_UI_Corner.CornerRadius = UDim.new(1, 0)
 
 local OpenButton = Instance.new("ImageButton")
 OpenButton.Parent = Gui
 OpenButton.Name = "OpenMenuButton"
 OpenButton.Size = UDim2.new(0.057, 0,0.119, 0)
 OpenButton.Position = UDim2.new(0.076, 0,0.158, 0)
-OpenButton.Image = "rbxassetid://110093699666861"
+OpenButton.Image = ""
 
 OpenButton.Activated:Connect(function()
 	MainBg.Visible = not MainBg.Visible
