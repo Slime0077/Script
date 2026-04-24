@@ -332,6 +332,25 @@ AddFunction("Badges", "GetGloveKinetic", "Get Glove Kinetic", 11, function()				
 	
 end, Color3.new(0, 0.333333, 1), nil, false)
 
+AddFunctionBool("Badges", "GetGloveTrap", "Get Glove Trap", 12, function(On_Off)																--Trap
+	
+	local function Brick()
+		game:GetService("ReplicatedStorage").lbrick:FireServer()
+	end
+
+	while On_Off do
+
+		if game.Players.LocalPlayer.Character:FindFirstChild("Brick") then
+			Brick()
+		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Brick") then
+			game.Players.LocalPlayer.Backpack:FindFirstChild("Brick").Parent = game.Players.LocalPlayer.Character
+			Brick()
+		end
+		task.wait()
+	end
+
+end, Color3.new(0.294118, 0.294118, 0.294118), nil, false)
+
 AddSection("Main", "Main", 1)																--Main Section
 task.wait(0.25)
 AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
