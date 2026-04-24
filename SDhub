@@ -82,6 +82,72 @@ end
 
 
 
+local function AddFunctionBool(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("BoolFunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		task.spawn(function()
+			local TweenService = game:GetService("TweenService")
+			
+			local TweenSettings = TweenInfo.new(
+				0.05, -- Время анимации (секунды)
+				Enum.EasingStyle.Linear -- Стиль изменения (Linear, Quad, Elastic, Bounce и т.д.)
+			)
+			
+			local TargetProperties
+			
+			local SwitchOnOff = NewFunction.BoolFunctionSwitch.BoolFunctionSwitchOnOff
+			local On_Off
+			if SwitchOnOff.BackgroundColor3 == Color3.new(1, 0, 0) then
+				On_Off = true
+				
+				TargetProperties = {
+					Position = UDim2.new(0.5, 0, 0, 0), -- Новая позиция
+					nil, -- Новый размер
+					BackgroundColor3 = Color3.new(0, 1, 0) -- Новый цвет (для Part с Material)
+				}
+				
+			elseif SwitchOnOff.BackgroundColor3 == Color3.new(0, 1, 0) then
+				On_Off = false
+				
+				TargetProperties = {
+					Position = UDim2.new(0, 0, 0, 0), -- Новая позиция
+					--nil, -- Новый размер
+					BackgroundColor3 = Color3.new(1, 0, 0) -- Новый цвет (для Part с Material)
+				}
+				
+			else
+				return
+			end
+			
+			local Tween = TweenService:Create(SwitchOnOff, TweenSettings, TargetProperties)
+
+			-- Запускаем анимацию
+			Tween:Play()
+
+			
+			Script(On_Off)
+		end)
+	end)
+end
+
+
+
 AddSection("Badges", "Badges", 2)																--Badges Section
 task.wait(0.25)
 AddFunction("Badges", "GetGloveFrostBite", "Get Glove FrostBite", 1, function()																--FrostBite
