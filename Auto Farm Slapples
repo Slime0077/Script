@@ -29,6 +29,38 @@ task.spawn(function()
 end)
 
 task.spawn(function()
+    while task.wait() do
+        local character = game.Players.LocalPlayer.Character
+        local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+        local entered = character and character:FindFirstChild("entered")
+        
+        if humanoidRootPart and entered then
+            for i, v in pairs(game.Workspace:GetChildren()) do
+                -- Проверка на ЛЮБЫЕ орбы
+                local isOrb = false
+                
+                if v.Name == "JetOrb" or 
+                   v.Name == "PhaseOrb" or 
+                   v.Name == "MATERIALIZEOrb" or 
+                   v.Name == "SiphonOrb" or
+                   (v.Name:find("Orb") and v:FindFirstChild("Attachment") and v.Attachment:FindFirstChild("OrbGlitchEffect")) then
+                    isOrb = true
+                end
+                
+                if isOrb then
+                    local CFOld = humanoidRootPart.CFrame
+                    humanoidRootPart.CFrame = v.CFrame
+                    task.wait(0.37)
+                    humanoidRootPart.CFrame = CFOld
+                    task.wait(0.7)
+                end
+            end
+        end
+        task.wait()
+    end
+end)
+
+task.spawn(function()
     while true do
         repeat task.wait() until game.Players.LocalPlayer.Character
         
