@@ -2,7 +2,6 @@ ExperiencePlaceId = 79885102123162
 
 ExperiencePlaceId = ExperiencePlaceId or 79885102123162 
 
-game.StarterGui:SetCore("SendNotification", {Title = "Credit", Text = "Script made by DonjoSx", Duration = 10})
 if game.PlaceId ~= 79885102123162 then
 	game:GetService("TeleportService"):Teleport(79885102123162)
 	fireclickdetector(game:GetService("Workspace").FindTheGlovesTeleport["Display Island"]["GLASS DOME"].ClickDetector)
