@@ -79,6 +79,8 @@ end)
 task.wait(1)
 
 task.spawn(function()
+while true do
+
     local HttpService = game:GetService("HttpService")
     local TeleportService = game:GetService("TeleportService")
     local placeId = game.PlaceId
@@ -108,4 +110,8 @@ task.spawn(function()
     else
         warn("Server Hop: Не найдено подходящих серверов")
     end
+
+task.wait(4)
+
+end
 end)
