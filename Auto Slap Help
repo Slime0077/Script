@@ -1,4 +1,4 @@
-local CanTeleport = false
+4local CanTeleport = false
 
 task.spawn(function()
     while true do
