@@ -2,28 +2,21 @@ local Player = game.Players.LocalPlayer
 
 local SG = Instance.new("ScreenGui")
 SG.Parent = Player.PlayerGui
-SG.Name = "KineticFullCharge"
+SG.Name = "GetGloveKineticGui"
 SG.IgnoreGuiInset = true
 SG.ResetOnSpawn = false
 
-local Notification = Instance.new("TextButton")
+local Notification = Instance.new("TextLabel")
 Notification.Parent = SG
-Notification.Name = "FullChargeButton"
+Notification.Name = "StunsValue"
 Notification.Size = UDim2.new(0.1, 0, 0.075, 0)
 Notification.Position = UDim2.new(0.6, 0, 0, 0)
 Notification.BackgroundColor3 = Color3.new(0, 0, 1)
-Notification.Text = "Stun: 0"
+Notification.Text = "Stun 0 / 50"
 Notification.TextScaled = true
 Notification.TextColor3 = Color3.new(1, 1, 1)
 Notification.Font = Enum.Font.FredokaOne
 
-Button.Activated:Connect(function()
-local Bar = Player.PlayerGui.KineticUI.Kinetic.Bar
-repeat
-game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
-task.wait()
-until Bar.Size == UDim2.new(1, 0, 1, 0)
-end)
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 repeat task.wait()
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
@@ -45,10 +38,10 @@ game.ReplicatedStorage.StunR:FireServer(game.Players.LocalPlayer.Character.Stun)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(0.5)
 if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") then
-Notification.Text = "Stun: " .. game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value
+Notification.Text = "Stun " .. game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value .. " / 50"
 end
 wait(12.3)
 until game.Players.LocalPlayer.Character:FindFirstChild("EMPStunBadgeCounter") and game.Players.LocalPlayer.Character.EMPStunBadgeCounter.Value >= 50
 else
-
+print("Ошибка")
 end
