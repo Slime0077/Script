@@ -28,6 +28,20 @@ task.spawn(function()
     end
 end)
 
+-- Автофарм Candy Corns (без GUI)
+task.spawn(function()
+while true do
+for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Head") and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
+                end
+            end
+task.wait()
+end
+end)
+
+-- Автофарм Orbs (без GUI)
 task.spawn(function()
     while task.wait() do
         local character = game.Players.LocalPlayer.Character
