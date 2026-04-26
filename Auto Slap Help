@@ -22,17 +22,20 @@ task.spawn(function()
 while true do
 if CanTeleport then
 local Character = game.Players.LocalPlayer.Character
-local Glove = workspace:FindFirstChild("slime4444445"):FindFirstChildOfClass("Tool")
+local Glove = workspace:FindFirstChild(TargetPlayerHelp):FindFirstChildOfClass("Tool")
 
 Character.PrimaryPart.CFrame = Glove.Glove.CFrame
 CanTeleport = false
 
 task.wait(2)
 
+if KillHelp == true then
 local Character = game.Players.LocalPlayer.Character
 
 if Character.Humanoid.Health > 0 then
 Character.PrimaryPart.CFrame = workspace.DEATHBARRIER.CFrame
+end
+
 end
 
 end
