@@ -25,17 +25,22 @@ local Character = game.Players.LocalPlayer.Character
 local Glove = workspace:FindFirstChild("SlimeDevelopment246"):FindFirstChildOfClass("Tool")
 
 Character.PrimaryPart.CFrame = Glove.Glove.CFrame
-CanTeleport = false
+
+if Glove.Name == "KillStreak" then
 
 task.wait(2)
 
-if Glove == "KillStreak then
 local Character = game.Players.LocalPlayer.Character
 
 if Character.Humanoid.Health > 0 then
 Character.PrimaryPart.CFrame = workspace.DEATHBARRIER.CFrame
+CanTeleport = false
 end
 
+end
+
+if Character.Humanoid.Health > 0 then
+CanTeleport = false
 end
 
 end
