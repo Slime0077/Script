@@ -41,6 +41,49 @@ task.wait()
 end
 end)
 
+-- Авто Глитч Орб (без GUI)
+task.spawn(function()
+
+    local CheckBadge = function(BadgeId)
+    local s, r = pcall(function()
+        return game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, BadgeId)
+    end)
+    return s and r or false
+end
+
+while true do
+local function Error()
+        if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+        return true
+        end
+        if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 50000 then
+
+        fireclickdetector(workspace.Lobby.Error:FindFirstChildOfClass("ClickDetector"))
+
+        return true
+        end
+
+return false
+
+end
+
+-- Использование:
+if CheckBadge(2124930374)then
+if Error() then
+    if game.Workspace:FindFirstChild("JetOrb") or game.Workspace:FindFirstChild("PhaseOrb") then
+        for i,v in pairs(game.Workspace:GetChildren()) do
+            if v.Name == "JetOrb" then --or v.Name == "PhaseOrb"
+                game.ReplicatedStorage.Errorhit:FireServer(v)
+            end
+        end
+    end
+end
+
+end
+    task.wait()
+end
+end)
+
 -- Автофарм Orbs (без GUI)
 task.spawn(function()
     while task.wait() do
