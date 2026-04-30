@@ -1,3 +1,15 @@
+-- Anti Kick (без GUI)
+task.spawn(function()
+while true do
+for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
+    if v.Name == "ErrorPrompt" then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+    end
+end
+task.wait()
+end
+end)
+
 -- Автофарм Slapples (без GUI)
 task.spawn(function()
     local SlappleFarm = true  -- Поставьте false, чтобы остановить фарм
