@@ -1,4 +1,4 @@
-4local CanTeleport = false
+local CanTeleport = false
 
 task.spawn(function()
     while true do
@@ -22,11 +22,11 @@ task.spawn(function()
 while true do
 if CanTeleport then
 local Character = game.Players.LocalPlayer.Character
-local Glove = workspace:FindFirstChild("SlimeDevelopment246"):FindFirstChildOfClass("Tool")
+local Glove = workspace:FindFirstChild("djdalpoip"):FindFirstChildOfClass("Tool")
 
 Character.PrimaryPart.CFrame = Glove.Glove.CFrame
 
-if Glove.Name == "KillStreak" then
+if Glove.Name == "KillStreak" or Glove.Name == "Rage" then
 
 task.wait(2)
 
