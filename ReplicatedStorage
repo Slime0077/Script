@@ -1,0 +1,316 @@
+-- Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local GuiService = game:GetService("GuiService")
+
+-- Variables
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Создание GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ExplorerGUI"
+screenGui.Parent = playerGui
+
+-- Создание главной кнопки (фиксированная позиция под меню Roblox)
+local mainButton = Instance.new("TextButton")
+mainButton.Name = "ExplorerButton"
+mainButton.Size = UDim2.new(0, 60, 0, 60)
+mainButton.Position = UDim2.new(0.5, -30, 0, 10) -- Посередине сверху
+mainButton.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+mainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+mainButton.Text = "📁"
+mainButton.Font = Enum.Font.SourceSansBold
+mainButton.TextSize = 20
+mainButton.BorderSizePixel = 0
+mainButton.ZIndex = 5
+mainButton.Draggable = true
+
+-- Закругление кнопки
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0.2, 0)
+uiCorner.Parent = mainButton
+
+-- Тень кнопки
+local uiShadow = Instance.new("UIStroke")
+uiShadow.Color = Color3.fromRGB(0, 0, 0)
+uiShadow.Thickness = 2
+uiShadow.Parent = mainButton
+
+mainButton.Parent = screenGui
+
+-- Создание основного меню (оптимизировано для телефона)
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0.9, 0, 0.8, 0) -- Адаптивный размер
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+mainFrame.BorderSizePixel = 0
+mainFrame.Visible = false
+mainFrame.ZIndex = 10
+mainFrame.Parent = screenGui
+
+-- Закругление меню
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0.03, 0)
+frameCorner.Parent = mainFrame
+
+-- Заголовок меню
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.Size = UDim2.new(1, 0, 0, 50) -- Выше для удобного касания
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Text = "Explorer - ReplicatedStorage"
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 16 -- Меньше для телефона
+title.ZIndex = 11
+title.Parent = mainFrame
+
+-- Закругление заголовка
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0.03, 0)
+titleCorner.Parent = title
+
+-- Кнопка закрытия (больше для телефона)
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 40, 0, 40) -- Больше для касания
+closeButton.Position = UDim2.new(1, -45, 0, 5)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Text = "X"
+closeButton.Font = Enum.Font.SourceSansBold
+closeButton.TextSize = 18
+closeButton.ZIndex = 12
+closeButton.Parent = mainFrame
+
+-- Закругление кнопки закрытия
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0.5, 0)
+closeCorner.Parent = closeButton
+
+-- Контейнер для списка объектов
+local contentFrame = Instance.new("ScrollingFrame")
+contentFrame.Name = "ContentFrame"
+contentFrame.Size = UDim2.new(1, -10, 1, -60)
+contentFrame.Position = UDim2.new(0, 5, 0, 55)
+contentFrame.BackgroundTransparency = 1
+contentFrame.ScrollBarThickness = 8 -- Толще для телефона
+contentFrame.ZIndex = 11
+contentFrame.CanvasSize = UDim2.new(0, 0, 0, 100000) 
+contentFrame.Parent = mainFrame
+
+-- Layout для контента
+local uiListLayout = Instance.new("UIListLayout")
+uiListLayout.Parent = contentFrame
+uiListLayout.Padding = UDim.new(0, 8) -- Больше отступов для телефона
+
+-- Стек для отслеживания открытых папок
+local folderStack = {}
+
+-- Функция для создания элемента объекта (оптимизирована для телефона)
+local function createObjectElement(object, parentFrame, depth)
+    depth = depth or 0
+    local padding = depth * 25 -- Больше отступ для вложенности
+    
+    local objectFrame = Instance.new("Frame")
+    objectFrame.Name = object.Name
+    objectFrame.Size = UDim2.new(1, 0, 0, 40) -- Выше для удобного касания
+    objectFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    objectFrame.BackgroundTransparency = 0.3
+    objectFrame.BorderSizePixel = 0
+    objectFrame.ZIndex = 12
+
+    -- Закругление элемента
+    local elementCorner = Instance.new("UICorner")
+    elementCorner.CornerRadius = UDim.new(0.02, 0)
+    elementCorner.Parent = objectFrame
+
+    -- Отступ для вложенности
+    local paddingFrame = Instance.new("Frame")
+    paddingFrame.Size = UDim2.new(0, padding, 1, 0)
+    paddingFrame.BackgroundTransparency = 1
+    paddingFrame.Parent = objectFrame
+
+    -- Иконка в зависимости от типа объекта
+    local icon = "📄"
+    if object:IsA("Folder") then
+        icon = "📁"
+    elseif object:IsA("Script") then
+        icon = "📜"
+    elseif object:IsA("LocalScript") then
+        icon = "💻"
+    elseif object:IsA("ModuleScript") then
+        icon = "📦"
+    elseif object:IsA("StringValue") or object:IsA("IntValue") or object:IsA("BoolValue") then
+        icon = "🔤"
+    elseif object:IsA("ObjectValue") then
+        icon = "🔗"
+    end
+
+    local nameLabel = Instance.new("TextButton")
+    nameLabel.Name = "NameLabel"
+    nameLabel.Size = UDim2.new(1, -padding, 1, 0)
+    nameLabel.Position = UDim2.new(0, padding, 0, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    nameLabel.Text = icon .. " " .. object.Name
+    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+    nameLabel.Font = Enum.Font.SourceSans
+    nameLabel.TextSize = 14 -- Меньше для телефона
+    nameLabel.ZIndex = 13
+    nameLabel.Parent = objectFrame
+
+    -- Информация о типе объекта
+    local typeLabel = Instance.new("TextLabel")
+    typeLabel.Name = "TypeLabel"
+    typeLabel.Size = UDim2.new(0.4, 0, 0, 15)
+    typeLabel.Position = UDim2.new(0.6, 0, 0.7, 0)
+    typeLabel.BackgroundTransparency = 1
+    typeLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    typeLabel.Text = object.ClassName
+    typeLabel.TextXAlignment = Enum.TextXAlignment.Right
+    typeLabel.Font = Enum.Font.SourceSans
+    typeLabel.TextSize = 10
+    typeLabel.ZIndex = 13
+    typeLabel.Parent = objectFrame
+
+    -- Обработка клика для папок
+    if object:IsA("Folder") then
+        nameLabel.MouseButton1Click:Connect(function()
+            -- Добавляем текущую папку в стек
+            table.insert(folderStack, {
+                folder = object,
+                parent = parentFrame,
+                depth = depth
+            })
+            
+            -- Очищаем контент
+            for _, child in ipairs(contentFrame:GetChildren()) do
+                if child:IsA("Frame") then
+                    child:Destroy()
+                end
+            end
+            
+            -- Обновляем заголовок
+            title.Text = "Explorer - " .. object:GetFullName()
+            
+            -- Показываем содержимое папки
+            for _, child in ipairs(object:GetChildren()) do
+                createObjectElement(child, contentFrame, depth + 1)
+            end
+            
+            -- Добавляем кнопку "Назад" если это не корневая папка
+            if depth > 0 then
+                local backFrame = Instance.new("Frame")
+                backFrame.Size = UDim2.new(1, 0, 0, 40)
+                backFrame.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+                backFrame.ZIndex = 12
+                
+                local backCorner = Instance.new("UICorner")
+                backCorner.CornerRadius = UDim.new(0.02, 0)
+                backCorner.Parent = backFrame
+                
+                local backButton = Instance.new("TextButton")
+                backButton.Size = UDim2.new(1, 0, 1, 0)
+                backButton.BackgroundTransparency = 1
+                backButton.TextColor3 = Color3.fromRGB(200, 200, 255)
+                backButton.Text = "← Назад к " .. folderStack[#folderStack - 1].folder.Name
+                backButton.TextXAlignment = Enum.TextXAlignment.Left
+                backButton.Font = Enum.Font.SourceSansBold
+                backButton.TextSize = 14
+                backButton.ZIndex = 13
+                backButton.Parent = backFrame
+                
+                backButton.MouseButton1Click:Connect(function()
+                    -- Возвращаемся к предыдущей папке
+                    local previous = table.remove(folderStack)
+                    if previous and #folderStack > 0 then
+                        local prevFolder = folderStack[#folderStack]
+                        
+                        -- Очищаем контент
+                        for _, child in ipairs(contentFrame:GetChildren()) do
+                            if child:IsA("Frame") then
+                                child:Destroy()
+                            end
+                        end
+                        
+                        -- Восстанавливаем предыдущее состояние
+                        title.Text = "Explorer - " .. prevFolder.folder:GetFullName()
+                        for _, child in ipairs(prevFolder.folder:GetChildren()) do
+                            createObjectElement(child, contentFrame, prevFolder.depth + 1)
+                        end
+                    else
+                        -- Возврат к корневой папке
+                        openExplorer()
+                    end
+                end)
+                
+                backFrame.Parent = contentFrame
+            end
+        end)
+    end
+
+    objectFrame.Parent = parentFrame
+end
+
+-- Функция для открытия проводника с ReplicatedStorage
+local function openExplorer()
+    mainFrame.Visible = true
+    
+    -- Очищаем стек папок
+    folderStack = {}
+    
+    -- Очищаем контент
+    for _, child in ipairs(contentFrame:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+    
+    -- Устанавливаем заголовок
+    title.Text = "Explorer - ReplicatedStorage"
+    
+    -- Показываем содержимое ReplicatedStorage
+    for _, child in ipairs(ReplicatedStorage:GetChildren()) do
+        createObjectElement(child, contentFrame, 0)
+    end
+end
+
+-- Функция для закрытия проводника
+local function closeExplorer()
+    mainFrame.Visible = false
+    folderStack = {}
+end
+
+-- Обработчик для главной кнопки
+mainButton.MouseButton1Click:Connect(openExplorer)
+
+-- Обработчик для кнопки закрытия
+closeButton.MouseButton1Click:Connect(closeExplorer)
+
+-- Адаптация под изменения размера экрана
+local function updateLayout()
+    local screenSize = screenGui.AbsoluteSize
+    
+    -- Адаптируем размеры для телефона
+    if screenSize.Y < 700 then
+        mainFrame.Size = UDim2.new(0.95, 0, 0.85, 0)
+        mainButton.Size = UDim2.new(0, 50, 0, 50)
+        mainButton.Position = UDim2.new(0.5, -25, 0, 5)
+    else
+        mainFrame.Size = UDim2.new(0.9, 0, 0.8, 0)
+        mainButton.Size = UDim2.new(0, 60, 0, 60)
+        mainButton.Position = UDim2.new(0.5, -30, 0, 10)
+    end
+end
+
+-- Обновляем layout при изменении размера экрана
+screenGui:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateLayout)
+updateLayout()
+
+print("Оптимизированный проводник для телефона загружен!")
