@@ -23,11 +23,11 @@ TP.Material = Enum.Material.Neon
 TP.Transparency = 0.8
 TP.Parent = workspace
 TP.Name = "TP_Part"
-TP.Position = game.Players.LocalPlayer.Character.Primarypart.Position
+TP.Position = game.Players.LocalPlayer.Character.PrimaryPart.Position
 
 task.spawn(function()
 white true do
-game.Players.LocalPlayer.Character.Primarypart.CFrame = TP.CFrame
+game.Players.LocalPlayer.Character.PrimaryPart.CFrame = TP.CFrame
 task.wait()
 end
 end)
