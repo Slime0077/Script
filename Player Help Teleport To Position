@@ -1,0 +1,33 @@
+task.spawn(function()
+    while true do
+        repeat task.wait() until game.Players.LocalPlayer.Character
+        
+        local char = game.Players.LocalPlayer.Character
+        if not char:FindFirstChild("entered") and char:FindFirstChild("HumanoidRootPart") then
+            repeat task.wait()
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+            until char:FindFirstChild("entered")
+        end
+        
+        task.wait()
+    end
+end)
+
+local TP = Instance.new("Part")
+TP.Anchored = true
+TP.CanCollige = false
+TP.Size = Vector3.new(1, 1, 1)
+TP.Color = Color3.new(1, 0, 0)
+TP.Material = Enum.Material.Neon
+TP.Transparency = 0.8
+TP.Parent = workspace
+TP.Name = "TP_Part"
+TP.Position = game.Players.LocalPlayer.Character.Primarypart.Position
+
+task.spawn(function()
+white true do
+game.Players.LocalPlayer.Character.Primarypart.CFrame = TP.CFrame
+task.wait()
+end
+end)
