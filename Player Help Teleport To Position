@@ -16,7 +16,7 @@ end)
 
 local TP = Instance.new("Part")
 TP.Anchored = true
-TP.CanCollige = false
+TP.CanCollide = false
 TP.Size = Vector3.new(1, 1, 1)
 TP.Color = Color3.new(1, 0, 0)
 TP.Material = Enum.Material.Neon
@@ -26,7 +26,7 @@ TP.Name = "TP_Part"
 TP.Position = game.Players.LocalPlayer.Character.PrimaryPart.Position
 
 task.spawn(function()
-white true do
+while true do
 game.Players.LocalPlayer.Character.PrimaryPart.CFrame = TP.CFrame
 task.wait()
 end
