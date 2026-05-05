@@ -1,0 +1,114 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local runService = game:GetService("RunService")
+
+-- Функция проверки на земле
+local function isOnGround(character)
+    local humanoid = character and character:FindFirstChildWhichIsA("Humanoid")
+    if not humanoid then return false end
+    
+    local state = humanoid:GetState()
+    return state == Enum.HumanoidStateType.Landed or 
+           state == Enum.HumanoidStateType.Running or
+           state == Enum.HumanoidStateType.StrafingNoPhysics or
+           state == Enum.HumanoidStateType.PlatformStanding
+end
+
+-- Функция телепортации за спину цели
+local function teleportBehindPlayer(target, targetHRP, playerHRP)
+    if not target or not target.Character then return false end
+    
+    local targetHRP = targetHRP or target.Character:FindFirstChild("HumanoidRootPart")
+    if not targetHRP then return false end
+    
+    if not isOnGround(target.Character) then
+        print("Целевой игрок в воздухе! Пропускаем...")
+        return false
+    end
+    
+    local targetCFrame = targetHRP.CFrame
+    local behindPosition = targetCFrame.Position - targetCFrame.LookVector * 3
+    local lookAtTarget = CFrame.lookAt(behindPosition, targetHRP.Position)
+    
+    playerHRP.CFrame = lookAtTarget
+    return true
+end
+
+-- Функция возврата на исходную позицию
+local function returnToStartPosition(playerHRP, startPosition, startCFrame)
+    if playerHRP then
+        playerHRP.CFrame = startCFrame
+        print("Вернулся на исходную позицию")
+    end
+end
+
+-- Основная функция
+local function startTeleportCycle()
+    -- Ждём появления персонажа
+    repeat task.wait() until player.Character
+    
+    local playerChar = player.Character
+    local playerHRP = playerChar:FindFirstChild("HumanoidRootPart")
+    
+    if not playerHRP then
+        print("HumanoidRootPart не найден!")
+        return
+    end
+    
+    -- Сохраняем исходную позицию и CFrame
+    local startPosition = playerHRP.Position
+    local startCFrame = playerHRP.CFrame
+    print("Исходная позиция сохранена: " .. tostring(startPosition))
+    
+    -- Бесконечный цикл
+    while true do
+        -- Получаем всех игроков, кроме себя
+        local otherPlayers = {}
+        for _, p in ipairs(Players:GetPlayers()) do
+            if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                table.insert(otherPlayers, p)
+            end
+        end
+
+        --Tinkerer Ability
+        game:GetService("ReplicatedStorage").GeneralAbility:FireServer("E_ABILITY")
+
+        task.wait(1.8)
+        
+        if #otherPlayers > 0 then
+            -- Выбираем случайного игрока
+            local randomTarget = otherPlayers[math.random(1, #otherPlayers)]
+            print("Выбран случайный игрок: " .. randomTarget.Name)
+            
+            -- Телепортируем за спину
+            local success = teleportBehindPlayer(randomTarget, nil, playerHRP)
+            
+            if success then
+                print("Телепортирован за " .. randomTarget.Name)
+                
+                -- Ждём 1 секунду
+                task.wait(1)
+                
+                -- Возвращаем на исходную позицию
+                returnToStartPosition(playerHRP, startPosition, startCFrame)
+            else
+                print("Не удалось телепортироваться, ждём...")
+            end
+        else
+            print("Нет других игроков для телепортации")
+        end
+        
+        -- Ждём 1 секунду перед следующим циклом
+        task.wait(1.5)
+    end
+end
+
+-- Запускаем цикл
+startTeleportCycle()
+
+
+
+
+
+
+
