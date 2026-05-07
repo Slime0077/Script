@@ -16,21 +16,15 @@ for _, v in pairs(workspace.Troops:GetChildren()) do
         if TroopMaxLevelValue then
             if v.TroopLevel.Value < TroopMaxLevelValue then
             return v
-        else
-            continue
         end
         else
 
         if v.TroopLevel.Value == TroopLevelValue then
             return v
-        else
-            continue
         end
 
         end
         
-    else
-        continue
     end
 end
 
