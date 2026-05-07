@@ -8,15 +8,27 @@ local Units = {
 
 
 
-local function FindTroop(TroopName, TroopLevelValue)        -FindTroop Function
+local function FindTroop(TroopName, TroopLevelValue, TroopMaxLevelValue)        -FindTroop Function
 
 for _, v in pairs(workspace.Troops:GetChildren()) do
     if v.Name == TroopName then
+        
+        if TroopMaxLevelValue then
+            if v.TroopLevel.Value < TroopMaxLevelValue then
+            return v
+        else
+            continue
+        end
+        else
+
         if v.TroopLevel.Value == TroopLevelValue then
             return v
         else
             continue
         end
+
+        end
+        
     else
         continue
     end
@@ -71,7 +83,7 @@ until workspace.Troops:FindFirstChild("DarkSpeakerman")
 
 
 repeat
-local function Upgrade(workspace.Troops.DarkSpeakerman)
+Upgrade(workspace.Troops.DarkSpeakerman)
 task.wait(1)
 until workspace.Troops.DarkSpeakerman.TroopLevel.Value == 5
 
@@ -83,7 +95,7 @@ until workspace.Troops:FindFirstChild("MechCameraman")
 
 
 repeat
-local function Upgrade(workspace.Troops.MechCameraman)
+Upgrade(workspace.Troops.MechCameraman)
 task.wait(1)
 until workspace.Troops.MechCameraman.TroopLevel.Value == 5
 
@@ -95,7 +107,7 @@ until workspace.Troops:FindFirstChild("TitanTVMan")
 
 
 repeat
-local function Upgrade(workspace.Troops.TitanTVMan)
+Upgrade(workspace.Troops.TitanTVMan)
 task.wait(1)
 until workspace.Troops.TitanTVMan.TroopLevel.Value == 6
 
@@ -105,18 +117,32 @@ PlaceTroop("MechCameraman",  Vector3.new(-45, 5, -10))
 task.wait(1)
 until FindTroop("MechCameraman", 1)
 
-local Mech_Cameraman_2 = FindTroop("MechCameraman", 1)
-
 repeat
-local function Upgrade(Mech_Cameraman_2)
+local Mech_Cameraman_2 = FindTroop("MechCameraman", 1, 5)
+
+Upgrade(Mech_Cameraman_2)
 task.wait(1)
 until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+
+
+repeat                                                                --Mech Cameraman 3
+PlaceTroop("MechCameraman",  Vector3.new(-35, 5, -10))
+task.wait(1)
+until FindTroop("MechCameraman", 1)
+
+repeat
+local Mech_Cameraman_3 = FindTroop("MechCameraman", 1, 5)
+
+Upgrade(Mech_Cameraman_3)
+task.wait(1)
+until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+
 
 end
 
 if game.PlaceId == 131703399727686 then
 AutoFarm()
 else
-game:GetService("TeleportService"):Teleport(131703399727686, Player)
+game:GetService("TeleportService"):Teleport(131703399727686, game.Players.LocalPlayer)
 end
 
