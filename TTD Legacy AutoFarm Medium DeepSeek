@@ -1,7 +1,5 @@
 print("Скрипт Запущен")
 
-local Event = game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote
-
 local Units = {
     [1] = "DarkSpeakerman",
     [2] = "MechCameraman",
@@ -43,7 +41,7 @@ local function Upgrade(Troop)
             [2] = Troop
         }
     }
-    Event:FireServer(unpack(args))
+    game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote:FireServer(unpack(args))
 end
 
 local function PlaceTroop(Troop, TroopPosition)
@@ -57,7 +55,7 @@ local function PlaceTroop(Troop, TroopPosition)
             }
         }
     }
-    Event:FireServer(unpack(args))
+    game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote:FireServer(unpack(args))
 end
 
 local function AutoFarm()
