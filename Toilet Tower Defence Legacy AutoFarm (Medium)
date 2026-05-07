@@ -61,7 +61,7 @@ local args = {
         [1] = {
             [1] = "\226\129\130\22",
             [2] = Troop,
-            [3] = Position,
+            [3] = TroopPosition,
             [4] = 1
         }
     }
@@ -118,11 +118,14 @@ task.wait(1)
 until FindTroop("MechCameraman", 1)
 
 repeat
-local Mech_Cameraman_2 = FindTroop("MechCameraman", 1, 5)
+Mech_Cameraman_2 = FindTroop("MechCameraman", 1, 5)
 
+if Mech_Cameraman_2 then
 Upgrade(Mech_Cameraman_2)
+end
+
 task.wait(1)
-until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+until Mech_Cameraman_2 and Mech_Cameraman_2.TroopLevel.Value == 5
 
 
 repeat                                                                --Mech Cameraman 3
@@ -131,11 +134,14 @@ task.wait(1)
 until FindTroop("MechCameraman", 1)
 
 repeat
-local Mech_Cameraman_3 = FindTroop("MechCameraman", 1, 5)
+Mech_Cameraman_3 = FindTroop("MechCameraman", 1, 5)
 
+if Mech_Cameraman_3 then
 Upgrade(Mech_Cameraman_3)
+end
+
 task.wait(1)
-until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+until Mech_Cameraman_3 and Mech_Cameraman_3.TroopLevel.Value == 5
 
 
 end
