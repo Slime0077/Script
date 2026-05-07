@@ -1,0 +1,150 @@
+print("Скрипт Запущен")
+
+local Event = game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote
+
+local Units = {
+    [1] = "DarkSpeakerman",
+    [2] = "MechCameraman",
+    [3] = "TitanTVMan"
+}
+
+-- Исправленная функция FindTroop (без continue, с проверками)
+local function FindTroop(TroopName, TroopLevelValue, TroopMaxLevelValue)
+    local troopsFolder = workspace:FindFirstChild("Troops")
+    if not troopsFolder then
+        return nil
+    end
+    
+    for _, v in pairs(troopsFolder:GetChildren()) do
+        if v.Name == TroopName then
+            local troopLevel = v:FindFirstChild("TroopLevel")
+            
+            if TroopMaxLevelValue then
+                if troopLevel and troopLevel.Value < TroopMaxLevelValue then
+                    return v
+                end
+            elseif TroopLevelValue then
+                if troopLevel and troopLevel.Value == TroopLevelValue then
+                    return v
+                end
+            else
+                return v
+            end
+        end
+    end
+    return nil
+end
+
+local function Upgrade(Troop)
+    if not Troop then return end
+    local args = {
+        [1] = {
+            [1] = "\226\129\130#",
+            [2] = Troop
+        }
+    }
+    Event:FireServer(unpack(args))
+end
+
+local function PlaceTroop(Troop, TroopPosition)
+    local args = {
+        [1] = {
+            [1] = {
+                [1] = "\226\129\130\22",
+                [2] = Troop,
+                [3] = TroopPosition,
+                [4] = 1
+            }
+        }
+    }
+    Event:FireServer(unpack(args))
+end
+
+local function AutoFarm()
+    print("Скрипт Начал АвтоФарм")
+    
+    -- Проверка существования папки Troops
+    if not workspace:FindFirstChild("Troops") then
+        warn("Папка 'Troops' не найдена! Скрипт остановлен.")
+        return
+    end
+    
+    -- Dark Speakerman
+    repeat
+        PlaceTroop("DarkSpeakerman", Vector3.new(-54, 2, -10))
+        task.wait(1)
+    until workspace.Troops:FindFirstChild("DarkSpeakerman")
+    
+    local dark = workspace.Troops.DarkSpeakerman
+    if dark and dark:FindFirstChild("TroopLevel") then
+        repeat
+            Upgrade(dark)
+            task.wait(1)
+        until dark.TroopLevel.Value == 5
+    end
+    
+    -- Mech Cameraman 1
+    repeat
+        PlaceTroop("MechCameraman", Vector3.new(-55, 5, 34))
+        task.wait(1)
+    until workspace.Troops:FindFirstChild("MechCameraman")
+    
+    local mech1 = workspace.Troops.MechCameraman
+    if mech1 and mech1:FindFirstChild("TroopLevel") then
+        repeat
+            Upgrade(mech1)
+            task.wait(1)
+        until mech1.TroopLevel.Value == 5
+    end
+    
+    -- Titan TV Man
+    repeat
+        PlaceTroop("TitanTVMan", Vector3.new(-56, 8, 69))
+        task.wait(1)
+    until workspace.Troops:FindFirstChild("TitanTVMan")
+    
+    local titan = workspace.Troops.TitanTVMan
+    if titan and titan:FindFirstChild("TroopLevel") then
+        repeat
+            Upgrade(titan)
+            task.wait(1)
+        until titan.TroopLevel.Value == 6
+    end
+    
+    -- Mech Cameraman 2
+    repeat
+        PlaceTroop("MechCameraman", Vector3.new(-45, 5, -10))
+        task.wait(1)
+    until FindTroop("MechCameraman", 1)
+    
+    local mech2 = FindTroop("MechCameraman", 1, 5)
+    while mech2 and mech2:FindFirstChild("TroopLevel") and mech2.TroopLevel.Value < 5 do
+        Upgrade(mech2)
+        task.wait(1)
+        mech2 = FindTroop("MechCameraman", 1, 5)
+    end
+    
+    -- Mech Cameraman 3
+    repeat
+        PlaceTroop("MechCameraman", Vector3.new(-35, 5, -10))
+        task.wait(1)
+    until FindTroop("MechCameraman", 1)
+    
+    local mech3 = FindTroop("MechCameraman", 1, 5)
+    while mech3 and mech3:FindFirstChild("TroopLevel") and mech3.TroopLevel.Value < 5 do
+        Upgrade(mech3)
+        task.wait(1)
+        mech3 = FindTroop("MechCameraman", 1, 5)
+    end
+    
+    print("Скрипт Закончил Свою Работу")
+end
+
+-- Запуск
+if game.PlaceId == 131703399727686 then
+    AutoFarm()
+else
+    game:GetService("TeleportService"):Teleport(131703399727686, game.Players.LocalPlayer)
+end
+
+print("Скрипт Дошёл До Конца")
