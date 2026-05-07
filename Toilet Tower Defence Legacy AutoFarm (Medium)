@@ -1,4 +1,122 @@
 Local Event = game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote
 
+local Units = {
+[1] = "DarkSpeakerman",
+[2] = "MechCameraman",
+[3] = "TitanTVMan"
+}
 
+
+
+local function FindTroop(TroopName, TroopLevelValue)        -FindTroop Function
+
+for _, v in pairs(workspace.Troops:GetChildren()) do
+    if v.Name == TroopName then
+        if v.TroopLevel.Value == TroopLevelValue then
+            return v
+        else
+            continue
+        end
+    else
+        continue
+    end
+end
+
+end
+
+
+
+local function Upgrade(Troop)        -Upgrade Function
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\226\129\130#",
+            [2] = Troop
+        }
+    }
+}
+
+Event:FireServer(unpack(args))
+
+end
+
+
+local function PlaceTroop(Troop, TroopPosition)        -Place Function
+
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\226\129\130\22",
+            [2] = Troop,
+            [3] = Position,
+            [4] = 1
+        }
+    }
+}
+
+Event:FireServer(unpack(args))
+
+end
+
+
+
+
+local function AutoFarm()
+
+repeat                                                                --Dark Speakerman
+PlaceTroop("DarkSpeakerman", Vector3.new(-54, 2, -10))
+task.wait(1)
+until workspace.Troops:FindFirstChild("DarkSpeakerman")
+
+
+repeat
+local function Upgrade(workspace.Troops.DarkSpeakerman)
+task.wait(1)
+until workspace.Troops.DarkSpeakerman.TroopLevel.Value == 5
+
+
+repeat                                                                --Mech Cameraman 1
+PlaceTroop("MechCameraman",  Vector3.new(-55, 5, 34))
+task.wait(1)
+until workspace.Troops:FindFirstChild("MechCameraman")
+
+
+repeat
+local function Upgrade(workspace.Troops.MechCameraman)
+task.wait(1)
+until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+
+
+repeat                                                                --Titan TV Man
+PlaceTroop("TitanTVMan",  Vector3.new(-56, 8, 69))
+task.wait(1)
+until workspace.Troops:FindFirstChild("TitanTVMan")
+
+
+repeat
+local function Upgrade(workspace.Troops.TitanTVMan)
+task.wait(1)
+until workspace.Troops.TitanTVMan.TroopLevel.Value == 6
+
+
+repeat                                                                --Mech Cameraman 2
+PlaceTroop("MechCameraman",  Vector3.new(-45, 5, -10))
+task.wait(1)
+until FindTroop("MechCameraman", 1)
+
+local Mech_Cameraman_2 = FindTroop("MechCameraman", 1)
+
+repeat
+local function Upgrade(Mech_Cameraman_2)
+task.wait(1)
+until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+
+end
+
+if game.PlaceId == 131703399727686 then
+AutoFarm()
+else
+game:GetService("TeleportService"):Teleport(131703399727686, Player)
+end
 
