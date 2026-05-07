@@ -1,3 +1,5 @@
+print("Скрипт Запущен")
+
 Local Event = game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote
 
 local Units = {
@@ -70,6 +72,8 @@ end
 
 local function AutoFarm()
 
+print("Скрипт Начал АвтоФарм")
+
 repeat                                                                --Dark Speakerman
 PlaceTroop("DarkSpeakerman", Vector3.new(-54, 2, -10))
 task.wait(1)
@@ -137,6 +141,7 @@ end
 task.wait(1)
 until Mech_Cameraman_3 and Mech_Cameraman_3.TroopLevel.Value == 5
 
+print("Скрипт Закончил Свою Работу")
 
 end
 
@@ -146,3 +151,4 @@ else
 game:GetService("TeleportService"):Teleport(131703399727686, game.Players.LocalPlayer)
 end
 
+print("Скрипт Дошёл До Конца")
