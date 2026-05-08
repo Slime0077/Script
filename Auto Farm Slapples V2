@@ -31,6 +31,7 @@ task.spawn(function()
                         -- Имитируем касание
                         firetouchinterest(player.Character.HumanoidRootPart, glovePart, 0)
                         firetouchinterest(player.Character.HumanoidRootPart, glovePart, 1)
+                        task.wait(0.2)
                     end
                 end
             end
@@ -84,7 +85,7 @@ if CheckBadge(2124930374)then
 if Error() then
     if game.Workspace:FindFirstChild("JetOrb") or game.Workspace:FindFirstChild("PhaseOrb") then
         for i,v in pairs(game.Workspace:GetChildren()) do
-            if v.Name == "JetOrb" then --or v.Name == "PhaseOrb"
+            if v.Name == "JetOrb" then
                 game.ReplicatedStorage.Errorhit:FireServer(v)
             end
         end
@@ -145,7 +146,7 @@ task.spawn(function()
     end
 end)
 
-task.wait(1)
+task.wait(2.5)
 
 task.spawn(function()
 while true do
