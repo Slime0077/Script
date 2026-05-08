@@ -1,0 +1,244 @@
+local TpFunc = queueonteleport or queue_on_teleport
+TpFunc([[
+
+]])
+-- Anti Kick (без GUI)
+task.spawn(function()
+while true do
+for i,v in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
+    if v.Name == "ErrorPrompt" then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+    end
+end
+task.wait()
+end
+end)
+
+-- Автофарм Slapples (без GUI)
+task.spawn(function()
+    local SlappleFarm = true  -- Поставьте false, чтобы остановить фарм
+    
+    while SlappleFarm do
+        local player = game.Players.LocalPlayer
+        
+        -- Проверяем, жив ли персонаж и находится ли на арене
+        if player.Character and player.Character:FindFirstChild("entered") and player.Character:FindFirstChild("HumanoidRootPart") then
+            
+            -- Проверяем существование папки с яблоками
+            local slapplesFolder = workspace.Arena and workspace.Arena.island5 and workspace.Arena.island5:FindFirstChild("Slapples")
+            
+            if slapplesFolder then
+                for _, v in pairs(slapplesFolder:GetChildren()) do
+                    -- Собираем обычные и золотые яблоки
+                    if (v.Name == "Slapple" or v.Name == "GoldenSlapple") and v:FindFirstChild("Glove") then
+                        local glovePart = v.Glove
+                        -- Имитируем касание
+                        firetouchinterest(player.Character.HumanoidRootPart, glovePart, 0)
+                        firetouchinterest(player.Character.HumanoidRootPart, glovePart, 1)
+                        task.wait(0.2)
+                    end
+                end
+            end
+        end
+        
+        task.wait()
+    end
+end)
+
+-- Автофарм Candy Corns (без GUI)
+task.spawn(function()
+while true do
+for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Head") and v:FindFirstChildWhichIsA("TouchTransmitter") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.Head, v, 1)
+                end
+            end
+task.wait()
+end
+end)
+
+-- Авто Глитч Орб (без GUI)
+task.spawn(function()
+
+    local CheckBadge = function(BadgeId)
+    local s, r = pcall(function()
+        return game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, BadgeId)
+    end)
+    return s and r or false
+end
+
+while true do
+local function Error()
+        if game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
+        return true
+        end
+        if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 50000 then
+
+        fireclickdetector(workspace.Lobby.Error:FindFirstChildOfClass("ClickDetector"))
+
+        return true
+        end
+
+return false
+
+end
+
+-- Использование:
+if CheckBadge(2124930374)then
+if Error() then
+    if game.Workspace:FindFirstChild("JetOrb") or game.Workspace:FindFirstChild("PhaseOrb") then
+        for i,v in pairs(game.Workspace:GetChildren()) do
+            if v.Name == "JetOrb" then
+                game.ReplicatedStorage.Errorhit:FireServer(v)
+            end
+        end
+    end
+end
+
+end
+    task.wait()
+end
+end)
+
+-- Автофарм Orbs (без GUI)
+task.spawn(function()
+    while task.wait() do
+        local character = game.Players.LocalPlayer.Character
+        local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+        local entered = character and character:FindFirstChild("entered")
+        
+        if humanoidRootPart and entered then
+            for i, v in pairs(game.Workspace:GetChildren()) do
+                -- Проверка на ЛЮБЫЕ орбы
+                local isOrb = false
+                
+                if v.Name == "JetOrb" or 
+                   v.Name == "PhaseOrb" or 
+                   v.Name == "MATERIALIZEOrb" or 
+                   v.Name == "SiphonOrb" or
+                   (v.Name:find("Orb") and v:FindFirstChild("Attachment") and v.Attachment:FindFirstChild("OrbGlitchEffect")) then
+                    isOrb = true
+                end
+                
+                if isOrb then
+                    local CFOld = humanoidRootPart.CFrame
+                    humanoidRootPart.CFrame = v.CFrame
+                    task.wait(0.37)
+                    humanoidRootPart.CFrame = CFOld
+                    task.wait(0.7)
+                end
+            end
+        end
+        task.wait()
+    end
+end)
+
+task.spawn(function()
+    while true do
+        repeat task.wait() until game.Players.LocalPlayer.Character
+        
+        local char = game.Players.LocalPlayer.Character
+        if not char:FindFirstChild("entered") and char:FindFirstChild("HumanoidRootPart") then
+            repeat task.wait()
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+                firetouchinterest(char:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+            until char:FindFirstChild("entered")
+        end
+        
+        task.wait()
+    end
+end)
+
+task.wait(2.5)
+
+task.spawn(function()
+while true do
+
+    local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local placeId = game.PlaceId
+local currentJobId = game.JobId
+
+-- Хранилище заблокированных серверов с временем блокировки
+local blockedServers = {} -- { ["jobId"] = os.time() + 600 }
+
+-- Функция очистки устаревших записей (запускать перед каждым поиском)
+local function cleanExpiredServers()
+    local currentTime = os.time()
+    local toRemove = {}
+    
+    for jobId, expireTime in pairs(blockedServers) do
+        if currentTime >= expireTime then
+            table.insert(toRemove, jobId)
+        end
+    end
+    
+    for _, jobId in ipairs(toRemove) do
+        blockedServers[jobId] = nil
+    end
+    
+    if #toRemove > 0 then
+        print("Очищено заблокированных серверов: " .. #toRemove)
+    end
+end
+
+-- Блокировка сервера на 10 минут (600 секунд)
+local function blockServer(jobId)
+    blockedServers[jobId] = os.time() + 600
+    print("Сервер " .. jobId .. " заблокирован до " .. os.date("%H:%M:%S", blockedServers[jobId]))
+end
+
+-- Основная функция поиска нового сервера
+local function findNewServer()
+    cleanExpiredServers() -- Удаляем разблокированные сервера
+    
+    local success, response = pcall(function()
+        return game:HttpGetAsync("https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Asc&limit=100")
+    end)
+    
+    if not success then
+        warn("Не удалось получить список серверов")
+        return
+    end
+    
+    local data = HttpService:JSONDecode(response)
+    local availableServers = {}
+    
+    for _, server in ipairs(data.data) do
+        local serverId = server.id
+        
+        -- Пропускаем текущий сервер
+        if serverId ~= currentJobId then
+            -- Пропускаем сервера, которые ещё в "чёрном списке"
+            if not blockedServers[serverId] then
+                -- Проверяем, есть ли свободные места
+                if server.playing and server.maxPlayers and server.maxPlayers > server.playing then
+                    table.insert(availableServers, serverId)
+                end
+            end
+        end
+    end
+    
+    if #availableServers > 0 then
+        local selectedServer = availableServers[math.random(1, #availableServers)]
+        print("Выбран сервер: " .. selectedServer)
+        
+        -- Блокируем ТЕКУЩИЙ сервер (на котором был игрок)
+        blockServer(currentJobId)
+        
+        -- Телепортируемся
+        TeleportService:TeleportToPlaceInstance(placeId, selectedServer)
+    else
+        warn("Нет доступных серверов для телепортации")
+    end
+end
+
+-- Запуск (например, по команде или автоматически)
+findNewServer()
+
+task.wait(4)
+
+end
+end)
