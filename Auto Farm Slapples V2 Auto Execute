@@ -33,8 +33,9 @@ task.spawn(function()
                     if (v.Name == "Slapple" or v.Name == "GoldenSlapple") and v:FindFirstChild("Glove") then
                         local glovePart = v.Glove
                         -- Имитируем касание
-                        firetouchinterest(player.Character.HumanoidRootPart, glovePart, 0)
-                        firetouchinterest(player.Character.HumanoidRootPart, glovePart, 1)
+                        player.Character.HumanoidRootPart.CFrame = glovePart.CFrame
+                        --firetouchinterest(player.Character.HumanoidRootPart, glovePart, 0)
+                        --firetouchinterest(player.Character.HumanoidRootPart, glovePart, 1)
                         task.wait(0.2)
                     end
                 end
