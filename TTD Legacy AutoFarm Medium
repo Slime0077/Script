@@ -1,145 +1,64 @@
 print("Скрипт Запущен")
 
-Local Event = game:GetService("ReplicatedStorage").NetworkingContainer.DataRemote
-
-local Units = {
-[1] = "DarkSpeakerman",
-[2] = "MechCameraman",
-[3] = "TitanTVMan"
-}
-
-
-
-local function FindTroop(TroopName, TroopLevelValue, TroopMaxLevelValue)        -FindTroop Function
-
-for _, v in pairs(workspace.Troops:GetChildren()) do
-    if v.Name == TroopName then
-        
-        if TroopMaxLevelValue then
-            if v.TroopLevel.Value < TroopMaxLevelValue then
-            return v
-        end
-        else
-
-        if v.TroopLevel.Value == TroopLevelValue then
-            return v
-        end
-
-        end
-        
-    end
-end
-
-end
-
-
-
-local function Upgrade(Troop)        -Upgrade Function
-
-local args = {
-    [1] = {
-        [1] = {
-            [1] = "\226\129\130#",
-            [2] = Troop
-        }
-    }
-}
-
-Event:FireServer(unpack(args))
-
-end
-
-
-local function PlaceTroop(Troop, TroopPosition)        -Place Function
-
-local args = {
-    [1] = {
-        [1] = {
-            [1] = "\226\129\130\22",
-            [2] = Troop,
-            [3] = TroopPosition,
-            [4] = 1
-        }
-    }
-}
-
-Event:FireServer(unpack(args))
-
-end
-
-
-
-
 local function AutoFarm()
+
+-- Перемещение камеры на указанную позицию
+local camera = workspace.CurrentCamera
+
+-- Позиция из вашего файла (X, Y, Z)
+local position = Vector3.new(-45.8070145, 88.9181366, 25.4241619)
+
+-- Полный CFrame (с поворотом)
+local cameraCFrame = CFrame.new(
+    -45.8070145, 88.9181366, 25.4241619,  -- позиция
+    -0.00872623548, -0.984770238, 0.17364195,   -- вектор X
+    0.173648551, 0.98480773, -0.999961913,      -- вектор Y
+    0.0085936645, -0.00151529827, -0.999961913  -- вектор Z
+)
+
+-- Применяем
+camera.CFrame = cameraCFrame
+
+print("Камера перемещена на позицию")
 
 print("Скрипт Начал АвтоФарм")
 
 repeat                                                                --Dark Speakerman
-PlaceTroop("DarkSpeakerman", Vector3.new(-54, 2, -10))
+-- Нажать клавишу
+keypress(Enum.KeyCode.1)
+keyrelease(Enum.KeyCode.1)
 task.wait(1)
 until workspace.Troops:FindFirstChild("DarkSpeakerman")
 
 
 repeat
-Upgrade(workspace.Troops.DarkSpeakerman)
+
 task.wait(1)
 until workspace.Troops.DarkSpeakerman.TroopLevel.Value == 5
 
 
-repeat                                                                --Mech Cameraman 1
-PlaceTroop("MechCameraman",  Vector3.new(-55, 5, 34))
+repeat                                                                --Titan Cameraman
+
 task.wait(1)
-until workspace.Troops:FindFirstChild("MechCameraman")
+until workspace.Troops:FindFirstChild("TitanCameraman")
 
 
 repeat
-Upgrade(workspace.Troops.MechCameraman)
+
 task.wait(1)
-until workspace.Troops.MechCameraman.TroopLevel.Value == 5
+until workspace.Troops.TitanCameraman.TroopLevel.Value == 5
 
 
-repeat                                                                --Titan TV Man
-PlaceTroop("TitanTVMan",  Vector3.new(-56, 8, 69))
+repeat                                                                --Upgraded Titan Speakerman
+
 task.wait(1)
-until workspace.Troops:FindFirstChild("TitanTVMan")
+until workspace.Troops:FindFirstChild("UpgradedTitanSpeakerman")
 
 
 repeat
-Upgrade(workspace.Troops.TitanTVMan)
-task.wait(1)
-until workspace.Troops.TitanTVMan.TroopLevel.Value == 6
-
-
-repeat                                                                --Mech Cameraman 2
-PlaceTroop("MechCameraman",  Vector3.new(-45, 5, -10))
-task.wait(1)
-until FindTroop("MechCameraman", 1)
-
-repeat
-Mech_Cameraman_2 = FindTroop("MechCameraman", 1, 5)
-
-if Mech_Cameraman_2 then
-Upgrade(Mech_Cameraman_2)
-end
 
 task.wait(1)
-until Mech_Cameraman_2 and Mech_Cameraman_2.TroopLevel.Value == 5
-
-
-repeat                                                                --Mech Cameraman 3
-PlaceTroop("MechCameraman",  Vector3.new(-35, 5, -10))
-task.wait(1)
-until FindTroop("MechCameraman", 1)
-
-repeat
-Mech_Cameraman_3 = FindTroop("MechCameraman", 1, 5)
-
-if Mech_Cameraman_3 then
-Upgrade(Mech_Cameraman_3)
-end
-
-task.wait(1)
-until Mech_Cameraman_3 and Mech_Cameraman_3.TroopLevel.Value == 5
+until workspace.Troops.UpgradedTitanSpeakerman.TroopLevel.Value == 5
 
 print("Скрипт Закончил Свою Работу")
 
