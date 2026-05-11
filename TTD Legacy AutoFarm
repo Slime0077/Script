@@ -36,6 +36,6 @@ firesignal(game.Players.LocalPlayer.PlayerGui.Match.TopFrame.AutoSkip.OnAndOff.A
 
 else
 
-
+game:GetService("TeleportService"):Teleport(93712201161812, Player)
 
 end
