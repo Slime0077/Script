@@ -1,0 +1,41 @@
+local Player = game.Players.LocalPlayer
+
+local function Lobby()
+
+local TP = Instance.new("Part")
+TP.Anchored = true
+TP.CanCollide = false
+TP.Parent = workspace
+TP.Position = Vector3.new(1, 5, -158)
+
+local TP2 = Instance.new("Part")
+TP2.Anchored = true
+TP2.CanCollide = false
+TP2.Parent = workspace
+TP2.Position = Vector3.new(1, 5, -128)
+
+Player.Character.PrimaryPart.CFrame = TP.CFrame
+
+task.wait(2)
+
+firesignal(game.Players.LocalPlayer.PlayerGui.Lobby.QueueFrame.Start.Activated)
+
+task.wait(4)
+
+Player.Character.PrimaryPart.CFrame = TP2.CFrame
+
+end
+
+if game.PlaceId == 93712201161812 then
+
+Lobby()
+
+elseif game.PlaceId == 131703399727686 then
+
+firesignal(game.Players.LocalPlayer.PlayerGui.Match.TopFrame.AutoSkip.OnAndOff.Activated)
+
+else
+
+
+
+end
