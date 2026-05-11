@@ -30,14 +30,17 @@ end
 
 if game.PlaceId == 93712201161812 then
 
+task.wait(4)
 Lobby()
 
 elseif game.PlaceId == 131703399727686 then
 
+task.wait(4)
 firesignal(game.Players.LocalPlayer.PlayerGui.Match.TopFrame.AutoSkip.OnAndOff.Activated)
 
 else
 
+task.wait(4)
 game:GetService("TeleportService"):Teleport(93712201161812, Player)
 
 end
