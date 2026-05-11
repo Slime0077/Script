@@ -14,16 +14,18 @@ TP2.CanCollide = false
 TP2.Parent = workspace
 TP2.Position = Vector3.new(1, 5, -128)
 
+task.spawn(function()
+
+while true do
 Player.Character.PrimaryPart.CFrame = TP.CFrame
-
 task.wait(2)
-
 firesignal(game.Players.LocalPlayer.PlayerGui.Lobby.QueueFrame.Start.Activated)
-
 task.wait(4)
-
 Player.Character.PrimaryPart.CFrame = TP2.CFrame
+task.wait(2)
+end
 
+end)
 end
 
 if game.PlaceId == 93712201161812 then
