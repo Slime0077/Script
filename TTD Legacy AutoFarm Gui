@@ -35,3 +35,8 @@ OffB.Visible = true
 OffB.TextColor3 = Color3.new(1, 1, 1)
 OffB.Font = Enum.Font.FredokaOne
 OffB.Text = "Disable AutoFarm"
+
+local OnOffValue = Instance.new("BoolValue")
+OnOffValue.Parent = Gui
+OnOffValue.Name = "OnOffValue" 
+OnOffValue = true
