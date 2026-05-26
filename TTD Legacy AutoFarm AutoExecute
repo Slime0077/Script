@@ -45,5 +45,9 @@ task.wait(4)
 game:GetService("TeleportService"):Teleport(93712201161812, Player)
 
 end
+local tpFunc = queue_on_teleport
 
+	tpFunc([[
+    Start()
+]])
 end
