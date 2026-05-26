@@ -1,1 +1,37 @@
+local Player = game.Players.LocalPlayer
 
+local Gui = Instance.new("ScreenGui")
+Gui.Parent = Player.PlayerGui
+Gui.IgnoreGuiInset = true
+Gui.Name = "TTD_L_AF_Gui"
+Gui.ResetOnSpawn = false
+
+local MainBg = Instance.new("Frame")
+MainBg.Parent = Gui
+MainBg.Name = "ButtonBg"
+MainBg.BackgroundTransparency = 1
+MainBg.Size = UDim2.new(0.2, 0, 0.2, 0)
+MainBg.Position = UDim2.new(0.8, 0, 0.2, 0)
+MainBg.Visible = true
+
+local OnB = Instance.new("TextButton")
+OnB.Parent = MainBg
+OnB.Name = "OnButton"
+OnB.BackgroundColor3 = Color3.new(0, 1, 0)
+OnB.Size = UDim2.new(1, 0, 0.5, 0)
+OnB.Position = UDim2.new(0, 0, 0, 0)
+OnB.Visible = true
+OnB.TextColor3 = Color3.new(1, 1, 1)
+OnB.Font = Enum.Font.FredokaOne
+OnB.Text = "Enable AutoFarm"
+
+local OffB = Instance.new("TextButton")
+OffB.Parent = MainBg
+OffB.Name = "OffButton"
+OffB.BackgroundColor3 = Color3.new(1, 0, 0)
+OffB.Size = UDim2.new(1, 0, 0.5, 0)
+OffB.Position = UDim2.new(0, 0, 0.5, 0)
+OffB.Visible = true
+OffB.TextColor3 = Color3.new(1, 1, 1)
+OffB.Font = Enum.Font.FredokaOne
+OffB.Text = "Disable AutoFarm"
