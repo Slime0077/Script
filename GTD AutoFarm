@@ -1,1 +1,19 @@
-local Gui
+local Player = game.Players.LocalPlayer
+
+local Gui = Instance.new("ScreenGui")
+Gui.Name = "GTD_AutoFarm"
+Gui.Parent = Player.PlayerGui
+
+local B1 = Instance.new("TextButton")
+B1.Name = "B1"
+B1.Parent = Gui
+B1.Size = UDim2.new(0.2, 0, 0.1, 0)
+B1.Position = UDim2.new(0.15, 0, 0.2, 0)
+B1.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+B1.TextColor3 = Color3.new(0, 0, 0)
+B1.Font = Enum.Font.FredokaOne
+B1.Text = "1"
+
+B1.Activated:Connect(function()
+Player.Character.PrimaryPart
+end)
