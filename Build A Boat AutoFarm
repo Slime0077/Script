@@ -1,0 +1,230 @@
+local Player = game.Players.LocalPlayer
+
+local Character
+local PrimaryPart
+
+local Stage1 = Instance.new("Part")
+Stage1.Name = "Stage1TP"
+Stage1.Parent = workspace
+Stage1.Anchored = true
+Stage1.CanCollide = false
+Stage1.Size = Vector3.new(1, 1, 1)
+Stage1.Position = Vector3.new(-50, 130, 1630)
+
+local Stage2 = Instance.new("Part")
+Stage2.Name = "Stage2TP"
+Stage2.Parent = workspace
+Stage2.Anchored = true
+Stage2.CanCollide = false
+Stage2.Size = Vector3.new(1, 1, 1)
+Stage2.Position = Vector3.new(-60, 150, 2460)
+
+local Stage3 = Instance.new("Part")
+Stage3.Name = "Stage3TP"
+Stage3.Parent = workspace
+Stage3.Anchored = true
+Stage3.CanCollide = false
+Stage3.Size = Vector3.new(1, 1, 1)
+Stage3.Position = Vector3.new(-50, 130, 3130)
+
+local Stage4 = Instance.new("Part")
+Stage4.Name = "Stage4TP"
+Stage4.Parent = workspace
+Stage4.Anchored = true
+Stage4.CanCollide = false
+Stage4.Size = Vector3.new(1, 1, 1)
+Stage4.Position = Vector3.new(-40, 140, 3940)
+
+local Stage5 = Instance.new("Part")
+Stage5.Name = "Stage5TP"
+Stage5.Parent = workspace
+Stage5.Anchored = true
+Stage5.CanCollide = false
+Stage5.Size = Vector3.new(1, 1, 1)
+Stage5.Position = Vector3.new(-50, 160, 4740)
+
+local Stage6 = Instance.new("Part")
+Stage6.Name = "Stage6TP"
+Stage6.Parent = workspace
+Stage6.Anchored = true
+Stage6.CanCollide = false
+Stage6.Size = Vector3.new(1, 1, 1)
+Stage6.Position = Vector3.new(-50, 140, 5530)
+
+local Stage7 = Instance.new("Part")
+Stage7.Name = "Stage7TP"
+Stage7.Parent = workspace
+Stage7.Anchored = true
+Stage7.CanCollide = false
+Stage7.Size = Vector3.new(1, 1, 1)
+Stage7.Position = Vector3.new(-60, 160, 6260)
+
+local Stage8 = Instance.new("Part")
+Stage8.Name = "Stage8TP"
+Stage8.Parent = workspace
+Stage8.Anchored = true
+Stage8.CanCollide = false
+Stage8.Size = Vector3.new(1, 1, 1)
+Stage8.Position = Vector3.new(-60, 160, 7130)
+
+local Stage9 = Instance.new("Part")
+Stage9.Name = "Stage9TP"
+Stage9.Parent = workspace
+Stage9.Anchored = true
+Stage9.CanCollide = false
+Stage9.Size = Vector3.new(1, 1, 1)
+Stage9.Position = Vector3.new(-60, 160, 7830)
+
+local Stage10 = Instance.new("Part")
+Stage10.Name = "Stage10TP"
+Stage10.Parent = workspace
+Stage10.Anchored = true
+Stage10.CanCollide = false
+Stage10.Size = Vector3.new(1, 1, 1)
+Stage10.Position = Vector3.new(-60, -330, 9490)
+
+local function PlayerAlive(PlayerCharacter)
+
+if PlayerCharacter and PlayerCharacter.Humanoid and PlayerCharacter.Humanoid.Health > 0 then
+  return true
+else
+  return false
+end
+
+end
+
+local function AutoFarm()
+
+if Player.Character and Player.Character.Humanoid and Player.Character.Humanoid.Health > 0 then
+  Character = Player.Character
+  PrimaryPart = Character.PrimaryPart
+else
+  repeat
+  task.wait(1)
+  until Player.Character and Player.Character.Humanoid and Player.Character.Humanoid.Health > 0
+end
+
+
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage1.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+  
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage2.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage3.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage4.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage5.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage6.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage7.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage8.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+for i = 1, 3 do
+
+if PlayerAlive(Character) then
+  PrimaryPart.CFrame = Stage9.CFrame
+  task.wait(1)
+else
+  AutoFarm()
+  return
+end
+
+end
+
+PrimaryPart.CFrame = Stage10.CFrame
+task.wait(4)
+
+end
+
+
+
+
+
+
+
+
+
+
