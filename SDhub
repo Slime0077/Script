@@ -4,6 +4,7 @@ task.wait(1)
 
 local SlapBattlesID = 6403373529
 local BuildABoatID = 537413528
+local BuildABoatInnerCloudsID = 1930863474
 
 local function AddSection(SectionName, SectionText, LayoutOrder)
 	local Player = game.Players.LocalPlayer
@@ -147,7 +148,80 @@ local function AddFunctionBool(SectionName, FunctionName, FunctionText, LayoutOr
 	end)
 end
 
-if game.PlaceId == SlapBattlesID then
+if game.PlaceId == BuildABoatID then																--Build A Boat
+
+AddSection("Main", "Main", 1)
+	task.wait(0.25)
+	AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
+		local Player = game.Players.LocalPlayer
+		print(Player.Name .. " Эта функция будет доступна позже")
+	end, nil, nil, true)
+	
+	AddSection("Shop", "Shop", 2)
+	task.wait(0.25)
+	AddFunction("Shop", "BuyPineTree", "Buy Pine Tree", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("PineTree",1)
+
+	end, Color3.new(0, 0.568627, 0), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkA", "Buy Firework 1", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkA",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkB", "Buy Firework 2", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkB",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkC", "Buy Firework 3", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkC",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkD", "Buy Firework 4", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkD",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddSection("Teleport", "Teleport", 3)
+	task.wait(0.25)
+	AddFunction("Teleport", "TeleportToInnerClouds", "Teleport To Inner Clouds", 1, function()
+		
+
+		game:GetService("TeleportService"):Teleport(1930863474)
+
+	end, Color3.new(0.862745, 0.313725, 1), nil, false)
+
+elseif game.PlaceId == BuildABoatInnerCloudsID then
+
+AddSection("Main", "Main", 1)
+	task.wait(0.25)
+	AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
+		local Player = game.Players.LocalPlayer
+		print(Player.Name .. " Эта функция будет доступна позже")
+	end, nil, nil, true)
+	
+	AddSection("Boss", "Boss", 2)
+	task.wait(0.25)
+	AddFunction("Boss", "DamageBoss", "DamageBoss", 1, function()
+		
+		local args = {
+   	 	[1] = workspace.BossSniper.KingEgg.Humanoid,
+   		 [2] = 20,
+  		  [3] = game.Players.LocalPlayer.Name
+		}
+
+	workspace.Traps.Sniper.DamagePlayerRE:FireServer(unpack(args))
+
+	end, Color3.new(0.862745, 0.313725, 1), nil, false)
+
+else																--Slap Battles
 
 AddSection("Badges", "Badges", 2)																--Badges Section
 task.wait(0.25)
@@ -501,55 +575,5 @@ AddFunction("Mastery", "GlovelMastery2", "Glovel Mastery 1000 Crits", 3, functio
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/Auto%20Glovel%20Mastery%201000%20Crits"))()
 
 end, Color3.new(1, 0.74902, 0), nil, false)
-
-elseif game.PlaceId == BuildABoatID then
-	
-	AddSection("Main", "Main", 1)
-	task.wait(0.25)
-	AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
-		local Player = game.Players.LocalPlayer
-		print(Player.Name .. " Эта функция будет доступна позже")
-	end, nil, nil, true)
-	
-	AddSection("Shop", "Shop", 2)
-	task.wait(0.25)
-	AddFunction("Shop", "BuyPineTree", "Buy Pine Tree", 1, function()
-
-		workspace.ItemBoughtFromShop:InvokeServer("PineTree",1)
-
-	end, Color3.new(0, 0.568627, 0), nil, false)
-	
-	AddFunction("Shop", "BuyFireworkA", "Buy Firework 1", 1, function()
-
-		workspace.ItemBoughtFromShop:InvokeServer("FireworkA",1)
-
-	end, Color3.new(0.666667, 0.666667, 1), nil, false)
-	
-	AddFunction("Shop", "BuyFireworkB", "Buy Firework 2", 1, function()
-
-		workspace.ItemBoughtFromShop:InvokeServer("FireworkB",1)
-
-	end, Color3.new(0.666667, 0.666667, 1), nil, false)
-	
-	AddFunction("Shop", "BuyFireworkC", "Buy Firework 3", 1, function()
-
-		workspace.ItemBoughtFromShop:InvokeServer("FireworkC",1)
-
-	end, Color3.new(0.666667, 0.666667, 1), nil, false)
-	
-	AddFunction("Shop", "BuyFireworkD", "Buy Firework 4", 1, function()
-
-		workspace.ItemBoughtFromShop:InvokeServer("FireworkD",1)
-
-	end, Color3.new(0.666667, 0.666667, 1), nil, false)
-	
-	AddSection("Teleport", "Teleport", 3)
-	task.wait(0.25)
-	AddFunction("Teleport", "TeleportToInnerClouds", "Teleport To Inner Clouds", 1, function()
-		
-
-		game:GetService("TeleportService"):Teleport(1930863474)
-
-	end, Color3.new(0.862745, 0.313725, 1), nil, false)
 	
 end
