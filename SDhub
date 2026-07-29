@@ -192,7 +192,6 @@ AddSection("Main", "Main", 1)
 	AddSection("Teleport", "Teleport", 3)
 	task.wait(0.25)
 	AddFunction("Teleport", "TeleportToInnerClouds", "Teleport To Inner Clouds", 1, function()
-		
 
 		game:GetService("TeleportService"):Teleport(1930863474)
 
@@ -202,10 +201,11 @@ elseif game.PlaceId == BuildABoatInnerCloudsID then
 
 AddSection("Main", "Main", 1)
 	task.wait(0.25)
-	AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
-		local Player = game.Players.LocalPlayer
-		print(Player.Name .. " Эта функция будет доступна позже")
-	end, nil, nil, true)
+	AddFunction("Main", "AnotherServerInnerClouds", "Another Server Inner Clouds", 1, function()
+
+		game:GetService("TeleportService"):Teleport(1930863474)
+
+	end, Color3.new(0.862745, 0.313725, 1), nil, false)
 	
 	AddSection("Boss", "Boss", 2)
 	task.wait(0.25)
