@@ -205,11 +205,11 @@ AddSection("Main", "Main", 1)
 
 		game:GetService("TeleportService"):Teleport(1930863474)
 
-	end, Color3.new(0.862745, 0.313725, 1), nil, false)
+	end, Color3.new(0.862745, 0.313725, 1), nil, true)
 	
 	AddSection("Boss", "Boss", 2)
 	task.wait(0.25)
-	AddFunction("Boss", "DamageBoss", "DamageBoss", 1, function()
+	AddFunction("Boss", "DamageBoss", "Damage Boss", 1, function()
 		
 		local args = {
    	 	[1] = workspace.BossSniper.KingEgg.Humanoid,
