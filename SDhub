@@ -206,6 +206,24 @@ AddSection("Main", "Main", 1)
 		game:GetService("TeleportService"):Teleport(1930863474)
 
 	end, Color3.new(0.862745, 0.313725, 1), nil, true)
+
+	AddFunction("Main", "KillAllPlayers", "Kill All Players", 2, function()
+
+		for _, Player in pairs(game.Players:GetPlayers()) do
+			if Player = game.Players.LocalPlayer then
+				continue
+			else
+				local args = {
+					[1] = Player.Character.Humanoid,
+					[2] = Player.Character.Humanoid.MaxHealth or 1000
+				}
+	
+				workspace.Traps.Sniper.DamagePlayerRE:FireServer(unpack(args))
+				workspace.BossSniper.DamagePlayerRE:FireServer(unpack(args))
+			end
+		end
+
+	end, Color3.new(1, 0, 0), nil, true)
 	
 	AddSection("Boss", "Boss", 2)
 	task.wait(0.25)
