@@ -210,7 +210,7 @@ AddSection("Main", "Main", 1)
 	AddFunction("Main", "KillAllPlayers", "Kill All Players", 2, function()
 
 		for _, Player in pairs(game.Players:GetPlayers()) do
-			if Player = game.Players.LocalPlayer then
+			if Player == game.Players.LocalPlayer then
 				continue
 			else
 				local args = {
