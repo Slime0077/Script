@@ -150,11 +150,11 @@ if game.PlaceId == BuildABoatID then																--Build A Boat
 
 AddSection("Main", "Main", 1)
 	task.wait(0.25)
-AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 12, function(On_Off)
+AddFunction("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
 
 local Player = game.Players.LocalPlayer
 
-while On_Off do
+while true do
 
 task.wait(6)
 
@@ -172,13 +172,13 @@ workspace.Gravity = 196.2
 
 end
 
-end, Color3.new(1, 0.78431, 0), nil, false)
+end, Color3.new(1, 0.78431, 0), nil, true)
 
-AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 12, function(On_Off)
+AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function()
 
 local Player = game.Players.LocalPlayer
 
-while On_Off do
+while true do
 
 task.wait(6)
 
@@ -199,7 +199,7 @@ workspace.Gravity = 196.2
 
 end
 
-end, Color3.new(1, 0.78431, 0), nil, false)
+end, Color3.new(1, 0.78431, 0), nil, true)
 	
 	AddSection("Shop", "Shop", 2)
 	task.wait(0.25)
