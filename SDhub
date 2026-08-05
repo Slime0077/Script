@@ -129,7 +129,6 @@ local function AddFunctionBool(SectionName, FunctionName, FunctionText, LayoutOr
 				
 				TargetProperties = {
 					Position = UDim2.new(0, 0, 0, 0), -- Новая позиция
-					--nil, -- Новый размер
 					BackgroundColor3 = Color3.new(1, 0, 0) -- Новый цвет (для Part с Material)
 				}
 				
@@ -152,10 +151,53 @@ if game.PlaceId == BuildABoatID then																--Build A Boat
 
 AddSection("Main", "Main", 1)
 	task.wait(0.25)
-	AddFunction("Main", "ComingSoon", "ComingSoon", 1, function()
-		local Player = game.Players.LocalPlayer
-		print(Player.Name .. " Эта функция будет доступна позже")
-	end, nil, nil, true)
+
+AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 12, function(On_Off)
+
+while On_Off do
+
+task.wait(6)
+
+workspace.Gravity = 0
+
+for Stage = 1, 10 do
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
+task.wait(2)
+end
+
+if Player.Character:FindFirstChild("Humanoid") then
+Player.Character.Humanoid.Health = 0
+end
+workspace.Gravity = 196.2
+
+end
+
+end, Color3.new(1, 1, 0), nil, false)
+
+AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 12, function(On_Off)
+
+while On_Off do
+
+task.wait(6)
+
+workspace.Gravity = 0
+
+for Stage = 1, 10 do
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
+task.wait(2)
+end
+
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
+
+task.wait(14)
+if Player.Character:FindFirstChild("Humanoid") then
+Player.Character.Humanoid.Health = 0
+end
+workspace.Gravity = 196.2
+
+end
+
+end, Color3.new(1, 1, 0), nil, false)
 	
 	AddSection("Shop", "Shop", 2)
 	task.wait(0.25)
@@ -217,9 +259,12 @@ AddSection("Main", "Main", 1)
 					[1] = Player.Character.Humanoid,
 					[2] = Player.Character.Humanoid.MaxHealth or 1000
 				}
-	
-				workspace.Traps.Sniper.DamagePlayerRE:FireServer(unpack(args))
-				workspace.BossSniper.DamagePlayerRE:FireServer(unpack(args))
+
+				for _, v in pairs(workspace.Trarp:GetDescendants()) do
+					if v.Name == "DamagePlayerRE" then
+						v:FireServer(unpack(args))
+					end
+				end
 			end
 		end
 
