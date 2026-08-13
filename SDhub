@@ -2,8 +2,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs
 
 task.wait(1)
 
-local SlapBattlesID = 6403373529
-local BuildABoatID = 210851291 --Плейс 537413528 InnerClouds 1930863474
+local SlapBattlesID = 6403373529 -- Плейс 6403373529
+local BuildABoatID = 210851291 -- Плейс 537413528 InnerClouds 1930863474
 
 local function AddSection(SectionName, SectionText, LayoutOrder)
 	local Player = game.Players.LocalPlayer
