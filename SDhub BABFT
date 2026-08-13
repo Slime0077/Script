@@ -1,0 +1,153 @@
+if game.PlaceId == 537413528 then                                                --Build A Boat
+
+AddSection("Main", "Main", 1)
+	task.wait(0.25)
+AddFunction("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
+
+local Player = game.Players.LocalPlayer
+
+while true do
+
+task.wait(6)
+
+workspace.Gravity = 0
+
+for Stage = 1, 10 do
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
+task.wait(2)
+end
+
+if Player.Character:FindFirstChild("Humanoid") then
+Player.Character.Humanoid.Health = 0
+end
+workspace.Gravity = 196.2
+
+end
+
+end, Color3.new(1, 0.78431, 0), nil, true)
+
+AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function()
+
+local Player = game.Players.LocalPlayer
+
+while true do
+
+task.wait(6)
+
+workspace.Gravity = 0
+
+for Stage = 1, 10 do
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
+task.wait(2)
+end
+
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
+
+task.wait(14)
+if Player.Character:FindFirstChild("Humanoid") then
+Player.Character.Humanoid.Health = 0
+end
+workspace.Gravity = 196.2
+
+end
+
+end, Color3.new(1, 0.78431, 0), nil, true)
+	
+	AddSection("Shop", "Shop", 2)
+	task.wait(0.25)
+	AddFunction("Shop", "BuyPineTree", "Buy Pine Tree", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("PineTree",1)
+
+	end, Color3.new(0, 0.568627, 0), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkA", "Buy Firework 1", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkA",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkB", "Buy Firework 2", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkB",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkC", "Buy Firework 3", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkC",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddFunction("Shop", "BuyFireworkD", "Buy Firework 4", 1, function()
+
+		workspace.ItemBoughtFromShop:InvokeServer("FireworkD",1)
+
+	end, Color3.new(0.666667, 0.666667, 1), nil, false)
+	
+	AddSection("Teleport", "Teleport", 3)
+	task.wait(0.25)
+	AddFunction("Teleport", "TeleportToInnerClouds", "Teleport To Inner Clouds", 1, function()
+
+		game:GetService("TeleportService"):Teleport(1930863474)
+
+	end, Color3.new(0.862745, 0.313725, 1), nil, false)
+
+
+
+
+
+
+
+elseif game.PlaceId == 1930863474 then                                                --Inner Clouds
+
+
+
+
+
+
+
+AddSection("Main", "Main", 1)
+	task.wait(0.25)
+	AddFunction("Main", "AnotherServerInnerClouds", "Another Server Inner Clouds", 1, function()
+
+		game:GetService("TeleportService"):Teleport(1930863474)
+
+	end, Color3.new(0.862745, 0.313725, 1), nil, true)
+
+	AddFunction("Main", "KillAllPlayers", "Kill All Players", 2, function()
+
+		for _, Player in pairs(game.Players:GetPlayers()) do
+			if Player == game.Players.LocalPlayer then
+				continue
+			else
+				local args = {
+					[1] = Player.Character.Humanoid,
+					[2] = Player.Character.Humanoid.MaxHealth or 1000
+				}
+
+				for _, v in pairs(workspace.Trarp:GetDescendants()) do
+					if v.Name == "DamagePlayerRE" then
+						v:FireServer(unpack(args))
+					end
+				end
+			end
+		end
+
+	end, Color3.new(1, 0, 0), nil, true)
+	
+	AddSection("Boss", "Boss", 2)
+	task.wait(0.25)
+	AddFunction("Boss", "DamageBoss", "Damage Boss", 1, function()
+		
+		local args = {
+   	 	[1] = workspace.BossSniper.KingEgg.Humanoid,
+   		 [2] = 20,
+  		  [3] = game.Players.LocalPlayer.Name
+		}
+
+	workspace.Traps.Sniper.DamagePlayerRE:FireServer(unpack(args))
+
+	end, Color3.new(0.862745, 0.313725, 1), nil, false)
+
+end
