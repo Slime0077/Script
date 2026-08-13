@@ -26,7 +26,7 @@ end
 
 end, Color3.new(1, 0.78431, 0), nil, true)
 
-AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function()
+AddFunction("Main", "AutoFarmV2", "AutoFarm V2", 2, function()
 
 local Player = game.Players.LocalPlayer
 
