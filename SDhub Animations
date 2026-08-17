@@ -1,0 +1,34 @@
+local UserInputService = game:GetService("UserInputService")
+local Player = game.Players.LocalPlayer
+
+local Anim1
+local Anim2
+
+local function UpdateAnimations()
+if not Player.Character or not Player.Character.Humanoid then return end
+Anim1 = Player.Character.Humanoid:LoadAnimation("rbxassetid://103625779244752")
+Anim2 = Player.Character.Humanoid:LoadAnimation("rbxassetid://")
+return true
+end
+
+Player.CharacterAdded:Connect(function(character)
+    task.wait(0.5)
+    UpdateAnimations()
+end)
+
+if Player.Character then
+    task.wait(0.5)
+    UpdateAnimations()
+end
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    
+    if input.KeyCode == Enum.KeyCode.KeypadOne then
+        if UpdateAnimations() then
+        Anim1:Play()
+        task.wait(2)
+        Anim1:Stop()
+        end
+    end
+end)
