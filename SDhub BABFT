@@ -181,7 +181,11 @@ task.wait(6)
 workspace.Gravity = 0
 
 for Stage = 1, 10 do
+
+if Player.Character and Player.Character:FindFirstChild("Humanoid") then
 Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
+end
+
 task.wait(2)
 if Stage == 5 or Stage == 6 then
 firetouchinterest(Player.Character.PrimaryPart, workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger, 0)
