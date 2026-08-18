@@ -184,12 +184,11 @@ for Stage = 1, 10 do
 Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
 task.wait(2)
 if Stage == 5 or Stage == 6 then
-Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
-task.wait(1)
+firetouchinterest(Player.Character.PrimaryPart, workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger, 0)
+firetouchinterest(Player.Character.PrimaryPart, workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger, 1) 
 end
 end
 
-task.wait(2)
 if Player.Character and Player.Character:FindFirstChild("Humanoid") then
 Player.Character.Humanoid.Health = 0
 end
