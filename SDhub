@@ -5,6 +5,20 @@ task.wait(1)
 local SlapBattlesID = 6403373529 -- Плейс 6403373529
 local BuildABoatID = 210851291 -- Плейс 537413528 InnerClouds 1930863474
 
+--- Anti AFK ---
+task.spawn(function()
+    if getconnections then
+        for i, v in next, getconnections(game.Players.LocalPlayer.Idled) do
+            v:Disable()
+        end
+    else
+        game.Players.LocalPlayer.Idled:Connect(function()
+            game:GetService("VirtualUser"):CaptureController()
+            game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+        end)
+    end
+end)
+
 local function AddSection(SectionName, SectionText, LayoutOrder)
 	local Player = game.Players.LocalPlayer
 	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
