@@ -146,7 +146,7 @@ if game.PlaceId == 537413528 then                                               
 
 AddSection("Main", "Main", 1)
 	task.wait(0.25)
-AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
+AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
 
 _G.SDhubAutoFarmV1 = On_Off
 
