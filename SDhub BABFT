@@ -152,15 +152,14 @@ local Player = game.Players.LocalPlayer
 
 Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running"
 
-while true do
-
-task.wait(6)
+local function AutoFarmV1Func()
 
 workspace.Gravity = 0
 
 for Stage = 1, 10 do
 Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
 task.wait(2)
+workspace.ClaimRiverResultsGold:FireServer()
 end
 
 if Player.Character:FindFirstChild("Humanoid") then
@@ -169,6 +168,20 @@ end
 workspace.Gravity = 196.2
 
 end
+
+AutoFarmV1Func()
+
+Player.CharacterAdded:Connect(function(Character)
+	
+	workspace.Gravity = 196.2
+	
+	repeat
+		task.wait()
+	until Character:FindFirstChildOfClass("Humanoid")
+	
+	AutoFarmV1Func()
+	
+end)
 
 end, Color3.new(1, 0.78431, 0), nil, true)
 
