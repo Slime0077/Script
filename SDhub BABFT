@@ -213,7 +213,7 @@ Player.CharacterAdded:Connect(function(Character)
 		task.wait()
 	until Character:FindFirstChildOfClass("Humanoid")
 	
-	if AutoFarmV2Func() then
+	AutoFarmV2Func()
 	
 end)
 
