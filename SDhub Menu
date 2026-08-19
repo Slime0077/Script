@@ -109,8 +109,8 @@ local BFT_Switch = Instance.new("TextButton")
 BFT_Switch.Parent = BFT
 BFT_Switch.Name = "BoolFunctionSwitch"
 BFT_Switch.Text = ""
-BFT_Switch.Size = UDim2.new(0.125, 0, 0.5, 0)
-BFT_Switch.Position = UDim2.new(0.725, 0, 0.25, 0)
+BFT_Switch.Size = UDim2.new(0.0625, 0, 0.5, 0) -- 0.125
+BFT_Switch.Position = UDim2.new(0.725, 0, 0.25, 0) --0.725
 BFT_Switch.BackgroundColor3 = Color3.new(0, 0, 0)
 BFT_Switch.Visible = true
 
