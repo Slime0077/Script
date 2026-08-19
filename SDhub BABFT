@@ -148,9 +148,9 @@ AddSection("Main", "Main", 1)
 	task.wait(0.25)
 AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
 
-_G.SDhubAutoFarmV1 == On_Off
+_G.SDhubAutoFarmV1 = On_Off
 
-if _G.SDhubAutoFarmV1 = false then return end
+if _G.SDhubAutoFarmV1 == false then return end
 
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
