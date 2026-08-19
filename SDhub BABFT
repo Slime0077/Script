@@ -33,7 +33,7 @@ local function AddSection(SectionName, SectionText, LayoutOrder)
 				end
 			end
 
-			for _, Func in pairs(Gui.MainBg.FunctionsList[SectionName]:GetChildren()) do
+			for _, Func in pairs(Gui.MainBg.FunctionsList[SectionName]:GetDescendants()) do
 				if Func:IsA("TextButton") or
 					Func:IsA("ImageButton") or
 					Func:IsA("TextBox") then
@@ -146,7 +146,9 @@ if game.PlaceId == 537413528 then                                               
 
 AddSection("Main", "Main", 1)
 	task.wait(0.25)
-AddFunction("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
+AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
+
+_G.SDhubAutoFarmV1 = On_Off
 
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
@@ -183,18 +185,24 @@ Player.CharacterAdded:Connect(function(Character)
 	repeat
 		task.wait()
 	until Character:FindFirstChildOfClass("Humanoid")
-	
+
+	if _G.SDhubAutoFarmV1 = true then
 	AutoFarmV1Func()
+	end
 	
 end)
 
 end, Color3.new(1, 0.78431, 0), nil, true)
 
-AddFunction("Main", "AutoFarmV2", "AutoFarm V2", 2, function()
+AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function(On_Off)
+
+_G.SDhubAutoFarmV2 = On_Off
 
 local Player = game.Players.LocalPlayer
+local Gold = game.Players.LocalPlayer.Data.Gold
+local StartGold = Gold.Value
 
-Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V2 Is Running"
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V2 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
 
 local function AutoFarmV2Func()
 
@@ -225,13 +233,17 @@ AutoFarmV2Func()
 
 Player.CharacterAdded:Connect(function(Character)
 	
+	Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
+	
 	workspace.Gravity = 196.2
 	
 	repeat
 		task.wait()
 	until Character:FindFirstChildOfClass("Humanoid")
-	
+
+	if _G.SDhubAutoFarmV2 = true then
 	AutoFarmV2Func()
+	end
 	
 end)
 
