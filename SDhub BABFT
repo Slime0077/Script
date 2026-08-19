@@ -148,7 +148,7 @@ AddSection("Main", "Main", 1)
 	task.wait(0.25)
 AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
 
-_G.SDhubAutoFarmV1 = On_Off
+_G.SDhubAutoFarmV1 == On_Off
 
 if _G.SDhubAutoFarmV1 = false then return end
 
@@ -188,7 +188,7 @@ Player.CharacterAdded:Connect(function(Character)
 		task.wait()
 	until Character:FindFirstChildOfClass("Humanoid")
 
-	if _G.SDhubAutoFarmV1 = true then
+	if _G.SDhubAutoFarmV1 == true then
 	AutoFarmV1Func()
 	end
 	
@@ -200,7 +200,7 @@ AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function(On_Off)
 
 _G.SDhubAutoFarmV2 = On_Off
 
-if _G.SDhubAutoFarmV2 = false then return end
+if _G.SDhubAutoFarmV2 == false then return end
 
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
@@ -245,7 +245,7 @@ Player.CharacterAdded:Connect(function(Character)
 		task.wait()
 	until Character:FindFirstChildOfClass("Humanoid")
 
-	if _G.SDhubAutoFarmV2 = true then
+	if _G.SDhubAutoFarmV2 == true then
 	AutoFarmV2Func()
 	end
 	
