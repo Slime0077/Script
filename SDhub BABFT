@@ -207,11 +207,13 @@ AutoFarmV2Func()
 
 Player.CharacterAdded:Connect(function(Character)
 	
+	workspace.Gravity = 196.2
+	
 	repeat
 		task.wait()
 	until Character:FindFirstChildOfClass("Humanoid")
 	
-	AutoFarmV2Func()
+	if AutoFarmV2Func() then
 	
 end)
 
