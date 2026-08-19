@@ -150,7 +150,7 @@ AddFunction("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
 
 local Player = game.Players.LocalPlayer
 
-Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V2 Is Running"
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running"
 
 while true do
 
@@ -206,8 +206,6 @@ end
 AutoFarmV2Func()
 
 Player.CharacterAdded:Connect(function(Character)
-	
-	workspace.Gravity = 196.2
 	
 	repeat
 		task.wait()
