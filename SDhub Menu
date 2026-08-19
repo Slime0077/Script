@@ -131,6 +131,21 @@ local BFT_UI_Corner = Instance.new("UICorner")
 BFT_UI_Corner.Parent = BFT_SwitchOnOff
 BFT_UI_Corner.CornerRadius = UDim.new(1, 0)
 
+local Notify = Instance.new("TextButton")
+Notify.Parent = Gui
+Notify.Name = "Notify"
+Notify.Text = "Notification"
+Notify.TextColor3 = Color3.new(1, 1, 1)
+Notify.TextScaled = true
+Notify.Font = Enum.Font.FredokaOne
+Notify.TextXAlignment = Enum.TextXAlignment.Left
+Notify.TextYAlignment = Enum.TextYAlignment.Center
+Notify.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
+Notify.Size = UDim2.new(0.2, 0, 0.1, 0)
+Notify.AutoButtonColor = false
+Notify.Visible = true
+Notify.Draggable = true
+
 local OpenButton = Instance.new("ImageButton")
 OpenButton.Parent = Gui
 OpenButton.Name = "OpenMenuButton"
