@@ -143,13 +143,14 @@ end
 
 
 if game.PlaceId == 537413528 then                                                --Build A Boat
-
+print(1)
 AddSection("Main", "Main", 1)
+print(2)
 	task.wait(0.25)
 AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
-
+print(3)
 _G.SDhubAutoFarmV1 = On_Off
-
+print(4)
 if _G.SDhubAutoFarmV1 == false then return end
 
 local Player = game.Players.LocalPlayer
