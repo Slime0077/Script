@@ -150,7 +150,10 @@ AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
 
 _G.SDhubAutoFarmV1 = On_Off
 
-if _G.SDhubAutoFarmV1 == false then return end
+if _G.SDhubAutoFarmV1 == false then
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Stopped"
+return
+end
 
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
@@ -200,7 +203,10 @@ AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function(On_Off)
 
 _G.SDhubAutoFarmV2 = On_Off
 
-if _G.SDhubAutoFarmV2 == false then return end
+if _G.SDhubAutoFarmV2 == false then
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V2 Is Stopped"
+return
+end
 
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
