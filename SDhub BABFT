@@ -149,8 +149,10 @@ AddSection("Main", "Main", 1)
 AddFunction("Main", "AutoFarmV1", "AutoFarm V1", 1, function()
 
 local Player = game.Players.LocalPlayer
+local Gold = game.Players.LocalPlayer.Data.Gold
+local StartGold = Gold.Value
 
-Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running"
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
 
 local function AutoFarmV1Func()
 
@@ -159,8 +161,10 @@ workspace.Gravity = 0
 for Stage = 1, 10 do
 Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
 workspace.ClaimRiverResultsGold:FireServer()
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
 task.wait(2)
 workspace.ClaimRiverResultsGold:FireServer()
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
 end
 
 if Player.Character:FindFirstChild("Humanoid") then
