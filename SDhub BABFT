@@ -150,6 +150,8 @@ AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
 
 _G.SDhubAutoFarmV1 = On_Off
 
+if _G.SDhubAutoFarmV1 = false then return end
+
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
 local StartGold = Gold.Value
@@ -197,6 +199,8 @@ end, Color3.new(1, 0.78431, 0), nil, true)
 AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function(On_Off)
 
 _G.SDhubAutoFarmV2 = On_Off
+
+if _G.SDhubAutoFarmV2 = false then return end
 
 local Player = game.Players.LocalPlayer
 local Gold = game.Players.LocalPlayer.Data.Gold
