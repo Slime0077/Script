@@ -158,7 +158,8 @@ workspace.Gravity = 0
 
 for Stage = 1, 10 do
 Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
-task.wait(2.2)
+workspace.ClaimRiverResultsGold:FireServer()
+task.wait(2)
 workspace.ClaimRiverResultsGold:FireServer()
 end
 
