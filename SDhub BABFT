@@ -146,7 +146,7 @@ if game.PlaceId == 537413528 then                                               
 
 AddSection("Main", "Main", 1)
 	task.wait(0.25)
-AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)
+AddFunctionBool("Main", "AutoFarmV1", "AutoFarm V1", 1, function(On_Off)								--AutoFarm V1
 
 _G.SDhubAutoFarmV1 = On_Off
 
@@ -199,7 +199,7 @@ end)
 
 end, Color3.new(1, 0.78431, 0), nil, true)
 
-AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function(On_Off)
+AddFunctionBool("Main", "AutoFarmV2", "AutoFarm V2", 2, function(On_Off)								--AutoFarm V2
 
 _G.SDhubAutoFarmV2 = On_Off
 
@@ -253,6 +253,76 @@ Player.CharacterAdded:Connect(function(Character)
 
 	if _G.SDhubAutoFarmV2 == true then
 	AutoFarmV2Func()
+	end
+	
+end)
+
+end, Color3.new(1, 0.78431, 0), nil, true)
+
+AddFunctionBool("Main", "AutoFarmV3", "AutoFarm V3", 3, function(On_Off)								--AutoFarm V3
+
+_G.SDhubAutoFarmV3 = On_Off
+
+if _G.SDhubAutoFarmV3 == false then
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V3 Is Stopped"
+return
+end
+
+local Player = game.Players.LocalPlayer
+local Gold = game.Players.LocalPlayer.Data.Gold
+local StartGold = Gold.Value
+
+Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V3 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
+
+local function AutoFarmV3Func()
+
+workspace.Gravity = 0
+
+for Stage = 1, 10 do
+
+if Player.Character and Player.Character:FindFirstChild("Humanoid") then
+Player.Character.PrimaryPart.CFrame = workspace.BoatStages.NormalStages:FindFirstChild("CaveStage" .. Stage).DarknessPart.CFrame
+end
+
+if not Stage == 5 or not Stage == 6 then 
+workspace.ClaimRiverResultsGold:FireServer()
+end
+
+task.wait(2)
+
+if Stage == 5 then continue end
+if Stage == 6 then
+
+firetouchinterest(Player.Character.PrimaryPart, workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger, 0)
+firetouchinterest(Player.Character.PrimaryPart, workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger, 1)
+
+else
+workspace.ClaimRiverResultsGold:FireServer()
+end
+end
+
+task.wait(2)
+if Player.Character and Player.Character:FindFirstChild("Humanoid") then
+Player.Character.Humanoid.Health = 0
+end
+workspace.Gravity = 196.2
+
+end
+
+AutoFarmV3Func()
+
+Player.CharacterAdded:Connect(function(Character)
+	
+	Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V3 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
+	
+	workspace.Gravity = 196.2
+	
+	repeat
+		task.wait()
+	until Character:FindFirstChildOfClass("Humanoid")
+
+	if _G.SDhubAutoFarmV3 == true then
+	AutoFarmV3Func()
 	end
 	
 end)
