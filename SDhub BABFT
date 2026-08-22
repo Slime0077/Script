@@ -243,7 +243,7 @@ AutoFarmV2Func()
 
 Player.CharacterAdded:Connect(function(Character)
 	
-	Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V1 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
+	Player.PlayerGui.SDhub246.Notify.Text = "AutoFarm V2 Is Running " .. Gold.Value - StartGold .. " Gold Earned"
 	
 	workspace.Gravity = 196.2
 	
