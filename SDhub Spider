@@ -1,0 +1,291 @@
+local function AddSection(SectionName, SectionText, LayoutOrder)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewSection = TemplateFolder:FindFirstChild("SectionTemplate"):Clone()
+	NewSection.Name = SectionName
+	NewSection.Text = SectionText
+	NewSection.LayoutOrder = LayoutOrder
+	NewSection.Parent = Gui.MainBg.SectionList
+	NewSection.Visible = true
+
+	local NewSectionFolder = Instance.new("Folder")
+	NewSectionFolder.Name = SectionName
+	NewSectionFolder.Parent = Gui.MainBg.FunctionsList
+
+	local UiListLayout = Instance.new("UIListLayout")
+	UiListLayout.Parent = NewSectionFolder
+	UiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UiListLayout.Padding = UDim.new(0, 0)
+	UiListLayout.FillDirection = Enum.FillDirection.Vertical
+	UiListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+	NewSection.Activated:Connect(function()
+		task.spawn(function()
+			for _, Func in pairs(Gui.MainBg.FunctionsList:GetDescendants()) do
+				if Func:IsA("TextButton") or
+					Func:IsA("ImageButton") or
+					Func:IsA("TextBox") then
+
+					Func.Visible = false
+
+				end
+			end
+
+			for _, Func in pairs(Gui.MainBg.FunctionsList[SectionName]:GetDescendants()) do
+				if Func:IsA("TextButton") or
+					Func:IsA("ImageButton") or
+					Func:IsA("TextBox") then
+
+					Func.Visible = true
+
+				end
+			end
+
+		end)
+	end)
+end
+
+
+
+local function AddFunction(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("FunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		task.spawn(function()
+			Script()
+		end)
+	end)
+end
+
+
+
+local function AddFunctionBool(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("BoolFunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		task.spawn(function()
+			local TweenService = game:GetService("TweenService")
+			
+			local TweenSettings = TweenInfo.new(
+				0.05, -- Время анимации (секунды)
+				Enum.EasingStyle.Linear -- Стиль изменения (Linear, Quad, Elastic, Bounce и т.д.)
+			)
+			
+			local TargetProperties
+			
+			local SwitchOnOff = NewFunction.BoolFunctionSwitch.BoolFunctionSwitchOnOff
+			local On_Off
+			if SwitchOnOff.BackgroundColor3 == Color3.new(1, 0, 0) then
+				On_Off = true
+				
+				TargetProperties = {
+					Position = UDim2.new(0.5, 0, 0, 0), -- Новая позиция
+					BackgroundColor3 = Color3.new(0, 1, 0) -- Новый цвет (для Part с Material)
+				}
+				
+			elseif SwitchOnOff.BackgroundColor3 == Color3.new(0, 1, 0) then
+				On_Off = false
+				
+				TargetProperties = {
+					Position = UDim2.new(0, 0, 0, 0), -- Новая позиция
+					BackgroundColor3 = Color3.new(1, 0, 0) -- Новый цвет (для Part с Material)
+				}
+				
+			else
+				return
+			end
+			
+			local Tween = TweenService:Create(SwitchOnOff, TweenSettings, TargetProperties)
+
+			-- Запускаем анимацию
+			Tween:Play()
+
+			
+			Script(On_Off)
+		end)
+	end)
+end
+
+local function AddFunctionTextBox(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible, NilValue, InputValueType)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("TextBoxFunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		
+		pcall(function()
+			local FunctionValue
+			if NewFunction.TextBoxFunctionInput.Text == "" then
+				FunctionValue = NilValue
+			else
+				FunctionValue = NewFunction.TextBoxFunctionInput.Text
+			end
+			
+			if InputValueType == "Number" then
+				tonumber(FunctionValue)
+			elseif InputValueType == "String" then
+				tostring(FunctionValue)
+			end
+			
+			Script(FunctionValue)
+		end)
+			
+	end)
+end
+
+AddSection("Main", "Main", 1)
+	task.wait(0.25)
+AddFunction("Main", "Win", "Win", 1, function()
+
+
+end, Color3.new(0.862745, 0.313725, 1), nil, false)
+
+AddSection("Spider", "Spider", 1)
+	task.wait(0.25)
+AddFunction("Spider", "AntiSafeTruss", "Anti Safe Truss", 1, function()
+
+workspace.Map01_Cabin.Shed.SpiderTruss.CollisionGroup = "SDhubBestHub"
+workspace.Map01_Cabin.Shed.SpiderTruss.CanCollide = false
+
+end, Color3.new(1, 0, 1), nil, false)
+
+AddFunction("Spider", "ESPPlayers", "ESP Players", 1, function()
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local function addESP(character)
+    -- Проверяем, что персонаж существует
+    if not character then return end
+    
+    -- Проверяем, не является ли персонаж игроком
+    local targetPlayer = Players:GetPlayerFromCharacter(character)
+    if not targetPlayer then return end
+    
+    -- Пропускаем себя (сравниваем по Player, а не по Character)
+    if targetPlayer == player then return end
+    
+    -- Проверяем, нет ли уже ESP
+    if character:FindFirstChild("ESP") then return end
+    
+    local ESP = Instance.new("Highlight")
+    ESP.Name = "ESP"
+    ESP.Parent = character
+    ESP.FillColor = Color3.fromRGB(0, 0, 0)
+    ESP.FillTransparency = 1
+    ESP.OutlineColor = Color3.fromRGB(255, 0, 0)
+    ESP.OutlineTransparency = 0
+end
+
+-- Для всех игроков (кроме себя)
+local function setupPlayer(p)
+    if p == player then return end  -- Пропускаем себя полностью
+    
+    p.CharacterAdded:Connect(function(character)
+        task.wait(0.5)
+        addESP(character)
+    end)
+    if p.Character then
+        task.wait(0.5)
+        addESP(p.Character)
+    end
+end
+
+-- Для уже зашедших
+for _, p in pairs(Players:GetPlayers()) do
+    setupPlayer(p)
+end
+
+-- Для новых
+Players.PlayerAdded:Connect(setupPlayer)
+
+end, Color3.new(1, 0, 0), nil, false)
+
+AddSection("Survival", "Survival", 1)
+	task.wait(0.25)
+AddFunction("Survival", "AntiWeb", "AntiWeb", 1, function()
+
+for _, v in pairs(workspace.ignore.SpiderWebs:GetChildren()) do
+v.CanTouch = false
+end
+
+workspace.ignore.SpiderWebs.ChildAdded:Connect(function(Web)
+Web.CanTouch = false
+end)
+
+end, Color3.new(0, 0, 0), nil, false)
+
+AddFunction("Survival", "ESPItems", "ESP Items", 2, function()
+
+for _, Item in pairs(workspace.Items:GetChildren()) do
+local ESP = Instance.new("Highlight")
+    ESP.Name = "ESP"
+    ESP.Parent = Item
+    ESP.FillColor = Color3.fromRGB(0, 255, 0)
+    ESP.FillTransparency = 0.5
+    ESP.OutlineColor = Color3.fromRGB(255, 255, 255)
+    ESP.OutlineTransparency = 1
+end
+
+workspace.Items.ChildAdded:Connect(function(Item)
+local ESP = Instance.new("Highlight")
+    ESP.Name = "ESP"
+    ESP.Parent = Item
+    ESP.FillColor = Color3.fromRGB(0, 0, 0)
+    ESP.FillTransparency = 1
+    ESP.OutlineColor = Color3.fromRGB(255, 255, 255)
+    ESP.OutlineTransparency = 0
+end)
+
+end, Color3.new(0, 1, 0), nil, false)
+
+
+
+
+
+
