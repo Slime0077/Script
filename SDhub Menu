@@ -131,6 +131,37 @@ local BFT_UI_Corner = Instance.new("UICorner")
 BFT_UI_Corner.Parent = BFT_SwitchOnOff
 BFT_UI_Corner.CornerRadius = UDim.new(1, 0)
 
+local TBFT = Instance.new("TextButton")
+TBFT.Parent = TemplateFolder
+TBFT.Name = "TextBoxFunctionTemplate"
+TBFT.Text = "TextBox Function"
+TBFT.Size = UDim2.new(1, 0, 0.1, 0)
+TBFT.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+TBFT.TextColor3 = Color3.new(1, 1, 1)
+TBFT.TextScaled = true
+TBFT.Font = Enum.Font.FredokaOne
+TBFT.TextXAlignment = Enum.TextXAlignment.Left
+TBFT.TextYAlignment = Enum.TextYAlignment.Center
+TBFT.Visible = false
+
+local TBFT_TB = Instance.new("TextBox")
+TBFT_TB.Parent = TBFT
+TBFT_TB.Name = "TextBoxFunctionInput"
+TBFT_TB.Text = ""
+TBFT_TB.TextColor3 = Color3.new(1, 1, 1)
+TBFT_TB.TextScaled = true
+TBFT_TB.Font = Enum.Font.FredokaOne
+TBFT_TB.TextXAlignment = Enum.TextXAlignment.Center
+TBFT_TB.TextYAlignment = Enum.TextYAlignment.Center
+TBFT_TB.Size = UDim2.new(0.125, 0, 0.5, 0)
+TBFT_TB.Position = UDim2.new(0.725, 0, 0.25, 0)
+TBFT_TB.BackgroundColor3 = Color3.new(0, 0, 0)
+TBFT_TB.Visible = true
+
+local TBFT_UI_Corner = Instance.new("UICorner")
+TBFT_UI_Corner.Parent = TBFT_TB
+TBFT_UI_Corner.CornerRadius = UDim.new(0.2, 0)
+
 local Notify = Instance.new("TextButton")
 Notify.Parent = Gui
 Notify.Name = "Notify"
