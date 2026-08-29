@@ -4,7 +4,7 @@ task.wait(1)
 
 local SlapBattlesID = 6403373529 -- Плейс 6403373529
 local BuildABoatID = 210851291 -- Плейс 537413528 InnerClouds 1930863474
-local SpiderID = 5118969548 -- Плейс 5118969548
+local SpiderID = 1776914212 -- Плейс 5118969548
 
 --- Anti AFK ---
 task.spawn(function()
