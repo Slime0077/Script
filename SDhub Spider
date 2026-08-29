@@ -266,8 +266,8 @@ for _, Item in pairs(workspace.Items:GetChildren()) do
 local ESP = Instance.new("Highlight")
     ESP.Name = "ESP"
     ESP.Parent = Item
-    ESP.FillColor = Color3.fromRGB(0, 255, 0)
-    ESP.FillTransparency = 0.5
+    ESP.FillColor = Color3.fromRGB(0, 0, 0)
+    ESP.FillTransparency = 1
     ESP.OutlineColor = Color3.fromRGB(255, 255, 255)
     ESP.OutlineTransparency = 1
 end
