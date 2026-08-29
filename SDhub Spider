@@ -183,7 +183,7 @@ AddSection("Main", "Main", 1)
 AddFunction("Main", "Win", "Win", 1, function()
 
 
-end, Color3.new(0.862745, 0.313725, 1), nil, false)
+end, Color3.new(0.862745, 0.313725, 1), nil, true)
 
 AddSection("Spider", "Spider", 1)
 	task.wait(0.25)
