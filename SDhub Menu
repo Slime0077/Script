@@ -63,6 +63,7 @@ Title.BackgroundTransparency = 1
 Title.TextColor3 = Color3.new(0, 0, 0)
 Title.TextScaled = true
 Title.Font = Enum.Font.FredokaOne
+Title.ZIndex = 2
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.TextYAlignment = Enum.TextYAlignment.Center
 
@@ -83,7 +84,7 @@ local FT = Instance.new("TextButton")
 FT.Parent = TemplateFolder
 FT.Name = "FunctionTemplate"
 FT.Text = "Function"
-FT.Size = UDim2.new(1, 0, 0.1, 0)
+FT.Size = UDim2.new(1, 0, 0, 25)
 FT.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
 FT.TextColor3 = Color3.new(1, 1, 1)
 FT.TextScaled = true
@@ -186,4 +187,71 @@ OpenButton.Image = ""
 
 OpenButton.Activated:Connect(function()
 	MainBg.Visible = not MainBg.Visible
+end)
+
+local StylesFolder = Instance.new("Folder")
+StylesFolder.Name = "StylesFolder"
+StylesFolder.Parent = Gui
+
+local OH_Style_Folder = Instance.new("Folder")
+OH_Style_Folder.Name = "OH_Style"
+OH_Style_Folder.Parent = StylesFolder
+
+local OH_Style_Bool = Instance.new("BoolValue")
+OH_Style_Bool.Name = "StyleEnabled"
+OH_Style_Bool.Parent = OH_Style_Folder
+OH_Style_Bool.Value = false
+
+local OH_Style = Instance.new("Frame")
+OH_Style.Name = "TitleOrangeHub"
+OH_Style.Parent = OH_Style_Folder
+OH_Style.BackgroundColor3 = Color3.new(1, 0.666667, 0)
+OH_Style.Size = UDim2.new(0.08, 0, 0.1, 0)
+OH_Style.Position = UDim2.new(0.05, 0, 0, 0)
+OH_Style.ZIndex = 1
+OH_Style.Visible = false
+
+local OH_Style_UI_Corner = Instance.new("UICorner")
+OH_Style_UI_Corner.Parent = OH_Style
+OH_Style_UI_Corner.CornerRadius = UDim.new(0.2, 0)
+
+local StyleButton = Instance.new("TextButton")
+StyleButton.Name = "MenuStyles"
+StyleButton.Parent = MainBg
+StyleButton.Text = "Styles"
+StyleButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+StyleButton.Position = UDim2.new(0.8, 0, 0, 0)
+StyleButton.Font = Enum.Font.FredokaOne
+StyleButton.TextScaled = true
+StyleButton.TextColor3 = Color3.new(1, 1, 1)
+StyleButton.BackgroundColor3 = Color3.new(0, 0, 0)
+
+local StyleButton_UI_Corner = Instance.new("UICorner")
+StyleButton_UI_Corner.Parent = StyleButton
+StyleButton_UI_Corner.CornerRadius = UDim.new(0.2, 0)
+
+StyleButton.Activated:Connect(function()
+	if OH_Style_Bool.Value == false then
+		OH_Style_Bool.Value = true
+		for _, v in pairs(OH_Style_Folder:GetChildren()) do
+			if v:IsA("Frame") then
+				local StyleClone = v:Clone()
+				StyleClone.Parent = MainBg
+				StyleClone.Visible = true
+			end
+		end
+		MainBg.BackgroundColor3 = Color3.new(0.235294, 0.235294, 0.235294)
+		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+		MainBg.SectionList.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+	else
+		OH_Style_Bool.Value = false
+		for _, v in pairs(OH_Style_Folder:GetChildren()) do
+			if v:IsA("Frame") then
+				MainBg:FindFirstChild(v.Name):Destroy()
+			end
+		end
+		MainBg.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
+		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.529412, 0.529412, 0.529412)
+		MainBg.SectionList.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+	end
 end)
