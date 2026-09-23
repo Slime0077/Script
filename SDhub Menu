@@ -175,7 +175,6 @@ Notify.TextYAlignment = Enum.TextYAlignment.Center
 Notify.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
 Notify.Size = UDim2.new(0.2, 0, 0.1, 0)
 Notify.AutoButtonColor = false
-Notify.ZIndex = 10
 Notify.Visible = true
 Notify.Draggable = true
 
@@ -184,7 +183,6 @@ OpenButton.Parent = Gui
 OpenButton.Name = "OpenMenuButton"
 OpenButton.Size = UDim2.new(0.057, 0,0.119, 0)
 OpenButton.Position = UDim2.new(0.076, 0,0.158, 0)
-OpenButton.ZIndex = 10
 OpenButton.Image = ""
 
 OpenButton.Activated:Connect(function()
@@ -217,24 +215,6 @@ local OH_Style_UI_Corner = Instance.new("UICorner")
 OH_Style_UI_Corner.Parent = OH_Style
 OH_Style_UI_Corner.CornerRadius = UDim.new(0.2, 0)
 
-local Sky_Style_Folder = Instance.new("Folder")
-Sky_Style_Folder.Name = "Sky_Style"
-Sky_Style_Folder.Parent = StylesFolder
-
-local Sky_Style_Bool = Instance.new("BoolValue")
-Sky_Style_Bool.Name = "StyleEnabled"
-Sky_Style_Bool.Parent = Sky_Style_Folder
-Sky_Style_Bool.Value = false
-
-local Sky_Style_Gradient = Instance.new("UIGradient")
-Sky_Style_Gradient.Name = "Sky_Style_Gradient"
-Sky_Style_Gradient.Parent = Sky_Style_Folder
-Sky_Style_Gradient.Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 170, 255))
-}
-Sky_Style_Gradient.Rotation = -90
-
 local StyleButton = Instance.new("TextButton")
 StyleButton.Name = "MenuStyles"
 StyleButton.Parent = MainBg
@@ -250,12 +230,9 @@ local StyleButton_UI_Corner = Instance.new("UICorner")
 StyleButton_UI_Corner.Parent = StyleButton
 StyleButton_UI_Corner.CornerRadius = UDim.new(0.2, 0)
 
-local Style = 0
-
 StyleButton.Activated:Connect(function()
-	if Style == 0 and OH_Style_Bool.Value == false then
+	if OH_Style_Bool.Value == false then
 		OH_Style_Bool.Value = true
-		Style = 1
 		for _, v in pairs(OH_Style_Folder:GetChildren()) do
 			if v:IsA("Frame") then
 				local StyleClone = v:Clone()
@@ -266,69 +243,15 @@ StyleButton.Activated:Connect(function()
 		MainBg.BackgroundColor3 = Color3.new(0.235294, 0.235294, 0.235294)
 		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
 		MainBg.SectionList.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
-		MainBg.Title.RichText = true
-		MainBg.Title.TextColor3 = Color3.new(1, 1, 1)
-		MainBg.Title.Text = "SD<font color='rgb(0, 0, 0)'>hub by Slime0077</font>"
-		return
 	else
 		OH_Style_Bool.Value = false
-		Style = 1
 		for _, v in pairs(OH_Style_Folder:GetChildren()) do
 			if v:IsA("Frame") then
-				if MainBg:FindFirstChild(v.Name) then
-					MainBg:FindFirstChild(v.Name):Destroy()
-				end
-			end
-		end
-		MainBg.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
-		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.529412, 0.529412, 0.529412)
-		MainBg.SectionList.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
-		MainBg.Title.RichText = false
-		MainBg.Title.TextColor3 = Color3.new(0, 0, 0)
-		MainBg.Title.Text = "SDhub by Slime0077"
-	end
-	
-	if Style == 1 and Sky_Style_Bool.Value == false then
-		Sky_Style_Bool.Value = true
-		Style = 2
-		
-		local StyleClone = Sky_Style_Folder.Sky_Style_Gradient:Clone()
-		StyleClone.Parent = MainBg
-		StyleClone.Rotation = -90
-		StyleClone.Enabled = true
-		
-		local StyleClone = Sky_Style_Folder.Sky_Style_Gradient:Clone()
-		StyleClone.Parent = MainBg.FunctionsList
-		StyleClone.Rotation = -90
-		StyleClone.Enabled = true
-		
-		local StyleClone = Sky_Style_Folder.Sky_Style_Gradient:Clone()
-		StyleClone.Parent = MainBg.SectionList
-		StyleClone.Rotation = 90
-		StyleClone.Enabled = true
-		
-		MainBg.BackgroundColor3 = Color3.new(1, 1, 1)
-		MainBg.FunctionsList.BackgroundColor3 = Color3.new(1, 1, 1)
-		MainBg.SectionList.BackgroundColor3 = Color3.new(1, 1, 1)
-		MainBg.Title.RichText = false
-		MainBg.Title.TextColor3 = Color3.new(0, 0, 0)
-		MainBg.Title.Text = "SDhub by Slime0077"
-		return
-	else
-		Sky_Style_Bool.Value = false
-		Style = 0
-		for _, v in pairs(Sky_Style_Folder:GetChildren()) do
-			if v:IsA("UIGradient") then
 				MainBg:FindFirstChild(v.Name):Destroy()
-				MainBg.FunctionsList:FindFirstChild(v.Name):Destroy()
-				MainBg.SectionList:FindFirstChild(v.Name):Destroy()
 			end
 		end
 		MainBg.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
 		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.529412, 0.529412, 0.529412)
 		MainBg.SectionList.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
-		MainBg.Title.RichText = false
-		MainBg.Title.TextColor3 = Color3.new(0, 0, 0)
-		MainBg.Title.Text = "SDhub by Slime0077"
 	end
 end)
