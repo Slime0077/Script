@@ -197,9 +197,12 @@ end
 local Player = game.Players.LocalPlayer
 local FindFruit = false
 
-local FruitEspFolder = Instance.new("Folder")
-FruitEspFolder.Name = "SDhub_Fruit_ESP_Folder"
-FruitEspFolder.Parent = Player.PlayerGui
+local FruitEspFolder = Player.PlayerGui:FindFirstChild("SDhub_Fruit_ESP_Folder")
+if not FruitEspFolder  then
+	FruitEspFolder = Instance.new("Folder")
+	FruitEspFolder.Name = "SDhub_Fruit_ESP_Folder"
+	FruitEspFolder.Parent = Player.PlayerGui
+end
 
 local function CreateFruitEsp(Fruit)
 
