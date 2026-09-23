@@ -1,1 +1,310 @@
+local function AddSection(SectionName, SectionText, LayoutOrder)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
 
+	local NewSection = TemplateFolder:FindFirstChild("SectionTemplate"):Clone()
+	NewSection.Name = SectionName
+	NewSection.Text = SectionText
+	NewSection.LayoutOrder = LayoutOrder
+	NewSection.Parent = Gui.MainBg.SectionList
+	NewSection.Visible = true
+
+	local NewSectionFolder = Instance.new("Folder")
+	NewSectionFolder.Name = SectionName
+	NewSectionFolder.Parent = Gui.MainBg.FunctionsList
+
+	local UiListLayout = Instance.new("UIListLayout")
+	UiListLayout.Parent = NewSectionFolder
+	UiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UiListLayout.Padding = UDim.new(0, 0)
+	UiListLayout.FillDirection = Enum.FillDirection.Vertical
+	UiListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+	NewSection.Activated:Connect(function()
+		task.spawn(function()
+			for _, Func in pairs(Gui.MainBg.FunctionsList:GetDescendants()) do
+				if Func:IsA("TextButton") or
+					Func:IsA("ImageButton") or
+					Func:IsA("TextBox") then
+
+					Func.Visible = false
+
+				end
+			end
+
+			for _, Func in pairs(Gui.MainBg.FunctionsList[SectionName]:GetDescendants()) do
+				if Func:IsA("TextButton") or
+					Func:IsA("ImageButton") or
+					Func:IsA("TextBox") then
+
+					Func.Visible = true
+
+				end
+			end
+
+		end)
+	end)
+end
+
+
+
+local function AddFunction(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("FunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		task.spawn(function()
+			Script()
+		end)
+	end)
+end
+
+
+
+local function AddFunctionBool(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("BoolFunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		task.spawn(function()
+			local TweenService = game:GetService("TweenService")
+			
+			local TweenSettings = TweenInfo.new(
+				0.05, -- Время анимации (секунды)
+				Enum.EasingStyle.Linear -- Стиль изменения (Linear, Quad, Elastic, Bounce и т.д.)
+			)
+			
+			local TargetProperties
+			
+			local SwitchOnOff = NewFunction.BoolFunctionSwitch.BoolFunctionSwitchOnOff
+			local On_Off
+			if SwitchOnOff.BackgroundColor3 == Color3.new(1, 0, 0) then
+				On_Off = true
+				
+				TargetProperties = {
+					Position = UDim2.new(0.5, 0, 0, 0), -- Новая позиция
+					BackgroundColor3 = Color3.new(0, 1, 0) -- Новый цвет (для Part с Material)
+				}
+				
+			elseif SwitchOnOff.BackgroundColor3 == Color3.new(0, 1, 0) then
+				On_Off = false
+				
+				TargetProperties = {
+					Position = UDim2.new(0, 0, 0, 0), -- Новая позиция
+					BackgroundColor3 = Color3.new(1, 0, 0) -- Новый цвет (для Part с Material)
+				}
+				
+			else
+				return
+			end
+			
+			local Tween = TweenService:Create(SwitchOnOff, TweenSettings, TargetProperties)
+
+			-- Запускаем анимацию
+			Tween:Play()
+
+			
+			Script(On_Off)
+		end)
+	end)
+end
+
+local function AddFunctionTextBox(SectionName, FunctionName, FunctionText, LayoutOrder, Script, Color3value, TextColor3value, Visible, NilValue, InputValueType)
+	local Player = game.Players.LocalPlayer
+	local Gui = Player.PlayerGui:WaitForChild("SDhub246")
+	local TemplateFolder = Gui.TemplateFolder
+
+	local NewFunction = TemplateFolder:FindFirstChild("TextBoxFunctionTemplate"):Clone()
+	NewFunction.Name = FunctionName
+	if TextColor3value then
+		NewFunction.TextColor3 = TextColor3value
+	end
+	NewFunction.Text = FunctionText
+	if Color3value then
+		NewFunction.BackgroundColor3 = Color3value
+	end
+	NewFunction.LayoutOrder = LayoutOrder
+	NewFunction.Parent = Gui.MainBg.FunctionsList[SectionName]
+	NewFunction.Visible = Visible
+
+	NewFunction.Activated:Connect(function()
+		
+		pcall(function()
+			local FunctionValue
+			if NewFunction.TextBoxFunctionInput.Text == "" then
+				FunctionValue = NilValue
+			else
+				FunctionValue = NewFunction.TextBoxFunctionInput.Text
+			end
+			
+			if InputValueType == "Number" then
+				tonumber(FunctionValue)
+			elseif InputValueType == "String" then
+				tostring(FunctionValue)
+			end
+			
+			Script(FunctionValue)
+		end)
+			
+	end)
+end
+
+
+
+
+
+if game.GameId == 994732206 then                                                --Blox Fruits
+
+AddSection("Main", "Main", 1)
+	task.wait(0.25)
+AddFunctionBool("Main", "FruitESP", "Fruit ESP", 1, function(On_Off)								--Fruit ESP
+
+_G.SDhubFruitESP = On_Off
+
+if _G.SDhubFruitESP == false then
+return
+end
+
+local Player = game.Players.LocalPlayer
+local FindFruit = false
+
+local FruitEspFolder = Instance.new("Folder")
+FruitEspFolder.Name = "SDhub_Fruit_ESP_Folder"
+FruitEspFolder.Parent = Player.PlayerGui
+
+local function CreateFruitEsp(Fruit)
+
+local Gui = Instance.new("BillboardGui")
+Gui.Name = "FruitEsp_" .. Fruit.Name
+Gui.Parent = FruitEspFolder
+Gui.AlwaysOnTop = true
+Gui.Adornee = Fruit.Handle or Fruit:FindFirstChildOfClass("BasePart")
+Gui.Size = UDim2.new(0, 100, 0, 25)
+
+local GuiAdorneePart = Fruit.Handle or Fruit:FindFirstChildOfClass("BasePart")
+
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Parent = Gui
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Font = Enum.Font.FredokaOne
+Title.TextScaled = true
+Title.TextColor3 = Color3.new(1, 0, 0)
+Title.Text = Fruit.Name
+Title.AutoLocalize = false
+
+if Fruit.Name == "Fruit " then
+Title.TextColor3 = Color3.new(0, 1, 0)
+end
+
+local TitleStroke = Instance.new("UIStroke")
+TitleStroke.Name = "TitleStroke"
+TitleStroke.Parent = Title
+TitleStroke.Color = Color3.new(0, 0, 0)
+TitleStroke.Thickness = 4
+
+task.spawn(function()
+
+task.wait(2)
+
+while true do
+
+Gui.Adornee = Fruit.Handle or Fruit:FindFirstChildOfClass("BasePart")
+
+if Gui.Adornee == nil then
+Gui:Destroy()
+break
+
+elseif GuiAdorneePart.Parent.ClassName == "Tool" or GuiAdorneePart.Parent.ClassName == "Model" then
+if GuiAdorneePart.Parent.Parent ~= workspace then
+print(GuiAdorneePart.Parent.Parent:GetFullName())
+Gui:Destroy()
+break
+end
+
+end
+
+if _G.SDhubFruitESP == false then
+Gui:Destroy()
+break
+end
+
+task.wait(0.5)
+
+end
+
+end)
+
+end
+
+for _, v in pairs(workspace:GetChildren()) do
+    if v:IsA("Tool") then
+        if v.Name:find("Fruit") then
+            print(v.Name)
+            CreateFruitEsp(v)
+            FindFruit = true
+        end
+    elseif v.Name:find("Fruit") and v.Name ~= "Fruit1" then
+        print(v.Name)
+        CreateFruitEsp(v)
+        FindFruit = true
+    else
+    continue
+    end
+end
+
+workspace.ChildAdded:Connect(function(Child)
+
+    if _G.SDhubFruitESP == false then
+        return
+    end
+    
+    if Child:IsA("Tool") then
+        if Child.Name:find("Fruit") then
+            print(Child.Name)
+            CreateFruitEsp(Child)
+            FindFruit = true
+        end
+    elseif Child.Name:find("Fruit") and Child.Name ~= "Fruit1"  then
+        print(Child.Name)
+        CreateFruitEsp(Child)
+        FindFruit = true
+    end
+end)
+
+print(FindFruit)
+
+
+end, Color3.new(0, 1, 0), nil, true)
+
+end
