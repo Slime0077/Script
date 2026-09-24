@@ -241,17 +241,20 @@ StyleButton.Activated:Connect(function()
 			end
 		end
 		MainBg.BackgroundColor3 = Color3.new(0.235294, 0.235294, 0.235294)
-		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
-		MainBg.SectionList.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+		FunctionsList.BackgroundColor3 = Color3.new(0.176471, 0.176471, 0.176471)
+		SectionList.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
 	else
 		OH_Style_Bool.Value = false
 		for _, v in pairs(OH_Style_Folder:GetChildren()) do
 			if v:IsA("Frame") then
-				MainBg:FindFirstChild(v.Name):Destroy()
+				local obj = MainBg:FindFirstChild(v.Name)
+				if obj then
+				obj:Destroy()
+				end
 			end
 		end
 		MainBg.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
-		MainBg.FunctionsList.BackgroundColor3 = Color3.new(0.529412, 0.529412, 0.529412)
-		MainBg.SectionList.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
+		FunctionsList.BackgroundColor3 = Color3.new(0.529412, 0.529412, 0.529412)
+		SectionList.BackgroundColor3 = Color3.new(0.470588, 0.470588, 0.470588)
 	end
 end)
