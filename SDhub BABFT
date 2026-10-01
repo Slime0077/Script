@@ -437,18 +437,65 @@ AddSection("Main", "Main", 1)
 			if Player == game.Players.LocalPlayer then
 				continue
 			else
+				for i = 1, 15 do
 				local args = {
 					[1] = Player.Character.Humanoid,
-					[2] = Player.Character.Humanoid.MaxHealth or 1000
+					[2] = 15
 				}
 
-				for _, v in pairs(workspace.Trarp:GetDescendants()) do
-					if v.Name == "DamagePlayerRE" then
+				for _, v in pairs(workspace.Traps:GetDescendants()) do
+					if v:IsA("RemoteEvent") then
 						v:FireServer(unpack(args))
 					end
 				end
+				end
 			end
 		end
+
+	end, Color3.new(1, 0, 0), nil, true)
+
+	AddFunctionBool("Main", "KillAllPlayersWhenDie", "Kill All Players When Die", 3, function(On_Off)
+
+	_G.SDhubKillPlayersWhenDie = On_Off
+
+	if _G.SDhubKillPlayersWhenDie == false then
+	return
+	end
+
+	task.spawn(function()
+
+	while SDhubKillPlayersWhenDie do
+
+		if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Humanoid and game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
+
+		for _, Player in pairs(game.Players:GetPlayers()) do
+			if Player == game.Players.LocalPlayer then
+				continue
+			else
+				for i = 1, 10 do
+
+				local args = {
+					[1] = Player.Character.Humanoid,
+					[2] = 15
+				}
+
+				for _, v in pairs(workspace.Traps:GetDescendants()) do
+					if v:IsA("RemoteEvent") then
+						v:FireServer(unpack(args))
+					end
+				end
+
+				end
+			end
+		end
+		
+		task.wait()
+		
+		end
+	
+	end
+	
+	end)
 
 	end, Color3.new(1, 0, 0), nil, true)
 	
