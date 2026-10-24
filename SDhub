@@ -209,7 +209,7 @@ elseif game.GameId == BloxFruitsID then																--Blox Fruits
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/SDhub%20BF"))()
 
-elseif game.PlaceId == SlapBattlesID then																--Slap Battles
+elseif game.GameId == SlapBattlesID then																--Slap Battles
 
 AddSection("Badges", "Badges", 2)																--Badges Section
 task.wait(0.25)
