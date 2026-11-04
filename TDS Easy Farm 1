@@ -1,0 +1,402 @@
+local Player = game.Players.LocalPlayer
+
+local Music = workspace:WaitForChild("Music")
+local Lose = false
+local Win = false
+
+Music.Changed:Connect(function()
+    if Music.Value == "Lose" then
+        Lose = true
+        Restart()
+    elseif Music.Value == "Triumph" then
+        Win = true
+        StartNewGame()
+    end
+end)
+
+local CashTextLabel = nil
+local LastCashValue = -1
+
+local function ParseCash(Text)
+    if not Text then return 0 end
+    local CleanText = Text:gsub("[%$,%s]", "")
+    return tonumber(CleanText) or 0
+end
+
+local function GetPlayerCash()
+    if not CashTextLabel then
+        local PlayerGui = Player:WaitForChild("PlayerGui")
+        local ReactHotbar = PlayerGui:WaitForChild("ReactUniversalHotbar", 5)
+        
+        if ReactHotbar then
+            local Frame = ReactHotbar:WaitForChild("Frame", 5)
+            if Frame then
+                local Values = Frame:WaitForChild("values", 5)
+                if Values then
+                    local Cash = Values:WaitForChild("cash", 5)
+                    if Cash then
+                        CashTextLabel = Cash:WaitForChild("amount", 5)
+                    end
+                end
+            end
+        end
+        
+        if not CashTextLabel then return 0 end
+    end
+
+    local CurrentCash = ParseCash(CashTextLabel.Text)
+    
+    if CurrentCash ~= LastCashValue then
+        LastCashValue = CurrentCash
+    end
+    
+    return CurrentCash
+end
+
+local function WaitUntil(UntilArg1, UntilArg2, UntilType)
+    if UntilType == "Comparison2" then
+        repeat
+            task.wait(0.1)
+        until UntilArg1 >= UntilArg2
+        return true
+    end
+end
+
+function WaitUntilMoney(Required)
+    local Money = GetPlayerCash()
+    repeat
+        Money = GetPlayerCash()
+        task.wait(0.1)
+    until Money >= Required or Lose == true
+    return true
+end
+
+function PlaceTower(Tower, Position)
+    local NewSpawnedTower = nil
+    
+    local TowerConnection
+    TowerConnection = workspace.Towers.ChildAdded:Connect(function(NewTower)
+        NewSpawnedTower = NewTower
+        TowerConnection:Disconnect()
+    end)
+    
+    local args = {
+        [1] = "Troops",
+        [2] = "Place",
+        [3] = {
+            ["Rotation"] = CFrame.new(0, 0, 0) * CFrame.Angles(0, 0, 0),
+            ["Position"] = Position
+        },
+        [4] = Tower
+    }
+    game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+    
+    local StartTime = tick()
+    while not NewSpawnedTower and (tick() - StartTime) < 3 do
+        task.wait(0.05)
+    end
+    
+    if TowerConnection.Connected then
+        TowerConnection:Disconnect()
+    end
+    
+    return NewSpawnedTower
+end
+
+function UpgradeTower(Tower, Path)
+    local args = {
+        [1] = "Troops",
+        [2] = "Upgrade",
+        [3] = "Set",
+        [4] = {
+            ["Troop"] = Tower, --workspace.Towers.Default
+            ["Path"] = Path or nil
+        }
+    }
+
+    game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+end
+
+function SellTower(Tower)
+    local args = {
+    [1] = "Troops",
+    [2] = "Sell",
+    [3] = {
+        ["Troop"] = Tower --workspace.Towers.Xmas
+    }
+}
+
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+end
+
+function ActivateAbility(Tower, Ability)
+    local args = {
+    [1] = "Troops",
+    [2] = "Abilities",
+    [3] = "Activate",
+    [4] = {
+        ["Troop"] = Tower, --workspace.Towers.Lifeguard
+        ["Name"] = Ability, --"Call Of Arms"
+        ["Data"] = {}
+    }
+}
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+end
+
+function SpawnMap(Map)
+    local args = {
+    [1] = "LobbyVoting",
+    [2] = "Override",
+    [3] = Map --"Simplicity"
+}
+
+game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+end
+
+function StartMap(Map)
+    SpawnMap(Map)
+    task.wait(2)
+    local args = {
+    [1] = "LobbyVoting",
+    [2] = "Vote",
+    [3] = Map, --"Simplicity",
+    [4] = Vector3.new(0, 0, 0)
+}
+
+game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
+
+
+local args2 = {
+    [1] = "LobbyVoting",
+    [2] = "Ready"
+}
+
+game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args2))
+end
+
+local AutoSkipEnabled = false
+
+function AutoSkip(Enabled)
+
+    AutoSkipEnabled = Enabled
+
+    if Enabled == false then
+        return
+    end
+
+    task.spawn(function()
+        while AutoSkipEnabled do
+            local args = {
+                [1] = "Voting",
+                [2] = "Skip"
+            }
+
+            game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+            task.wait(0.1)
+        end
+    end)
+end
+
+local function Skip()
+local args = {
+        [1] = "Voting",
+        [2] = "Skip"
+    }
+
+    game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer(unpack(args))
+end
+
+local EasyFarm1Completed = false
+
+local function EasyFarm1()
+    EasyFarm1Completed = false
+    StartMap("Lay By")
+    task.wait(10)
+    WaitUntilMoney(450)
+    local Soldier1 = PlaceTower("Soldier", Vector3.new(-3, 243, 284))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier1)
+    task.wait(1)
+    Skip()
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier1)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier2 = PlaceTower("Soldier", Vector3.new(-3, 243, 281))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier2)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier2)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier3 = PlaceTower("Soldier", Vector3.new(-3, 243, 278))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier3)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier3)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier4 = PlaceTower("Soldier", Vector3.new(-3, 243, 275))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier4)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier4)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier5 = PlaceTower("Soldier", Vector3.new(-3, 243, 272))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier5)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier5)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier6 = PlaceTower("Soldier", Vector3.new(-3, 243, 269))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier6)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier6)
+    task.wait(1)
+
+    WaitUntilMoney(450)
+    local Soldier7 = PlaceTower("Soldier", Vector3.new(3, 243, 284))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier7)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier7)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier8 = PlaceTower("Soldier", Vector3.new(3, 243, 281))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier8)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier8)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier9 = PlaceTower("Soldier", Vector3.new(3, 243, 278))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier9)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier9)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier10 = PlaceTower("Soldier", Vector3.new(3, 243, 275))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier10)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier10)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier11 = PlaceTower("Soldier", Vector3.new(3, 243, 272))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier11)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier11)
+    task.wait(1)
+    WaitUntilMoney(450)
+    local Soldier12 = PlaceTower("Soldier", Vector3.new(3, 243, 269))
+    task.wait(1)
+    WaitUntilMoney(150)
+    UpgradeTower(Soldier12)
+    task.wait(1)
+    WaitUntilMoney(800)
+    UpgradeTower(Soldier12)
+    task.wait(1)
+
+
+
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier1)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier2)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier3)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier4)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier5)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier6)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier7)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier8)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier9)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier10)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier11)
+    task.wait(1)
+    WaitUntilMoney(3400)
+    UpgradeTower(Soldier12)
+    task.wait(1)
+
+
+
+    WaitUntilMoney(11350)
+    UpgradeTower(Soldier6)
+    task.wait(1)
+    WaitUntilMoney(11350)
+    UpgradeTower(Soldier12)
+    task.wait(1)
+    EasyFarm1Completed = true
+end
+
+function Restart()
+    Lose = false
+    task.wait(2)
+    Skip()
+    repeat
+        task.wait(1)
+    until EasyFarm1Completed == true
+    Lose = false
+    task.wait(2)
+    EasyFarm1()
+end
+
+function StartNewGame()
+    Lose = false
+    task.wait(2)
+    Skip()
+    repeat
+        task.wait(1)
+    until EasyFarm1Completed == true
+    Lose = false
+    task.wait(2)
+    local Button = Player.PlayerGui.ReactGameNewRewards.Frame.gameOver.RewardsScreen.ButtonFrame.PlayAgain.button
+    if firesignal then
+        firesignal(Button.Activated)
+    end
+end
+
+EasyFarm1()
