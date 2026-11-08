@@ -2,6 +2,8 @@ local fix = {}
 fix.__index = fix
 self = setmetatable({}, fix)
 
+local RunService = game:GetService("RunService")
+
 local function test(name, callback)
 	local success, result = pcall(callback)
 	self[name] = success
